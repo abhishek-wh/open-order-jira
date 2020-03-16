@@ -1,0 +1,439 @@
+{% load static %}
+{% block content %}
+{% include '_head.html'%}
+{% include 'partials/_footer-scripts.html'%}
+
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <meta name="description" content="">
+    <meta name="author" content="">
+    <link rel="icon" href="/static/image/favicon.png" type="image/png" sizes="16x16">
+    <title> Open Order Company</title>
+
+
+    <link href='https://fonts.googleapis.com/css?family=Poppins' rel='stylesheet'>
+    <link href='https://fonts.google.com/specimen/Poppins'rel='stylesheet'>
+    <link href="/static/css/animate.css" rel="stylesheet">
+    <!-- <link href="<?php //echo $base_url ?>/css/fonts.css" rel="stylesheet"> -->
+    <!-- <link href="<?php //echo $base_url ?>/css/bootstrap.min.css" rel="stylesheet"> -->
+    <!-- <link href="<?php //echo $base_url ?>/css/font-awesome.min.css.css" rel="stylesheet"> -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+    <link rel='stylesheet' href='https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css'>
+    <link href="/static/css/jquery-ui.css" rel="stylesheet">
+    <link href="/static/css/slick.min.css " rel="stylesheet">
+    <link href="/static/css/fonts.css" rel="stylesheet">
+    <link href="/static/css/basic-style.css" rel="stylesheet">
+    <link href="/static/css/responsive.css" rel="stylesheet">
+    <link href="/static/css/step-form.css" rel="stylesheet">
+    <link href='https://fonts.googleapis.com/css?family=Poppins' rel='stylesheet'>
+    <link href='https://fonts.google.com/specimen/Poppins'rel='stylesheet'>
+    <link href="http://webhungers.com/open-order-company/css/animate.css" rel="stylesheet">
+    <!-- <link href="/css/fonts.css" rel="stylesheet"> -->
+    <!-- <link href="/css/bootstrap.min.css" rel="stylesheet"> -->
+    <!-- <link href="/css/font-awesome.min.css.css" rel="stylesheet"> -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+    <link rel='stylesheet' href='https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css'>
+    <link href="http://webhungers.com/open-order-company/css/jquery-ui.css" rel="stylesheet">
+    <link href="http://webhungers.com/open-order-company/css/slick.min.css" rel="stylesheet">
+    <link href="http://webhungers.com/open-order-company/css/fonts.css?v=2136435964" rel="stylesheet">
+    <link href="http://webhungers.com/open-order-company/css/basic-style.css?v=772140584" rel="stylesheet">
+    <link href="http://webhungers.com/open-order-company/css/responsive.css?v=849753567" rel="stylesheet">
+    <link href="http://webhungers.com/open-order-company/css/step-form.css?v=1508294136" rel="stylesheet">
+
+  </head>
+
+
+
+
+
+<link href="/static/css/animate.css" rel="stylesheet">
+<script src="/static/js/jquery.min.js"></script>
+<script src="/static/js/bootstrap.min.js"></script>
+<script src="/static/js/popper.min.js"></script>
+<script src="/static/js/jquery-ui.js"></script>
+<script src="/static/js/slick.min.js"></script>
+<script src="/static/js/custom-js.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.16.1/popper.min.js.map"></script>
+
+<script src='https://cdnjs.cloudflare.com/ajax/libs/jquery-easing/1.3/jquery.easing.min.js'></script>
+<script src="/static/js/step-form.js"></script>
+
+<script src='https://cdnjs.cloudflare.com/ajax/libs/jquery/2.1.3/jquery.min.js'></script>
+<script src='https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js'></script>
+<script src="http://webhungers.com/open-order-company/js/popper.min.js"></script>
+<script src="http://webhungers.com/open-order-company/js/jquery-ui.js"></script>
+<script src="http://webhungers.com/open-order-company/js/slick.min.js"></script>
+<script src="http://webhungers.com/open-order-company/js/custom-js.js?v=583059347"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.16.1/popper.min.js.map"></script>
+
+<script src='https://cdnjs.cloudflare.com/ajax/libs/jquery-easing/1.3/jquery.easing.min.js'></script>
+<script src="http://webhungers.com/open-order-company/js/step-form.js?v=1674689411"></script>
+
+<script>
+    function submit_ticket(e) {
+      var ticket_title = $("#ticket_title").val();
+      var issue_description = $("#ticket_enterprise_service").val();
+      $.get('createTicketByUsername/' + ticket_title+'/'+issue_description, function (data) {
+      });
+    }  
+  </script>
+<div class="css-7zhzs9-ContainerNavigationMask">
+  <div class=" css-jdgyoy-PrimaryItemsList"> <div data-testid="GlobalNavigation">
+    <div>
+      <ul class="css-1rawbl">
+ 
+        <li class="logo_img">
+          <img src="{% static 'image/Open-Order.png' %}">
+        </li>
+        <li>
+          <img src="{% static 'image/Homeblank.svg' %}">
+        </li> 
+        <li>
+         <img src="{% static 'image/PlusWhite.png' %}">
+       </li>
+       <li>
+         <img src="{% static 'image/LogoutWhite.svg' %}">
+       </li>
+ 
+     </ul>
+   </div>
+ 
+ </div>
+ 
+ <div class="sidebar-section">
+   <div class="second-sidebar">
+    <h1 class="sidebar-info">Connection tanteque</h1>  
+    <p>Mail_utillisateur@societe.com</p> 
+ 
+ 
+  </div>  <h1 class="sidebar-info si_mgbox"> Merci de renseigner l'ensemble des informations pour que nous puissions répondre au mieux å votre demand.</h1>  
+ 
+ 
+ </div>
+ </div>
+ <!-- Rightpart-section -->
+ <div class="dashboard-main-section1">
+   <div class="mbldisplay ">
+     <div class="bar1"></div>
+     <div class="bar2"></div>
+     <div class="bar3"></div>
+ 
+   </div>
+   <form id="msform">
+    <div class="row row1">
+     <div class="col-md-12 col-md-12  pd_none">
+       <div class="top_box">
+         <img src="{% static 'image/BellBlue.png' %}">
+         <div class="heading_n">
+           <h1>Nouvel Ordre Achat</h1>
+           <h3> Creation d'une nouvelle demande d'acha</h3>
+         </div>
+       </div>
+ 
+ 
+     </div>
+     <div class="col-md-12 col-sm-12 pd_none">
+      <!-- progressbar -->
+      <div class="zig-zag-bottom">
+       <ul id="progressbar">
+         <li class="inProgress">Demande</li>
+         <li class=""> Ordre </li>
+         <li>Adresse</li>
+         <li>Confirmation</li>
+       </ul>
+     </div>
+ 
+ 
+   </div>
+   <div class="col-lg-11  col-md-12 common_css_f pd_none">
+     <!-- fieldsets -->
+     <fieldset class="row">
+      <div class="col-lg-4 col-md-4 col-sm-12">
+       <div class="form-group " id="">
+         <label> Titre de l'ordre  <span>*</span> :</label>
+       </div>
+     </div> 
+     <div class="col-lg-8 col-md-8 col-sm-12">
+       <div class="form-group" id="">
+         <input type="text" id="ticket_title" placeholder="Achat matériel informatique " >
+       </div>
+     </div>
+     <div class="col-lg-4 col-md-4 col-sm-12">
+       <div class="form-group " id="">
+         <label> Mail Demandeur <span>*</span> :</label>
+       </div>
+     </div> 
+     <div class="col-lg-8 col-md-8 col-sm-12">
+       <div class="form-group" id="">
+         <input type="text" id="" placeholder="Mail_utillisateur@société.com" >
+       </div>
+     </div> 
+     <div class="col-lg-4 col-md-4 col-sm-12">
+       <div class="form-group " id="">
+         <label>Nom<span>*</span> :</label>
+       </div>
+     </div> 
+     <div class="col-lg-8 col-md-8 col-sm-12">
+       <div class="form-group" id="">
+         <input type="text" id="" placeholder="Gerard" >
+       </div>
+     </div> 
+     <div class="col-lg-4 col-md-4 col-sm-12">
+       <div class="form-group " id="">
+         <label>Prénom <span>*</span> :</label>
+       </div>
+     </div> 
+     <div class="col-lg-8 col-md-8 col-sm-12">
+       <div class="form-group" id="">
+         <input type="text" id="" placeholder="MENVUSSA" >
+       </div>
+     </div>  
+     <div class="col-lg-4 col-md-4 col-sm-12">
+       <div class="form-group " id="">
+         <label>N de telephone :</label>
+       </div>
+     </div> 
+     <div class="col-lg-8 col-md-8 col-sm-12">
+       <div class="form-group" id="">
+         <input type="text" id="" placeholder="" >
+       </div>
+     </div> 
+     <div class="col-lg-4 col-md-4 col-sm-12">
+       <div class="form-group " id="">
+         <label>Enterprise / Service <span>*</span> :</label>
+       </div>
+     </div> 
+     <div class="col-lg-8 col-md-8 col-sm-12">
+       <div class="form-group" id="">
+         <input type="text" id="ticket_enterprise_service" placeholder="" >
+       </div>
+     </div> 
+     <div class="col-lg-4 col-md-4 col-sm-12">
+       <div class="form-group " id="">
+         <label>Mail personne en copie <span>*</span> :</label>
+       </div>
+     </div> 
+     <div class="col-lg-8 col-md-8 col-sm-12">
+       <div class="form-group" id="">
+         <input type="text" id="" placeholder="" >
+       </div>
+     </div> 
+ 
+ 
+     <span class="next action-button">Suivant <i class="fa fa-long-arrow-right" aria-hidden="true"></i></span>
+ 
+   </fieldset>
+   <fieldset>
+     <div class="col-lg-4 col-md-4 col-sm-12">
+       <div class="form-group " id="">
+         <label>Nom du Fournisseur <span>*</span> :</label>
+       </div>
+     </div> 
+     <div class="col-lg-8 col-md-8 col-sm-12">
+       <div class="form-group" id="">
+         <input type="text" id="" placeholder="Ex : Amazon " >
+       </div>
+     </div> 
+     <div class="col-lg-4 col-md-4 col-sm-12">
+       <div class="form-group " id="">
+         <label>Site du Fournisseu :</label>
+       </div>
+     </div> 
+     <div class="col-lg-8 col-md-8 col-sm-12">
+       <div class="form-group" id="">
+         <input type="text" id="" placeholder="Ex : https://www.amazon.fr " >
+       </div>
+     </div>
+     <div class="col-lg-4 col-md-4 col-sm-12">
+       <div class="form-group " id="">
+         <label> Description de Ia demande <span>*</span> :</label>
+       </div>
+     </div> 
+     <div class="col-lg-8 col-md-8 col-sm-12">
+       <div class="form-group" id="">
+         <textarea rows="6" cols="50">Description, quantité, référence, liens.</textarea>
+       </div>
+     </div> 
+     <div class="col-lg-4 col-md-4 col-sm-12">
+       <div class="form-group " id="">
+         <label>Pieces jointes <span>*</span> :</label>
+       </div>
+     </div> 
+     <div class="col-lg-8 col-md-8 col-sm-12">
+       <div class="form-group" id="">
+        <ul class="attachment">
+            
+         <li><p><img src="{% static 'image/powerpoint.png' %}"  class="icon_zip"><a href="">Liste des pieces ppt<i class="fa fa-times" aria-hidden="true"></i></a></p>
+           <p> <img src="{% static 'image/doc.svg' %}" class="icon_zip"><a href="">Liste des prix docx <i class="fa fa-times" aria-hidden="true"></i> </a></p>
+         </li>
+       </ul>
+     </div>
+   </div> 
+ 
+ 
+ 
+   <div class="col-lg-4 col-md-4 "> <span class="previous action-button-previous"><i class="fa fa-long-arrow-left" aria-hidden="true"></i> Precedent </span></div>
+   <span class="next action-button">Suivant <i class="fa fa-long-arrow-right" aria-hidden="true"></i></span>
+ </fieldset>
+ <fieldset>
+   <div class=" foSi">
+     <label> ADRESSE DE LIVRAISON  </label> <br>
+   </div>
+   <div class="col-lg-4 col-md-4 col-sm-12">
+     <div class="form-group " id="">
+       <label>Chez <span>*</span> :</label>
+     </div>
+   </div> 
+   <div class="col-lg-8 col-md-8 col-sm-12">
+     <div class="form-group" id="">
+       <input type="text" id="" placeholder="" >
+     </div>
+   </div> 
+   <div class="col-lg-4 col-md-4 col-sm-12">
+     <div class="form-group " id="">
+       <label>Adresse <span>*</span> :</label>
+     </div>
+   </div> 
+   <div class="col-lg-8 col-md-8 col-sm-12">
+     <div class="form-group" id="">
+      <textarea rows="6" cols="50">184 rue du lavoir Båtiment 3</textarea>
+    </div>
+  </div>
+  <div class="col-lg-4 col-md-4 col-sm-12">
+   <div class="form-group " id="">
+     <label>Code Postal <span>*</span> :</label>
+   </div>
+ </div> 
+ <div class="col-lg-8 col-md-8 col-sm-12">
+   <div class="form-group" id="">
+     <input type="text" id="" placeholder=" Ex : 01600" >
+   </div>
+ </div>
+ <div class="col-lg-4 col-md-4 col-sm-12">
+   <div class="form-group " id="">
+     <label>Ville <span>*</span> :</label>
+   </div>
+ </div> 
+ <div class="col-lg-8 col-md-8 col-sm-12">
+   <div class="form-group" id="">
+     <input type="text" placeholder=" Ex : Reyrieux">
+   </div>
+ </div>
+ <div class=" foSi">
+   <label> CONTACT DE LIVRAISON  </label> <br>
+ </div>
+ <div class="col-lg-4 col-md-4 col-sm-12">
+   <div class="form-group " id="">
+     <label>Nom Prénom <span>*</span> :</label>
+   </div>
+ </div> 
+ <div class="col-lg-8 col-md-8 col-sm-12">
+   <div class="form-group" id="">
+     <input type="text" placeholder=" Gérard MEMVUSSA">
+   </div>
+ </div>
+ <div class="col-lg-4 col-md-4 col-sm-12">
+   <div class="form-group " id="">
+     <label>Téléphone :</label>
+   </div>
+ </div> 
+ <div class="col-lg-8 col-md-8 col-sm-12">
+   <div class="form-group" id="">
+     <input type="text" placeholder=" Ex : 184 rue du lavoir">
+   </div>
+ </div>  
+ <div class="col-lg-4 col-md-4 col-sm-12">
+   <div class="form-group " id="">
+     <label>Complément d'information :</label>
+   </div>
+ </div> 
+ <div class="col-lg-8 col-md-8 col-sm-12">
+   <div class="form-group" id="">
+    <textarea rows="6" cols="50">Ex : Numéro de Porte, Code d'accés, Horaire</textarea>
+  </div>
+ </div>
+ 
+ 
+ <div class="col-lg-4 col-md-4"><span class="previous action-button-previous"><i class="fa fa-long-arrow-left" aria-hidden="true"></i> Precedent </span></div>
+ <span class="next action-button">Suivant <i class="fa fa-long-arrow-right" aria-hidden="true"></i></span>
+ </fieldset>
+ <fieldset>
+   <h2 class="fs-title">Resume</h2>
+   <h3 class="fs-subtitle">Achat fourniture </h3>
+   <ul class="details_view col-md-offset-3 col-md-9 col-sm-12">
+     <li><p>Gérard</p> <p>MENVUSSA</p> <p>06 67 78 89</p>
+       <p>Travaux </p> <p>Mail utillisateur@société.com</p> <p>Mail _copie@société.com</p></li>
+       <li><p>Open ORDER</p> <p>184 rue du lavoir Båtiment 3</p> <p>01600</p><p>Reyrieux</p> </li>
+     </ul>
+     <ul class="details_view col-md-offset-3 col-md-9 col-sm-12">
+       <li> <p>Amazon<p></p>https://www.amazon.fr</p>  <p>Description, quantité, référence, liens.</p></li>
+       <li><p>Gérard MEMVUSSA</p><p>06 67 78 89</p><p>  Numéro de Porte, Code d'accés, Horaire.</p></li>
+     </ul> 
+     <ul class="attachment details_view col-md-offset-3 col-md-9 col-sm-12">
+       <li><p> <img src="{% static 'image/powerpoint.png' %}" class="icon_zip"><a href="">Liste des pieces ppt<i class="fa fa-times" aria-hidden="true"></i></a></p>
+         <p> <img src="{% static 'image/doc.svg' %}" class="icon_zip"><a href="">Liste des prix docx <i class="fa fa-times" aria-hidden="true"></i> </a></p>
+       </li>
+     </ul>
+ 
+     <div class="col-lg-4 col-md-4"><span class="previous action-button-previous"><i class="fa fa-long-arrow-left" aria-hidden="true"></i> Precedent </span></div>
+     <span class="next action-button" onclick="submit_ticket()">Valider <i class="fa fa-check" aria-hidden="true"></i></span>
+ 
+ </fieldset>
+ <fieldset> <div class="col-lg-11 col-md-12 col-sm-12">
+   <h2 class="fs-title">Merci. Votre ordre achat å bien été envoyée.</h2>
+ 
+   <div class="o_blog"> 
+     <h2 class="fs-title"> II porte Ie numéro  :</h2>
+     <div class="orderBox">
+       <h1>Order-234 <span class="u_name">Achat fourniture</span></h1>   
+       <h1>Statuts :<span> Order Place</span></h1>
+     </div>
+   </div>
+   <div class="o_btn_box">
+     <button class="bck_btn"> <img src="{% static 'image/PlusWhite.png' %}" > Créer un nouvel ordre d'achat</button>
+     <button class="su_btn"> Retourner a l' Accueil <img src="{% static 'image/Homeblank.svg' %}" ></button>
+   </div>
+ 
+   <!-- case 2 -->
+   <hr>
+   <div class="o_blog"> 
+     <h2 class="fs-title"><span><img src="{% static 'image/error.png' %}"></span><span> Une erreur s'est produite </span></h2>
+     <div class="orderBox"> 
+       <h1><span><img src="{% static 'image/msg.svg' %}" class="errorIm"></span><span> Merci de contacter l'équipe Open Order en cliquant </span> <a href="">ici</a></h1>
+     </div>
+   </div>
+   <div class="o_btn_box">
+     <button class="bck_btn"><img src="{% static 'image/PlusWhite.png' %}"> Créer un nouvel ordre d'achat</button>
+     <button class="su_btn">Retourner a l' Accueil <img src="{% static 'image/Homeblank.svg' %}"></button>
+   </div>
+ </div>
+ 
+ 
+    
+ </fieldset>
+ </div>
+ 
+ <!-- /.MultiStep Form -->
+ 
+ 
+ </div>
+ </form>
+ </div>
+ 
+ 
+ </div>
+
+<!-- <script src="/js/jquery.min.js"></script>
+<script src="/js/bootstrap.min.js"></script> -->
+<script src='https://cdnjs.cloudflare.com/ajax/libs/jquery/2.1.3/jquery.min.js'></script>
+<script src='https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js'></script>
+<script src="http://webhungers.com/open-order-company/js/popper.min.js"></script>
+<script src="http://webhungers.com/open-order-company/js/jquery-ui.js"></script>
+<script src="http://webhungers.com/open-order-company/js/slick.min.js"></script>
+<script src="http://webhungers.com/open-order-company/js/custom-js.js?v=583059347"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.16.1/popper.min.js.map"></script>
+
+<script src='https://cdnjs.cloudflare.com/ajax/libs/jquery-easing/1.3/jquery.easing.min.js'></script>
+<script src="http://webhungers.com/open-order-company/js/step-form.js?v=1674689411"></script>
+ {% endblock %}

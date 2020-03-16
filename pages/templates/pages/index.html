@@ -1,0 +1,77 @@
+{% load static %}
+{% block content %}
+{% include '_head.html'%}
+{% include 'partials/_footer-scripts.html'%}
+<!--<h1>&#45;&#45;&#45;&#45;&#45;&#45;</h1>-->
+<!--<h1>Index Page</h1>-->
+<!--<h1>-->
+<!--{{ var }}-->
+<!--</h1>-->
+<!--<h1>&#45;&#45;&#45;&#45;&#45;&#45;</h1>-->
+<body class="welcome">
+	<section class="valign-wrapper wow animated zoomIn" id="login" data-wow-delay="0.4s">
+		<div class="container">
+			<div class="row">
+				<div class="col-lg-6 col-md-6 col-sm-12 pr-0 mbl_box">
+					<div class="left_box">
+						<div class="newlogo-img">
+							<img src="{% static 'image/Logo.png'%}">
+
+						</div>
+						<div class="heading2">
+							<h2>Bonjour</h2>
+						</div>
+						<div class="textBlock">
+						{{welcome_text}}
+						</div>
+
+					</div>
+				</div>
+
+				<div class="col-lg-6 col-md-6 col-sm-12 pl-0 mbl_box">
+					<div class="right_box">
+						<div class="head">
+							<h1>Open SYS</h1>
+						</div>
+
+						<div class="head2">
+							<h2>Plateforme d’Achat Ouvert</h2>
+						</div>
+						<div class="login-details pt-3">
+							<h4>Signin</h4>
+
+						</div>
+
+					<form action="{% url 'index' %}" method="post">{% csrf_token %}
+
+					<div class="common_css ">
+						<!-- <fieldset class="form-group common_css ">
+							<label for="exampleInputPassword1">Enter Votre email</label>
+							<input type="email" class="form-control" id="exampleInputPassword1" placeholder="">
+
+						</fieldset> -->
+						 <div class="form-group">
+      						<label class="form-label" for="email">Enter User name</label>
+      						<input id="email" name="em" class="form-input" type="text" />
+							 <h1 class="block_msg">{{var}}</h1>
+    					</div>
+					</div>
+
+
+
+						<input type="submit" value="LOGIN" class="get_start" />
+
+						</form>
+
+					</div>
+				</div>
+            </div>
+		</div>
+	</section>
+
+</body>
+
+{% endblock %}
+
+
+

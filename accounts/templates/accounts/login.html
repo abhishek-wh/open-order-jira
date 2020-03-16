@@ -1,0 +1,75 @@
+{% load static %}
+{% block content %}
+{% include '_head.html'%}
+{% include 'partials/_footer-scripts.html'%}
+
+<!--<form action="{% url 'login' %}">-->
+<!--<textarea name="fulltextarea" cols=40 rows=10></textarea>-->
+<!--<br />-->
+<!--<input type="submit" value="fetch data!"/>-->
+<!--</form>-->
+
+
+<body class="welcome">
+	<section class="valign-wrapper wow animated zoomIn" id="login" data-wow-delay="0.4s">
+		<div class="container">
+			<div class="row">
+				<div class="col-lg-6 col-md-6 col-sm-12 pr-0 mbl_box">
+					<div class="left_box">
+
+						<div class="newlogo-img">
+							<img src="{% static 'image/Logo.png'%}">
+
+						</div>
+						<div class="heading2">
+							<h2>Bonjour</h2>
+						</div>
+<!--						<div class="textBlock">-->
+<!--							<textarea  rows="6" cols="30"></textarea>-->
+<!--						</div>-->
+
+					</div>
+				</div>
+				<div class="col-lg-6 col-md-6 col-sm-12 pl-0 mbl_box">
+
+					<div class="right_box">
+						<div class="head">
+							<h1>Open SYS</h1>
+						</div>
+						<div class="head2">
+							<h2>Plateforme d’Achat Ouvert</h2>
+						</div>
+						<div class="login-details pt-3">
+							<h4>Signin</h4>
+
+						</div>
+						<div class="common_css ">
+                            <form action="{% url 'login' %}" method="post">{% csrf_token %}
+
+								<div class="form-group">
+								  <label class="form-label" for="email">Enter Votre email</label>
+								  <input id="email"  name="email_id" class="form-input" type="text" />
+								</div>
+		
+								<div class="form-group mrg-30">
+								  <label class="form-label" for="password">Enter Password</label>
+								  <input id="password" name="password" class="form-input" type="password" />
+								</div>
+								<div>
+								<h2 class="errorMsg1">{{msg}}</h2>
+								</div>
+								<div>
+									<input type="submit" class="get_start" value="LOGIN" />
+								</div>
+							</form>
+                        </div>
+                    </div>
+				</div>
+            </div>
+        </div>
+    </section>
+</body>
+
+
+
+{% endblock %}

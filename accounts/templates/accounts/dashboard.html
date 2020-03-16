@@ -1,0 +1,244 @@
+{% load static %}
+{% block content %}
+{% include '_head.html'%}
+{% include 'partials/_footer-scripts.html'%}
+<script>
+  function call_counter(e) {
+    console.log(e.checked)
+    var value;
+    if (e.checked) {
+      value = 1;
+    } else {
+      value = 0
+    }
+    $.get('dash/' + value, function (data) {
+    });
+  }
+  function block_user_func(e) {
+    user_id=$('#user_id').val()
+    if(user_id==''){
+    alert("Please enter email id first");
+    }else{
+    $.get('block_user/' + user_id, function (data) {
+    });}
+  }
+  function unblock(e) {
+    $.get('unblock_user/' + e, function (data) {
+    });
+  }
+  function logout() {
+    $.get('logout', function (data) {
+    });
+  }
+
+</script>
+<div class="css-7zhzs9-ContainerNavigationMask">
+  <div class=" css-jdgyoy-PrimaryItemsList">
+    <div data-testid="GlobalNavigation" class="xy">
+      <div>
+        <ul class="css-2rawbl">
+
+          <li class="logo_img">
+<img src="{% static 'image/Open-Order.png'%}">
+</li>
+<li>
+<img src="{% static 'image/Homeblank.svg'%}">
+</li>
+<li>
+  <a onclick="logout()" href=""><img src="{% static 'image/LogoutWhite.svg'%}"></a>
+
+</li>
+
+        </ul>
+      </div>
+
+    </div>
+
+    <div class="sidebar-section-red">
+      <div class="second-sidebar-red">
+        <h1 class="sidebar-info-red">Console d'administration</h1>
+
+      </div>
+
+    </div>
+  </div>
+
+  <!-- Rightpart-section -->
+  <div class="dashboard-main-section">
+    <div class="main-red-sec">
+      <div class="row">
+        <div class="col-lg-12 col-mg-12 col-sm-12">
+          <div class="heading-red">
+            <h1>OPEN SYS</h1>
+            <p>Console d'administration</p>
+          </div>
+
+          <div class="wrap_boxs"><div class="main-sec-red">
+            <h1 class="parameters">Parameters Generaux</h1>
+            <div class="parameters-section">
+              <ul class="para-section">
+                <li>
+                  <p>Etat de I'application</p>
+                </li>
+                <li>
+                  <div class="toggle-button-cover">
+                    <div class="button-cover">
+                      <div class="button r" id="button-1">
+                        <input type="checkbox" onchange="call_counter(this)" {% if toggle %} checked="checked"
+                          {% endif %} class="checkbox">
+                        <div class="knobs"></div>
+                        <div class="layer"></div>
+                      </div>
+                    </div>
+                  </div>
+                  <div class="syd-content">
+                    <p style="padding-top: 4px;"></p>
+<!--                    <p style="padding-top: 4px;">Desactiver</p>-->
+                  </div>
+                </li>
+              </ul>
+
+
+            </div>
+          </div>
+
+          <div class="main-sec-red1">
+            <h1 class="parameters">Page d'Authentication</h1>
+            <div class="parameters-section">
+              <form action="{% url 'settingform' %}" method="post">{% csrf_token %}
+                <ul class="project-section">
+                  <li>
+                    <p>Cle Project utilisse</p>
+                  </li>
+                  <li>
+                    <div class="form-group1" >
+                      <input type="text" value="{{ pid }}" id="projectid" name="projectid" placeholder="OOC">
+                    </div>
+                  </li>
+               </ul>
+               <ul class="project-section">
+                 <li>
+                  <p>Texte d'accuile</p>
+                 </li>
+                 <li>
+                   <div class="textBlock1">
+                      <textarea rows="6" cols="30"  id="welcometext" name="welcometext" placeholder="Entrer">{{ wctext }}</textarea>
+                   </div>
+                 </li>
+               </ul>
+                <div class="sub-btn"><input type="submit" value="SUBMIT" class="sub-bttn" /></div>
+              </form>
+            </div>
+          </div>
+</div>
+
+          <!-- block-user section -->
+          <div class="below-section ">
+            <div class="block-section main-sec-red">
+              <h1 class="parameters">Block List</h1>
+              <div class="user-block">
+                <ul class="project-section">
+                  <li>
+                    <p>Block Users</p>
+                  </li>
+                  <li>
+                    <div class="block-search">
+                      <input type="text" placeholder="Enter user email" name="user_id" id="user_id">
+                      <a href="" onclick="block_user_func()"><button class="block-button">BLOCK</button></a>
+                    </div>
+
+                    <div class="user-list">
+                      <h1 class="block_msg">{{block_msg}}</h1>
+                      <ul class="list-of-users">
+                        {% for i in blocked_user_record %}
+                        <li>{{i.user_email}}<span><a href="" onclick="unblock({{i.id}})">Unblock</a></span></li>
+                        {% endfor%}
+                      </ul>
+                    </div>
+                  </li>
+                </ul>
+
+              </div>
+            </div>
+
+
+            <!-- chnage Password -->
+            <div class="chng-password main-sec-red">
+              <h1 class="parameters">Change Password</h1>
+              <div class="pass-field">
+                <form action="{% url 'changepassword' %}" method="post">{% csrf_token %}
+                <ul class="project-section">
+                  <li>
+                    <p>Current Password</p>
+                  </li>
+                  <li>
+                    <div class="form-group1" >
+                      <input type="password" name="old_password" oninvalid="this.setCustomValidity('Veuillez remplir ce champ')" required placeholder="Enter Password">
+                    </div>
+                  </li>
+                </ul>
+                <ul class="project-section">
+                  <li>
+                    <p>New Password</p>
+                  </li>
+                  <li>
+                    <div class="form-group1">
+                      <input type="password" name="new_password" oninvalid="this.setCustomValidity('Veuillez remplir ce champ')" required placeholder="Enter Password">
+                    </div>
+                  </li>
+                </ul>
+                <ul class="project-section">
+                  <li>
+                    <p>Confirm Password</p>
+
+                  </li>
+
+                  <li>
+                    <div class="form-group1" >
+                      <input type="password" name="confirm_pwd" oninvalid="this.setCustomValidity('Veuillez remplir ce champ')" required placeholder="Enter Password">
+
+                    </div>
+                    <div class="errormsg">{{err_msg}}</div>
+
+                  </li>
+
+                </ul>
+
+                <div class="sub-btn"><input type="submit" class="sub-bttn" value="SUBMIT" /></div>
+                </form>
+              </div>
+
+
+            </div>
+
+          </div>
+
+        </div>
+      </div>
+    </div>
+  </div>
+
+
+</div>
+
+
+
+<!--
+           <div class="main-sec-red1">
+               <h1 class="parameters">complete Administration</h1>
+            <div class="parameters-section">
+
+                <ul class="project-section">
+                  <li><p>Change unnie list address mail</p></li>
+                  <li>
+                     <div class="form-group3" id="">
+                        <input type="text" id="" placeholder="Entrer">
+                     </div>
+                  </li>
+                </ul>
+             </div>
+           </div>
+ -->
+
+
+{% endblock %}

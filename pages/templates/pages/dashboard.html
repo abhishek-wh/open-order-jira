@@ -1,0 +1,234 @@
+{% load static %}
+{% block content %}
+{% include '_head.html'%}
+{% include 'partials/_footer-scripts.html'%}
+
+<script>
+function logout(){
+window.location.replace("/pages/logout")
+}
+  function find() {
+    var value;
+  debugger
+    value=$('#search_txt').val()
+    window.location.replace("/pages/dashboard/"+value)
+    $.get('dashboard/' + value, function (data) {
+      debugger
+      window.location.replace("/pages/dashboard/"+value)
+    });
+  }
+function filter(e) {
+var value;
+value=e
+
+sessionStorage.setItem("filter",value)
+
+window.location.replace("/pages/dashboard/"+value)
+$.get('dashboard/' + value, function (data) {
+debugger
+window.location.replace("/pages/dashboard/"+value)
+
+
+
+});
+}
+
+
+window.onload =function (){
+  var value=sessionStorage.getItem("filter")
+  $(this).removeClass('active');
+    if(value=='All'){
+    $('#All').addClass('active')
+  }else if(value=='In Progress'){
+    $('#InProgress').addClass('active')
+  }else if(value=='Done'){
+    $('#Done').addClass('active')
+  }else if(value=='Cancelled'){
+    $('#Cancelled').addClass('active')
+  }else if(value=='Notification'){
+    $('#notification').addClass('active')
+  }else if(value=='Creation'){
+    $('#Creation').addClass('active')
+  }
+}
+</script>
+
+<div class="css-7zhzs9-ContainerNavigationMask">
+   <div class=" css-jdgyoy-PrimaryItemsList"> <div data-testid="GlobalNavigation">
+       <div>
+         <ul class="css-1rawbl">
+
+           <li class="logo_img">
+             <img src="{% static 'image/Open-Order.png'%}">
+           </li>
+           <li>
+               <a href=" "> <img src="{% static 'image/Homeblank.svg'%}"></a>
+           </li>
+           <li>
+            <a href="/pages/createticket" target="_blank"><img onclick="create_ticket()" src="{% static 'image/PlusWhite.png'%}"></a>
+          </li>
+          <li >
+<!--          <a href="logout" > -->
+             <span onclick="logout()"><img  src="{% static 'image/LogoutWhite.svg'%}"></span>
+<!--          </a>-->
+          </li>
+
+        </ul>
+       </div>
+
+    </div>
+
+      <div class="sidebar-section">
+        <div class="second-sidebar">
+      <h1 class="sidebar-info">
+        Connection tanteque</h1>
+        <p>{{user_email}}</p>
+        </div>
+
+        <div class="about-orders">
+          <h1>Les Derniers Orders</h1>
+          <p>Achats:</p>
+        </div>
+
+        <div class="about-orders">
+          <h1>OOC 123 Fournituner</h1>
+          <p>Bureau</p>
+        </div>
+
+        <div class="about-orders">
+          <h1>OOC 678 Prestation</h1>
+          <p>Intellectuelles</p>
+        </div>
+       </div>
+</div>
+
+<!-- Rightpart-section -->
+       <div class="dashboard-main-section">
+          <div class="col-md-12 oper-btn">
+         <button class="operate-btn"><img src="{% static 'image/rhombus.png'%}"> PASSERUNORDER</button>
+      </div>
+
+         <div class="col-lg-12 col-mg-12 col-sm-12">
+           <div class="heading-m">
+            <h1>OPEN SYS</h1>
+           </div>
+
+            <div class="main">
+              <div class="form-group has-search">
+         <!-- <span class="fa fa-search form-control-feedback"></span> -->
+        
+         <img class="form-control-feedback" src="{% static 'image/search.png'%}">
+          <input type="text" id="search_txt" class="form-control" onchange="find()" placeholder="Search">
+
+        </div>
+            </div>
+
+            <div class="filters">
+                <ul>
+                <li>filters:</li>
+                <li id="All" class="" onclick="filter('All')">Tous</li>
+                <li id="InProgress" onclick="filter('In Progress')">Encours</li>
+                <li id="Done" onclick="filter('Done')">terminé</li>
+                <li id="Cancelled" onclick="filter('Cancelled')"> Annulée</li>
+                <li id="notification" onclick="filter('Notification')" class="notification">bloquée<span class="nott">3</span></li>
+                <li id="Creation" onclick="filter('Creation')">par date de création</li>
+                </ul>
+            </div>
+
+            {% if flag %}
+            <div class="table-main-section">
+              <div class="table-content">
+                <h1>Mes Ordres Achats<span>
+                    <div class="pagination">
+                        <span class="step-links">
+                            <span class="current">
+                                Page {{ page_obj.number }} of {{ page_obj.paginator.num_pages }}.
+                            </span>
+                        </span>
+                    </div>
+                </span></h1>
+
+              </div>
+              <div class="table-responsive">      
+              <table class="table tab-sec">
+    <thead class="table-heading-section">
+
+      <tr>
+        <!-- <th>Id</th>
+        <th>Issue Key</th>
+        <th>issuetype</th>
+        <th>Project</th>
+        <th>Priority</th>
+        <th>Summary</th>
+        <th>Description</th>
+        <th>Assignee</th> -->
+        <th>S.no</th>
+        <th>Id</th>
+        <th>Clé d'émission</th>
+        <th>type de probleme</th>
+        <th>Projet</th>
+        <th>Priorité</th>
+        <th>Sommaire</th>
+        <th>La description</th>
+        <th>Cessionnaire</th>
+        <th>statut</th>
+      </tr>
+    </thead>
+    <tbody class="table-subheading">
+      {% for i in page_obj %}
+        <tr>
+          <td><!-- {{ forloop.counter}} --><img src="{% static 'image/add.png'%} " class="tab_icon"></td> 
+          <td>{{i.issue_id}}</td>
+          <td>{{i.key}}</td>
+          <td>{{i.issue_type}}</td>
+          <td>{{i.project}}</td>
+          <td>{{i.priority}}</td>
+          <td>{{i.summary}}</td>
+          <td>{{i.description}}</td>
+          <td>{{i.assignee}}</td>
+          <td>{{i.status}}</td>
+        </tr>
+      {% endfor %}
+
+    </tbody>
+  </table>
+</div>
+  <div class="pagination">
+      <span class="step-links1 step-links">
+          {% if page_obj.has_previous %}
+              <a href="?page=1" class="link"> First</a>
+              <a href="?page={{ page_obj.previous_page_number }}" class="link"><i class="fa fa-arrow-left"></i> Previous</a>
+          {% endif %}
+
+          <span class="current link">
+              Page {{ page_obj.number }}
+          </span>
+
+          {% if page_obj.has_next %}
+              <a href="?page={{ page_obj.next_page_number }}" class="link">Next <i class="fa fa-arrow-right"></i></a>
+              <a href="?page={{ page_obj.paginator.num_pages }}" class="link2">Last</a>
+          {% endif %}
+      </span>
+  </div>
+{% else %}
+<div class="col-lg-12 col-mg-12 col-sm-12"><h1 class="errorMsg2 text-center"> No Record Found!</h1></div>
+{% endif %}
+
+<!--   <div class="bottom-paging">-->
+<!--      <ul class="bottom-pagination">-->
+<!--    <li class="page-item"><a class="page-link" href="#"><i class="fa fa-arrow-right" aria-hidden="true"></i></a></li>-->
+<!--    <li class="page-item"><a class="page-link" href="#">Page 2</a></li>-->
+<!--    <li class="page-item"><a class="page-link" href="#"><i class="fa fa-arrow-right" aria-hidden="true"></i></a></li>-->
+<!--  </ul>-->
+<!--  </div>-->
+
+            </div>
+
+         </div>
+
+       </div>
+
+
+</div>
+
+{% endblock %}

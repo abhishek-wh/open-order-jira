@@ -1,0 +1,178 @@
+<h1>HOMEPAGE</h1>
+<br>
+<form action="{% url 'login' %}">
+<textarea name="fulltextarea" cols=40 rows=10></textarea>
+<br />
+<input type="submit" value="fetch data!"/>
+</form>
+
+
+<body class="welcome">
+	<section class="valign-wrapper wow animated zoomIn" id="login" data-wow-delay="0.4s">
+		<div class="container">
+			<div class="row">
+				<div class="col-lg-6 col-md-6 col-sm-12 pr-0 mbl_box">
+					<div class="left_box">
+						<div class="heading">
+							<img src="images/Open-Order.png">
+						</div>
+						<div class="heading2">
+							<h2>Bonjour</h2>
+						</div>
+						<div class="textBlock">
+							<textarea  rows="6" cols="30"></textarea>
+						</div>
+
+					</div>
+				</div>
+				<div class="col-lg-6 col-md-6 col-sm-12 pl-0 mbl_box">
+
+					<div class="right_box">
+						<div class="head">
+							<h1>Open SYS</h1>
+						</div>
+						<div class="head2">
+							<h2>Plateforme d’Achat Ouvert</h2>
+						</div>
+						<div class="login-details pt-3">
+							<h4>Signin</h4>
+
+						</div>
+						<div class="common_css ">
+                            <form action="{% url 'login' %}" method="POST">{% csrf_token %}
+
+                                <div class="form-group">
+                                  <label class="form-label" for="email">Enter Votre email</label>
+                                  <input id="email" class="form-input" type="text" />
+                                </div>
+
+                                <div class="form-group mrg-30">
+                                  <label class="form-label" for="password">Enter Password</label>
+                                  <input id="password" class="form-input" type="text" />
+                                </div>
+
+                                <div>
+                                    <button class="get_start">LOGIN</button>
+                                </div>
+                            </form>
+                        </div>
+                    </div>
+				</div>
+            </div>
+        </div>
+    </section>
+</body>
+
+----------
+login.html
+{% load static %}
+{% block content %}
+{% include '_head.html'%}
+{% include 'partials/_footer-scripts.html'%}
+
+
+
+<body class="welcome">
+	<section class="valign-wrapper wow animated zoomIn" id="login" data-wow-delay="0.4s">
+		<div class="container">
+			<div class="row">
+				<div class="col-lg-6 col-md-6 col-sm-12 pr-0 mbl_box">
+					<div class="left_box">
+						<div class="heading">
+							<img src="images/Open-Order.png">
+						</div>
+						<div class="heading2">
+							<h2>Bonjour</h2>
+						</div>
+						<div class="textBlock">
+							<textarea  rows="6" cols="30"></textarea>
+						</div>
+
+					</div>
+				</div>
+				<div class="col-lg-6 col-md-6 col-sm-12 pl-0 mbl_box">
+
+					<div class="right_box">
+						<div class="head">
+							<h1>Open SYS</h1>
+						</div>
+						<div class="head2">
+							<h2>Plateforme d’Achat Ouvert</h2>
+						</div>
+						<div class="login-details pt-3">
+							<h4>Signin</h4>
+
+						</div>
+						<div class="common_css ">
+                            <form action="{% url 'login' %}">
+
+                                <div class="form-group">
+                                  <label class="form-label" for="email">Enter Votre email</label>
+                                  <input id="email" class="form-input" type="text" />
+                                </div>
+
+                                <div class="form-group mrg-30">
+                                  <label class="form-label" for="password">Enter Password</label>
+                                  <input id="password" class="form-input" type="text" />
+                                </div>
+
+                                <div>
+                                    <input type="submit" class="get_start" value="LOGIN" />
+                                </div>
+                            </form>
+                        </div>
+                    </div>
+				</div>
+            </div>
+        </div>
+    </section>
+</body>
+
+
+
+{% endblock %}
+--------
+views.py
+from django.shortcuts import render,redirect
+from django.contrib import auth
+from django.http import HttpResponse
+
+def login(request):
+    print(request)
+    if request.method == 'POST':
+         username = request.get['username']
+         password = request.get['password']
+
+    user = auth.authenticate(username=username, password=password)
+    print(user)
+    if user is not None:
+        auth.login(request, user)
+        return redirect('dashboard')
+    else:
+        return render(request, 'accounts/login.html')
+    return HttpResponse(user)
+
+
+def logout(request):
+    if request.method == "POST":
+        auth.logout(request)
+    return redirect('index')
+
+
+def dashboard(request):
+    # {% if user.is_authenticatd %}
+
+    return render(request, 'accounts/dashboard.html')
+
+---------
+urls.py
+from django.urls import path
+from .import views
+
+urlpatterns = [
+    path('login',views.login, name='login'),
+    path('logout',views.logout,name='logout'),
+    path('dashboard',views.dashboard, name='dashboard')
+]
+
+-------
