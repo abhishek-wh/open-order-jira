@@ -47,3 +47,8 @@ $('input').blur(function(){
  
  
  }); 
+
+
+$(document).ready(function() {
+  $('#example').DataTable();
+} );

@@ -1,83 +1,25 @@
 {% load static %}
 {% block content %}
 {% include '_head.html'%}
-{% include 'partials/_footer-scripts.html'%}
 
-<head>
+<!-- <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
     <meta name="description" content="">
     <meta name="author" content="">
     <link rel="icon" href="/static/image/favicon.png" type="image/png" sizes="16x16">
     <title> Open Order Company</title>
+ </head> -->
 
 
-    <link href='https://fonts.googleapis.com/css?family=Poppins' rel='stylesheet'>
-    <link href='https://fonts.google.com/specimen/Poppins'rel='stylesheet'>
-    <link href="/static/css/animate.css" rel="stylesheet">
-    <!-- <link href="<?php //echo $base_url ?>/css/fonts.css" rel="stylesheet"> -->
-    <!-- <link href="<?php //echo $base_url ?>/css/bootstrap.min.css" rel="stylesheet"> -->
-    <!-- <link href="<?php //echo $base_url ?>/css/font-awesome.min.css.css" rel="stylesheet"> -->
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
-    <link rel='stylesheet' href='https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css'>
-    <link href="/static/css/jquery-ui.css" rel="stylesheet">
-    <link href="/static/css/slick.min.css " rel="stylesheet">
-    <link href="/static/css/fonts.css" rel="stylesheet">
-    <link href="/static/css/basic-style.css" rel="stylesheet">
-    <link href="/static/css/responsive.css" rel="stylesheet">
-    <link href="/static/css/step-form.css" rel="stylesheet">
-    <link href='https://fonts.googleapis.com/css?family=Poppins' rel='stylesheet'>
-    <link href='https://fonts.google.com/specimen/Poppins'rel='stylesheet'>
-    <link href="http://webhungers.com/open-order-company/css/animate.css" rel="stylesheet">
-    <!-- <link href="/css/fonts.css" rel="stylesheet"> -->
-    <!-- <link href="/css/bootstrap.min.css" rel="stylesheet"> -->
-    <!-- <link href="/css/font-awesome.min.css.css" rel="stylesheet"> -->
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
-    <link rel='stylesheet' href='https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css'>
-    <link href="http://webhungers.com/open-order-company/css/jquery-ui.css" rel="stylesheet">
-    <link href="http://webhungers.com/open-order-company/css/slick.min.css" rel="stylesheet">
-    <link href="http://webhungers.com/open-order-company/css/fonts.css?v=2136435964" rel="stylesheet">
-    <link href="http://webhungers.com/open-order-company/css/basic-style.css?v=772140584" rel="stylesheet">
-    <link href="http://webhungers.com/open-order-company/css/responsive.css?v=849753567" rel="stylesheet">
-    <link href="http://webhungers.com/open-order-company/css/step-form.css?v=1508294136" rel="stylesheet">
-
-  </head>
-
-
-
-
-
-<link href="/static/css/animate.css" rel="stylesheet">
-<script src="/static/js/jquery.min.js"></script>
-<script src="/static/js/bootstrap.min.js"></script>
-<script src="/static/js/popper.min.js"></script>
-<script src="/static/js/jquery-ui.js"></script>
-<script src="/static/js/slick.min.js"></script>
-<script src="/static/js/custom-js.js"></script>
-<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.16.1/popper.min.js.map"></script>
-
-<script src='https://cdnjs.cloudflare.com/ajax/libs/jquery-easing/1.3/jquery.easing.min.js'></script>
-<script src="/static/js/step-form.js"></script>
-
-<script src='https://cdnjs.cloudflare.com/ajax/libs/jquery/2.1.3/jquery.min.js'></script>
-<script src='https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js'></script>
-<script src="http://webhungers.com/open-order-company/js/popper.min.js"></script>
-<script src="http://webhungers.com/open-order-company/js/jquery-ui.js"></script>
-<script src="http://webhungers.com/open-order-company/js/slick.min.js"></script>
-<script src="http://webhungers.com/open-order-company/js/custom-js.js?v=583059347"></script>
-<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.16.1/popper.min.js.map"></script>
-
-<script src='https://cdnjs.cloudflare.com/ajax/libs/jquery-easing/1.3/jquery.easing.min.js'></script>
-<script src="http://webhungers.com/open-order-company/js/step-form.js?v=1674689411"></script>
-
-<script>
+<!-- <script>
     function submit_ticket(e) {
       var ticket_title = $("#ticket_title").val();
       var issue_description = $("#ticket_enterprise_service").val();
       $.get('createTicketByUsername/' + ticket_title+'/'+issue_description, function (data) {
       });
     }  
-  </script>
+  </script> -->
 <div class="css-7zhzs9-ContainerNavigationMask">
   <div class=" css-jdgyoy-PrimaryItemsList"> <div data-testid="GlobalNavigation">
     <div>
@@ -106,7 +48,6 @@
     <h1 class="sidebar-info">Connection tanteque</h1>  
     <p>Mail_utillisateur@societe.com</p> 
  
- 
   </div>  <h1 class="sidebar-info si_mgbox"> Merci de renseigner l'ensemble des informations pour que nous puissions répondre au mieux å votre demand.</h1>  
  
  
@@ -120,7 +61,8 @@
      <div class="bar3"></div>
  
    </div>
-   <form id="msform">
+   <form id="msform" action="{% url 'create_ticket' %}" method="post">{% csrf_token %}
+
     <div class="row row1">
      <div class="col-md-12 col-md-12  pd_none">
        <div class="top_box">
@@ -150,73 +92,73 @@
      <!-- fieldsets -->
      <fieldset class="row">
       <div class="col-lg-4 col-md-4 col-sm-12">
-       <div class="form-group " id="">
+       <div class="form-group " >
          <label> Titre de l'ordre  <span>*</span> :</label>
        </div>
      </div> 
      <div class="col-lg-8 col-md-8 col-sm-12">
-       <div class="form-group" id="">
-         <input type="text" id="ticket_title" placeholder="Achat matériel informatique " >
+       <div class="form-group" >
+         <input type="text" id="ticket_title" name="ticket_title" placeholder="Achat matériel informatique " >
        </div>
      </div>
      <div class="col-lg-4 col-md-4 col-sm-12">
-       <div class="form-group " id="">
+       <div class="form-group " >
          <label> Mail Demandeur <span>*</span> :</label>
        </div>
      </div> 
      <div class="col-lg-8 col-md-8 col-sm-12">
-       <div class="form-group" id="">
-         <input type="text" id="" placeholder="Mail_utillisateur@société.com" >
+       <div class="form-group" >
+         <input type="text" name="contact_aplicant_mail"  placeholder="Mail_utillisateur@société.com" >
        </div>
      </div> 
      <div class="col-lg-4 col-md-4 col-sm-12">
-       <div class="form-group " id="">
+       <div class="form-group " >
          <label>Nom<span>*</span> :</label>
        </div>
      </div> 
      <div class="col-lg-8 col-md-8 col-sm-12">
-       <div class="form-group" id="">
-         <input type="text" id="" placeholder="Gerard" >
+       <div class="form-group" >
+         <input type="text" name="lastname" placeholder="Gerard" >
        </div>
      </div> 
      <div class="col-lg-4 col-md-4 col-sm-12">
-       <div class="form-group " id="">
+       <div class="form-group " >
          <label>Prénom <span>*</span> :</label>
        </div>
      </div> 
      <div class="col-lg-8 col-md-8 col-sm-12">
-       <div class="form-group" id="">
-         <input type="text" id="" placeholder="MENVUSSA" >
+       <div class="form-group" >
+         <input type="text" name="firstname" placeholder="MENVUSSA" >
        </div>
      </div>  
      <div class="col-lg-4 col-md-4 col-sm-12">
-       <div class="form-group " id="">
+       <div class="form-group " >
          <label>N de telephone :</label>
        </div>
      </div> 
      <div class="col-lg-8 col-md-8 col-sm-12">
-       <div class="form-group" id="">
-         <input type="text" id="" placeholder="" >
+       <div class="form-group" >
+         <input type="text" name="phone" placeholder="" >
        </div>
      </div> 
      <div class="col-lg-4 col-md-4 col-sm-12">
-       <div class="form-group " id="">
+       <div class="form-group " >
          <label>Enterprise / Service <span>*</span> :</label>
        </div>
      </div> 
      <div class="col-lg-8 col-md-8 col-sm-12">
-       <div class="form-group" id="">
-         <input type="text" id="ticket_enterprise_service" placeholder="" >
+       <div class="form-group" >
+         <input type="text" name="enterprise" id="ticket_enterprise_service" placeholder="" >
        </div>
      </div> 
      <div class="col-lg-4 col-md-4 col-sm-12">
-       <div class="form-group " id="">
+       <div class="form-group " >
          <label>Mail personne en copie <span>*</span> :</label>
        </div>
      </div> 
      <div class="col-lg-8 col-md-8 col-sm-12">
-       <div class="form-group" id="">
-         <input type="text" id="" placeholder="" >
+       <div class="form-group" >
+         <input type="text" name="mailcopy" placeholder="" >
        </div>
      </div> 
  
@@ -226,42 +168,42 @@
    </fieldset>
    <fieldset>
      <div class="col-lg-4 col-md-4 col-sm-12">
-       <div class="form-group " id="">
+       <div class="form-group" >
          <label>Nom du Fournisseur <span>*</span> :</label>
        </div>
      </div> 
      <div class="col-lg-8 col-md-8 col-sm-12">
-       <div class="form-group" id="">
-         <input type="text" id="" placeholder="Ex : Amazon " >
+       <div class="form-group" >
+         <input type="text" name="provider" placeholder="Ex : Amazon " >
        </div>
      </div> 
      <div class="col-lg-4 col-md-4 col-sm-12">
-       <div class="form-group " id="">
+       <div class="form-group " >
          <label>Site du Fournisseu :</label>
        </div>
      </div> 
      <div class="col-lg-8 col-md-8 col-sm-12">
-       <div class="form-group" id="">
-         <input type="text" id="" placeholder="Ex : https://www.amazon.fr " >
+       <div class="form-group" >
+         <input type="text" name="provider_web_link" placeholder="Ex : https://www.amazon.fr " >
        </div>
      </div>
      <div class="col-lg-4 col-md-4 col-sm-12">
-       <div class="form-group " id="">
+       <div class="form-group " >
          <label> Description de Ia demande <span>*</span> :</label>
        </div>
      </div> 
      <div class="col-lg-8 col-md-8 col-sm-12">
-       <div class="form-group" id="">
-         <textarea rows="6" cols="50">Description, quantité, référence, liens.</textarea>
+       <div class="form-group" >
+         <textarea name="description" rows="6" cols="50">Description, quantité, référence, liens.</textarea>
        </div>
      </div> 
      <div class="col-lg-4 col-md-4 col-sm-12">
-       <div class="form-group " id="">
+       <div class="form-group " >
          <label>Pieces jointes <span>*</span> :</label>
        </div>
      </div> 
      <div class="col-lg-8 col-md-8 col-sm-12">
-       <div class="form-group" id="">
+       <div class="form-group" >
         <ul class="attachment">
             
          <li><p><img src="{% static 'image/powerpoint.png' %}"  class="icon_zip"><a href="">Liste des pieces ppt<i class="fa fa-times" aria-hidden="true"></i></a></p>
@@ -273,7 +215,7 @@
  
  
  
-   <div class="col-lg-4 col-md-4 "> <span class="previous action-button-previous"><i class="fa fa-long-arrow-left" aria-hidden="true"></i> Precedent </span></div>
+   <span class="previous action-button-previous"><i class="fa fa-long-arrow-left" aria-hidden="true"></i> Precedent </span>
    <span class="next action-button">Suivant <i class="fa fa-long-arrow-right" aria-hidden="true"></i></span>
  </fieldset>
  <fieldset>
@@ -281,82 +223,81 @@
      <label> ADRESSE DE LIVRAISON  </label> <br>
    </div>
    <div class="col-lg-4 col-md-4 col-sm-12">
-     <div class="form-group " id="">
+     <div class="form-group " >
        <label>Chez <span>*</span> :</label>
      </div>
    </div> 
    <div class="col-lg-8 col-md-8 col-sm-12">
-     <div class="form-group" id="">
-       <input type="text" id="" placeholder="" >
+     <div class="form-group" >
+       <input type="text" name="place" placeholder="" >
      </div>
    </div> 
    <div class="col-lg-4 col-md-4 col-sm-12">
-     <div class="form-group " id="">
+     <div class="form-group " >
        <label>Adresse <span>*</span> :</label>
      </div>
    </div> 
    <div class="col-lg-8 col-md-8 col-sm-12">
-     <div class="form-group" id="">
-      <textarea rows="6" cols="50">184 rue du lavoir Båtiment 3</textarea>
+     <div class="form-group" >
+      <textarea rows="6" name="deliver_address" cols="50">184 rue du lavoir Båtiment 3</textarea>
     </div>
   </div>
   <div class="col-lg-4 col-md-4 col-sm-12">
-   <div class="form-group " id="">
+   <div class="form-group " >
      <label>Code Postal <span>*</span> :</label>
    </div>
  </div> 
  <div class="col-lg-8 col-md-8 col-sm-12">
-   <div class="form-group" id="">
-     <input type="text" id="" placeholder=" Ex : 01600" >
+   <div class="form-group" >
+     <input type="text" name="postal_code"  placeholder=" Ex : 01600" >
    </div>
  </div>
  <div class="col-lg-4 col-md-4 col-sm-12">
-   <div class="form-group " id="">
+   <div class="form-group " >
      <label>Ville <span>*</span> :</label>
    </div>
  </div> 
  <div class="col-lg-8 col-md-8 col-sm-12">
-   <div class="form-group" id="">
-     <input type="text" placeholder=" Ex : Reyrieux">
+   <div class="form-group" >
+     <input name="city" type="text" placeholder=" Ex : Reyrieux">
    </div>
  </div>
  <div class=" foSi">
    <label> CONTACT DE LIVRAISON  </label> <br>
  </div>
  <div class="col-lg-4 col-md-4 col-sm-12">
-   <div class="form-group " id="">
+   <div class="form-group " >
      <label>Nom Prénom <span>*</span> :</label>
    </div>
  </div> 
  <div class="col-lg-8 col-md-8 col-sm-12">
-   <div class="form-group" id="">
-     <input type="text" placeholder=" Gérard MEMVUSSA">
+   <div class="form-group" >
+     <input type="text" name="deliver_name" placeholder=" Gérard MEMVUSSA">
    </div>
  </div>
  <div class="col-lg-4 col-md-4 col-sm-12">
-   <div class="form-group " id="">
+   <div class="form-group " >
      <label>Téléphone :</label>
    </div>
  </div> 
  <div class="col-lg-8 col-md-8 col-sm-12">
-   <div class="form-group" id="">
-     <input type="text" placeholder=" Ex : 184 rue du lavoir">
+   <div class="form-group" >
+     <input type="text" name="phone_delivery" placeholder=" Ex : 184 rue du lavoir">
    </div>
  </div>  
  <div class="col-lg-4 col-md-4 col-sm-12">
-   <div class="form-group " id="">
+   <div class="form-group " >
      <label>Complément d'information :</label>
    </div>
  </div> 
  <div class="col-lg-8 col-md-8 col-sm-12">
-   <div class="form-group" id="">
-    <textarea rows="6" cols="50">Ex : Numéro de Porte, Code d'accés, Horaire</textarea>
+   <div class="form-group" >
+    <textarea name="instruction" rows="6" cols="50">Ex : Numéro de Porte, Code d'accés, Horaire</textarea>
   </div>
  </div>
  
- 
- <div class="col-lg-4 col-md-4"><span class="previous action-button-previous"><i class="fa fa-long-arrow-left" aria-hidden="true"></i> Precedent </span></div>
- <span class="next action-button">Suivant <i class="fa fa-long-arrow-right" aria-hidden="true"></i></span>
+<span class="previous action-button-previous"><i class="fa fa-long-arrow-left" aria-hidden="true"></i> Precedent </span>
+<span class="next action-button">Suivant <i class="fa fa-long-arrow-right" aria-hidden="true"></i></span>
  </fieldset>
  <fieldset>
    <h2 class="fs-title">Resume</h2>
@@ -376,9 +317,9 @@
        </li>
      </ul>
  
-     <div class="col-lg-4 col-md-4"><span class="previous action-button-previous"><i class="fa fa-long-arrow-left" aria-hidden="true"></i> Precedent </span></div>
-     <span class="next action-button" onclick="submit_ticket()">Valider <i class="fa fa-check" aria-hidden="true"></i></span>
- 
+     <span class="previous action-button-previous"><i class="fa fa-long-arrow-left" aria-hidden="true"></i> Precedent </span>
+     <!-- <span class="next action-button" >Valider <i class="fa fa-check" aria-hidden="true"></i></span> -->
+      <input class="next action-button" type="submit" name="Valider" value="Valider">
  </fieldset>
  <fieldset> <div class="col-lg-11 col-md-12 col-sm-12">
    <h2 class="fs-title">Merci. Votre ordre achat å bien été envoyée.</h2>
@@ -424,16 +365,6 @@
  
  </div>
 
-<!-- <script src="/js/jquery.min.js"></script>
-<script src="/js/bootstrap.min.js"></script> -->
-<script src='https://cdnjs.cloudflare.com/ajax/libs/jquery/2.1.3/jquery.min.js'></script>
-<script src='https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js'></script>
-<script src="http://webhungers.com/open-order-company/js/popper.min.js"></script>
-<script src="http://webhungers.com/open-order-company/js/jquery-ui.js"></script>
-<script src="http://webhungers.com/open-order-company/js/slick.min.js"></script>
-<script src="http://webhungers.com/open-order-company/js/custom-js.js?v=583059347"></script>
-<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.16.1/popper.min.js.map"></script>
+ {% include 'partials/_footer-scripts.html'%}
 
-<script src='https://cdnjs.cloudflare.com/ajax/libs/jquery-easing/1.3/jquery.easing.min.js'></script>
-<script src="http://webhungers.com/open-order-company/js/step-form.js?v=1674689411"></script>
  {% endblock %}

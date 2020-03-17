@@ -13,6 +13,6 @@ urlpatterns =[
     path('pages/logout', views.logout, name = 'logout'),
     path('pages/createticket',views.create_ticket,name='create_ticket'),
     path('pages/create',views.create,name='create'),
-    path('pages/createTicketByUsername/<ticket_title>/<issue_description>', views.createTicketByUsername,name='createTicketByUsername'),
+    # path('pages/createTicketByUsername/<ticket_title>/<issue_description>', views.createTicketByUsername,name='createTicketByUsername'),
 
 ] + static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)

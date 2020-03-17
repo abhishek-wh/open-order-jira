@@ -13,7 +13,6 @@ auth = HTTPBasicAuth("contact@wowdesigns.fr", "guPJmBOx3nVhEWMFogxRAB84")
 # url = "https://dishanshujagtap.atlassian.net/rest/api/2/"
 # auth = HTTPBasicAuth("dishanshu.jagtap@webhungers.com", "edItHS8Dbnh0XkkTWQjoFE45")
 
-
 def index(request):
     data = settings.objects.all()
     welcome_text = data[0].welcome_text
@@ -24,7 +23,7 @@ def index(request):
         if (is_user == False):
             is_jira_connect = settings.objects.filter(is_jira_app_connected=False).exists()
             if (is_jira_connect):
-                jira_api = getUser(username)
+                jira_api = getUser(username)      
                 if (jira_api['status_code'] == 200):
                     record1 = logged_in_user.objects.all()
                     record = logged_in_user.objects.all().exists()
@@ -58,7 +57,6 @@ def getUser(user_id):
         auth=auth
     )
 
-    print('responseeeeeeeeee',response)
     return vars(response)
 
 
@@ -115,16 +113,12 @@ def getTicketByUsername(user_id):
     issues=jira.search_issues("project='ORDER' and reporter='"+user_id+"'")
     return issues
 
-def createTicketByUsername(request,ticket_title,issue_description):
-    # print(ticket_title)
-    # print(issue_description)
-    user_id = request.session['username']
-    # print(user_id)
-    jira_options={'server': 'https://nrc.atlassian.net/'}
-    jira=JIRA(options=jira_options,basic_auth=('contact@wowdesigns.fr','guPJmBOx3nVhEWMFogxRAB84'))  
-    new_issue = jira.create_issue(project='ORDER', summary=ticket_title, description=issue_description, issuetype={"name": "Commande"})
-    print(new_issue)
-    return render(request, 'accounts/dashboard.html')    
+# def createTicketByUsername(request,ticket_title,issue_description):
+#     user_id = request.session['username']
+#     jira_options={'server': 'https://nrc.atlassian.net/'}
+#     jira=JIRA(options=jira_options,basic_auth=('contact@wowdesigns.fr','guPJmBOx3nVhEWMFogxRAB84'))  
+#     new_issue = jira.create_issue(project='ORDER', summary=ticket_title, description=issue_description, issuetype={"name": "Commande"})
+#     return render(request, 'accounts/dashboard.html')    
 
 
 def search(request,value):
@@ -132,33 +126,30 @@ def search(request,value):
     if(value=='All'):
         if request.session.has_key('username'):
             username = request.session['username']
-            jira_api = getTicketByUsername(username)
-            jira_api = str(jira_api['_content']).split('"issues":')
-            print(jira_api)
-            final_array = json.loads(str(jira_api[1]).replace("}'", ""))
-
+            issues = getTicketByUsername(username)
             ticket_list.objects.all().delete()
-            for final in final_array:
+            for issue in issues:
+                print("issue",issue.raw)
                 desc = ""
                 assi = ""
                 try:
-                    desc = final['fields']['description']
+                    desc = issue.raw['fields']['description']
                 except:
                     desc = ""
                 try:
-                    assi = final['fields']['assignee']['displayName']
+                    assi = issue.raw['fields']['assignee']['displayName']
                 except:
                     assi = ""
 
-                ticket_list.objects.create(issue_id=str(final['id']),
-                                        key=final['key'],
-                                        issue_type=final['fields']['issuetype']['name'],
-                                        project=final['fields']['project']['name'],
-                                        priority=final['fields']['priority']['name'],
-                                        summary=final['fields']['summary'],
+                ticket_list.objects.create(issue_id=str(issue.raw['id']),
+                                        key=issue.raw['key'],
+                                        issue_type=issue.raw['fields']['issuetype']['name'],
+                                        project=issue.raw['fields']['project']['name'],
+                                        priority=issue.raw['fields']['priority']['name'],
+                                        summary=issue.raw['fields']['summary'],
                                         description=desc,
                                         assignee=assi,
-                                        status=final['fields']['status']['statusCategory']['name']).save()
+                                        status=issue.raw['fields']['status']['statusCategory']['name']).save()
             t_list = ticket_list.objects.all()
 
             try:
@@ -206,8 +197,29 @@ def logout(request):
     return render(request, 'pages/index.html', context)
 
 
-def create_ticket(request):
-    
+def create_ticket(request):    
+    if request.method == 'POST':
+        jira_options = {'server': 'https://nrc.atlassian.net/'}
+        jira = JIRA(options=jira_options, basic_auth=('contact@wowdesigns.fr', 'guPJmBOx3nVhEWMFogxRAB84'))
+        new_issue = jira.create_issue(project='ORDER',
+        summary=request.POST.get('ticket_title',""),
+        description=request.POST.get('description',""),
+        issuetype={"name": "Commande"},
+        customfield_10039=[request.POST.get('contact_aplicant_mail',"")],
+        customfield_10077=request.POST.get('enterprise',""),
+        customfield_10032=request.POST.get('firstname',""),
+        customfield_10033=request.POST.get('lastname',""),
+        customfield_10037=request.POST.get('phone',""),
+        customfield_10040=[request.POST.get('mailcopy',"")],
+        customfield_10041=request.POST.get('provider',""),
+        customfield_10042=request.POST.get('provider_web_link',""),
+        customfield_10078=request.POST.get('place',""),
+        customfield_10050=request.POST.get('deliver_address',""),
+        customfield_10058=request.POST.get('postal_code',""),
+        customfield_10052=request.POST.get('city',""),
+        customfield_10053=request.POST.get('deliver_name',""),
+        customfield_10054=request.POST.get('phone_delivery',""),
+        customfield_10076=request.POST.get('instruction',""))
 
     return render(request,'pages/createticket.html')
 

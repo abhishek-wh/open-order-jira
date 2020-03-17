@@ -69,7 +69,7 @@
 /*buttons*/
 #msform .action-button {
    width: auto;
-    background: #0a1f60;
+    background: #002060;
     font-weight: bold;
     color: rgb(255, 255, 255);
     border: 0 none;
@@ -96,7 +96,7 @@
     cursor: pointer;
     padding: 10px 20px;
     margin: 10px 5px;
-    font-weight: 700;
+    font-weight: 700;margin-left:20%;
     font-size: 16px;float: left;
 }
 
@@ -107,7 +107,7 @@
 /*headings*/
 .fs-title {
     font-size: 20px;
-    text-transform: uppercase;
+   /* text-transform: uppercase;*/
     color: 000;
     margin-bottom: 10px;
     font-weight: bolder;
@@ -115,7 +115,8 @@
     font-style: italic;
 }
 
-.fs-subtitle {
+.fs-subtitle {    font-weight: 600;
+    font-style: italic;
   font-weight: 500;
     font-size: 16px;
     color: rgb(38, 38, 38);
@@ -140,11 +141,11 @@
 #progressbar1 li:before {content: ""; counter-increment: ; width: 40px; height: 40px; line-height: 26px; display: block; font-size: 12px; color: #333; background: rgb(63, 63, 63); border-radius: 25px; margin: 0 auto 10px auto; }
 /*progressbar connectors*/
 #progressbar1 li:after {content: '';width: 85%;height: 5px;background: rgb(63, 63, 63);position: absolute;left: -43%; top: 26%; /* z-index: 999999;*/ /* border-radius: 10px;*/ }
-#progressbar1 li.inProgress:after{/*background: rgb(63, 63, 63);*/ height: 10%; background-size: 200px; background-image: url(../images/TransitionInprogress.png);}
+#progressbar1 li.inProgress:after{/*background: rgb(63, 63, 63);*/ height: 10%; background-size: 200px; background-image: url(../image/TransitionInprogress.png);}
 #progressbar1 li:first-child:after {content: none;}
 #progressbar1 li.checked:first-child:after {content: '';left: 62%;width: 80%;z-index: 9999;}
-#progressbar1 li.active:before, #progressbar1 li.active:after,#progressbar1 li.checked:first-child:after {height: 10%; background-size: 200px; background-image: url(../images/TransitionInprogress.png); color: white; }
-#progressbar1 li.checked:after{height: 10%; background-size: 200px; background-image: url(../images/TransitionInprogress.png); color: white; }
+#progressbar1 li.active:before, #progressbar1 li.active:after,#progressbar1 li.checked:first-child:after {height: 10%; background-size: 200px; background-image: url(../image/TransitionInprogress.png); color: white; }
+#progressbar1 li.checked:after{height: 10%; background-size: 200px; background-image: url(../image/TransitionInprogress.png); color: white; }
 
 /* Not relevant to this form */
 .dme_link {
@@ -188,15 +189,15 @@ background: linear-gradient(-45deg, rgba(0, 0, 0, 0) 16px, rgb(0, 32, 96) 0), li
     left: 0px;
 }
 #progressbar li.inProgress:before{ background: linear-gradient(to right, #ffffff 50%, rgb(63, 63, 63) 50%);}
-#progressbar li.checked:before{background-image: url(../images/StepOK.png); background-size: 40px; 
+#progressbar li.checked:before{background-image: url(../image/StepOK.png); background-size: 40px; 
     background-repeat: no-repeat;}
-#progressbar li.cancle:before{background-image: url(../images/StepKO.png);background-size: 40px;
+#progressbar li.cancle:before{background-image: url(../image/StepKO.png);background-size: 40px;
     background-repeat: no-repeat;}   
 
 #progressbar1 li.inProgress:before{ background: linear-gradient(to right, #ffffff 50%, rgb(63, 63, 63) 50%);}
-#progressbar1 li.checked:before{background-image: url(../images/StepOK.png); background-size: 40px; 
+#progressbar1 li.checked:before{background-image: url(../image/StepOK.png); background-size: 40px; 
     background-repeat: no-repeat;}
-#progressbar1 li.cancle:before{background-image: url(../images/StepKO.png);background-size: 40px;
+#progressbar1 li.cancle:before{background-image: url(../image/StepKO.png);background-size: 40px;
     background-repeat: no-repeat;}   
 
 
@@ -206,15 +207,14 @@ background: linear-gradient(-45deg, rgba(0, 0, 0, 0) 16px, rgb(0, 32, 96) 0), li
     background: rgb(0, 32, 96);
     height: 100px;
     margin-bottom: 51px;}
-.details_view{display: -ms-flexbox;  display: -webkit-box; display: flex;
- -webkit-box-pack: center;margin-bottom: 5px; -ms-flex-pack: center;justify-content: center;
- font-size: 18px;color: rgb(68, 68, 68);font-weight: 600;}
-.details_view li:first-child{margin-right: 30px;}
-.orderBox h1{font-size: 20px; text-transform: uppercase; color: rgb(38, 38, 38); margin: 2px 0; font-weight: bold;}
+.details_view{    margin-top: 30px;display: -ms-flexbox; display: -webkit-box; display: flex; -webkit-box-pack: justify; margin-bottom: 5px; -ms-flex-pack: 
+    center; justify-content: space-around; font-size: 18px; color: rgb(68, 68, 68); font-weight: 600; text-align: left;}
+.details_view li{    width: 50%;}
+.orderBox h1{font-size: 20px;/* text-transform: uppercase;*/ color: rgb(38, 38, 38); margin: 2px 0; font-weight: bold;}
 .orderBox{padding: 20px; border: 2px solid rgb(38, 38, 38); width: 50%; margin: 0 auto; border-radius: 10px;}
 .u_name{font-weight: 500;font-style: italic;}
 .o_blog{margin: 50px 0px;}
-.o_btn_box .su_btn{width: auto; background: rgb(23, 70, 162); font-weight: bold; color: rgb(255, 255, 255); border: 0 none; border-radius: 5px; cursor: pointer; padding: 5px 20px; margin: 10px 5px; font-weight: 700; font-size: 16px;}
+.o_btn_box .su_btn{width: auto; background:#002060; font-weight: bold; color: rgb(255, 255, 255); border: 0 none; border-radius: 5px; cursor: pointer; padding: 5px 20px; margin: 10px 5px; font-weight: 700; font-size: 16px;}
 .o_btn_box img{width: 15px;padding-bottom: 5px;}
 .o_btn_box .bck_btn{width: auto; background: rgb(163, 164, 166); font-weight: bold; color: rgb(255, 255, 255); border: 0 none; border-radius: 5px; cursor: pointer; padding: 5px 20px; margin: 10px 5px; font-weight: 700; font-size: 16px;}
 .top_box{display: -ms-flexbox;  display: -webkit-box; display: flex;background: rgb(41, 119, 196);color: rgb(255, 255, 255);}
@@ -256,7 +256,7 @@ background: linear-gradient(-45deg, rgba(0, 0, 0, 0) 16px, rgb(0, 32, 96) 0), li
 
 
 @media (max-width: 1350px){
-  #progressbar li:after {width: 84%!important;left: -42%!important;}    
+  #progressbar li:after {width: 84%;left: -42%;}    
   #progressbar1 li:after {width: 76%!important;left: -38%!important;}
   #progressbar1 li.checked:first-child:after {left: 62%!important;width: 75%!important;}
 }
@@ -267,7 +267,7 @@ background: linear-gradient(-45deg, rgba(0, 0, 0, 0) 16px, rgb(0, 32, 96) 0), li
 }
 
 @media (max-width: 1400px){
-#progressbar li:after {width: 85%!important;left: -43%!important;}
+#progressbar li:after {width: 85%;left: -43%;}
 #progressbar1 li:after {width: 78%!important;left: -39%!important;}
 }
 
@@ -280,31 +280,33 @@ background: linear-gradient(-45deg, rgba(0, 0, 0, 0) 16px, rgb(0, 32, 96) 0), li
 .orderBox {width: 100%;}
 #msform1 .btn_top_blog {text-align: left;padding: 0px 20px 25px;    height: auto;}
 .zig-zag-bottom1 {height: 120px!important;}
-#msform1 #progressbar1 li:after { width: 44%;left: -23%;top: 19%;}
+#msform1 #progressbar1 li:after { width: 44% !important;left: -23% !important;top: 19% !important;}
 #msform1 #progressbar1 li.checked:first-child:after {left: 78%;width: 45%;}
-
-
-}
+fieldset {min-width: 100%;}
+.common_css_f1 fieldset label {font-size: 18px; margin: 18px 0px; } 
+.css-1rawbl {height: calc(100vh + 711px);}
+fieldset.row { padding-right: 15px; padding-left: 15px;}
+.action-button-previous {float: left;}
+fieldset .foSi {width: 100%; text-align: left;padding: 10px 15px; } }
 
 @media only screen and (min-width: 993px) and (max-width: 1024px){
-.zig-zag-bottom {padding: 10px 0px 0px; height: 111px;}
+.zig-zag-bottom {padding: 10px 0px 0px; height: 91px;}
 #progressbar li:after {width: 77%!important; left: -39%!important; }
 #progressbar li.checked:first-child:after{display: none;}
 .orderBox {width: 100%;}
 .zig-zag-bottom1 {height: 120px!important;}
-#progressbar1 li:after { width: 64%;left: -33%;}
+#progressbar1 li:after { width: 64% !important;left: -33% !important;}
 #progressbar1 li.checked:first-child:after {left: 69%; width: 66%;}
 /*#progressbar1 li.inProgress:after {top: 18%;}*/
 #progressbar1 li.checked:first-child:after{display: none;}
 #progressbar1 li:nth-child(3):after {top: 20%;}
+fieldset.row { margin-right: 15px; margin-left: 15px;}
 }
 
 @media (max-width: 1440px){
-#progressbar li:after {width: 86%!important;left: -42%!important;}
+#progressbar li:after {width: 86%;left: -42%;}
 #progressbar li.checked:first-child:after {left: 57%!important;width: 86%!important;}
-#progressbar1 li:first-child:after {
-    content: none!important;
-}
+#progressbar1 li:first-child:after {content: none!important;}
 }
 
 @media(max-width: 600px) {
@@ -320,6 +322,11 @@ background: linear-gradient(-45deg, rgba(0, 0, 0, 0) 16px, rgb(0, 32, 96) 0), li
 #progressbar li.checked:after,#progressbar li.inProgress:after  { top: 20%;}
 }
 
+@media (max-width: 1024px){
+   .action-button,.action-button-previous{   
+    margin-left: 1%; margin-bottom: 100px!important;} 
+
+}
 /*ticket form*/
 .top_box1{
     display: -ms-flexbox;
@@ -434,3 +441,44 @@ background: linear-gradient(-45deg, rgba(0, 0, 0, 0) 16px, rgb(0, 32, 96) 0), li
 #progressbar1 li:after {width: 82%;left: -41%;}
 #progressbar1 li.inProgress:after {width: 81%;left: -40%;}
 }
+
+.head_p{font-weight: 600;}
+.common_css_f1 fieldset label{    font-size: 18px;}
+.foSi{ width: 33.33333333%;text-align: right; font-size: 18px;}
+.common_css_f1 fieldset p{    font-size: 16px;}
+.detalValue{    font-style: italic;}
+.common_css_f1 { color: #262626;}
+.attachment{display: flex;display: -webkit-box;display: -ms-flexbox;font-size: 14px;}
+.attachment img.zipImg{height: 64px;}
+.attachment a{color: #3b2c48;font-weight: 500;text-decoration: underline;}
+.icon_zip{height: 10px;}
+.orderBox2 {
+    padding: 10px;
+    border: 2px solid #fff;color: #fff;
+ 
+    margin: 0 auto;
+    border-radius: 10px;
+}.second-sidebar1 {
+    margin: 25px 20px 50px 20px;}.second-sidebar1 p {
+    color: #fff;
+    font-size: 16px;
+    margin-top: -4px;
+    margin-bottom: 20px;
+}
+.second-sidebar1 p.sideh {
+    padding: 20px 0px 0;
+    margin-bottom: 0!important;
+    font-size: 18px;
+}
+::placeholder { 
+  color: #000;font-weight: 600;
+}
+
+:-ms-input-placeholder { 
+  color: #000;font-weight: 600;
+}
+
+::-ms-input-placeholder {
+  color: #000;font-weight: 600;
+}
+.si_mgbox{ margin: 0px 20px;}   

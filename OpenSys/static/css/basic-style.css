@@ -120,7 +120,7 @@ fieldset.form-group {position: relative; }
     /*justify-content: space-between;*/
     padding-bottom: calc(20px);
     padding-top: 24px;
-    width: 64px;    height: calc(100vh + 91px);
+    width: 64px;    height: calc(100vh + 291px);
     /*height: calc(100vh - 0px);*/
     background-color: rgb(7, 71, 166);
     color: rgb(255, 255, 255);
@@ -143,7 +143,8 @@ fieldset.form-group {position: relative; }
 .logo_img{height: 90px;}
 
 /*Prachi*/
-.sidebar-section{background-color: #0747a6;    /* width: 15%;*/ box-shadow: 0 8px 6px 1px #071f42;}
+.sidebar-section{background-color: #0747a6;       width: 200px;
+    word-break: break-word; box-shadow: 0 8px 6px 1px #071f42;}
 .second-sidebar{margin: 25px 20px 50px 20px; border-bottom: 2px solid white;}
 .sidebar-info {color: #fff; font-size: 14px; font-style: italic;}
 .second-sidebar p {color: #fff; font-size: 16px; margin-top: -4px; margin-bottom: 20px;}
@@ -159,7 +160,8 @@ fieldset.form-group {position: relative; }
  .col-md-2.oper-btn {float: right; margin: 20px 0px 0px 0px;}
  .operate-btn img{height: 27px; /*position: absolute; left: 32px; top: 6px;*/}
  .heading-m {margin-bottom: 15px; margin-top: 6%; text-align: center; /*margin-bottom: 15px;*/}
- .heading-m h1 { font-size: 40px; color: #4c8ff5; margin: 0;}
+ .heading-m h1 { font-size: 47px; color: #4c8ff5; margin: 0;}
+ .heading-m h1 span{font-size: 37px;}
 .main {    margin-bottom: 22px;
     /* margin: 25px 20px 50px 20px; */
     /* border-bottom: 2px solid #d8d8d8; */
@@ -543,3 +545,73 @@ a.page-link {
        
         width: 100%;
         font-weight: 700;}
+
+.validation{
+    display: none;
+}
+
+
+
+.heading-red h1 span {
+    font-size: 37px;
+}
+.heading-red h1 {
+    font-size: 47px;
+    color: #c01200;
+    text-align: center;
+    margin-top: 50px;
+}
+.button.r, .button.r .layer {
+   border-radius: 100px;
+   border: 2px solid #aeaeae;
+}
+.button {
+   position: relative;
+   width: 53px;
+   height: 30px;
+   overflow: hidden;
+}
+.form-input {
+   background-color: white!important;
+
+}
+.hoverRighticon:hover,.hoverRighticon1:hover{background: #002060;color: #fff;}
+.sidebar-section-red {width: 215px;position: relative;}
+.secIcon{display: none;}
+.sidebar-section.removesidebarU{width: 15px;}
+.sidebar-section-red.removesidebar{width: 15px;}
+.hoverRighticon.changehovericon{left: 8px;}
+.hoverRighticonuserda.changehovericonU{left: 8px;}
+.hoverRighticon,.hoverRighticonuserda{ left: 207px;
+    /* margin-top: 14%; */
+    z-index: 999999;
+    position: absolute;
+    /* margin-left: -3%; */
+    top: 4%;
+    background: #fff;
+    width: 20px;
+    height: 20px;
+    border: 1px solid #a6a6a6;
+    border-radius: 50%;
+    cursor: pointer;
+    padding: 2px 6px;
+    box-shadow: -1px 0px 5px #a2a2a2;}
+
+
+    .sidebar-section{position: relative;    width: 215px;}
+.secIcon1{display: none;}
+.hoverRighticon1.changehovericon1{left: 8px;top: 7%;}
+.hoverRighticon1{ left: 207px; z-index: 999999; position: absolute; top: 7%; background: #fff; width: 20px; height: 20px; border: 1px solid #a6a6a6; border-radius: 50%; cursor: pointer; padding: 2px 6px; box-shadow: -1px 0px 5px #a2a2a2;}
+.sidebar-section.removesidebar1{width: 15px;}
+.hoverRighticon,.hoverRighticon1{display: none;}
+.sidebar-section:hover .hoverRighticon1,.sidebar-section-red:hover .hoverRighticon,
+.sidebar-section-red.removesidebar .hoverRighticon,.sidebar-section.removesidebar .hoverRighticon1{display: block}
+.sidebar-section.removesidebar1 .hoverRighticon1.changehovericon1{display: block;}
+.errorMsgNoTickt{font-size: 16px;color: #000;font-style: italic;font-weight: 800;margin-bottom: 15px;}
+.errorMsgNoTickt1{font-size: 16px;color: #262626;margin-bottom: 10px;}
+.errorMsgNoTickt2{font-size: 16px;font-style: italic;color: #262626;}
+.errorEmail,.errorcontact{color: #2977c4;font-weight: 600;}
+.errorMsg_div{margin-top: 30px;}
+#example_length,#example_filter,#example_paginate,#example_info{display: none;}
+table.dataTable thead .sorting_asc:after{   position: absolute;opacity: 1 !important;color: #2977c4;}
+table.dataTable thead .sorting:after { opacity: 0.4 !important; color: #2977c4; }
