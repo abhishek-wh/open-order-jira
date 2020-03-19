@@ -12,359 +12,677 @@
  </head> -->
 
 
-<!-- <script>
-    function submit_ticket(e) {
-      var ticket_title = $("#ticket_title").val();
-      var issue_description = $("#ticket_enterprise_service").val();
-      $.get('createTicketByUsername/' + ticket_title+'/'+issue_description, function (data) {
-      });
-    }  
-  </script> -->
-<div class="css-7zhzs9-ContainerNavigationMask">
-  <div class=" css-jdgyoy-PrimaryItemsList"> <div data-testid="GlobalNavigation">
-    <div>
-      <ul class="css-1rawbl">
- 
-        <li class="logo_img">
-          <img src="{% static 'image/Open-Order.png' %}">
-        </li>
-        <li>
-          <img src="{% static 'image/Homeblank.svg' %}">
-        </li> 
-        <li>
-         <img src="{% static 'image/PlusWhite.png' %}">
-       </li>
-       <li>
-         <img src="{% static 'image/LogoutWhite.svg' %}">
-       </li>
- 
-     </ul>
-   </div>
- 
- </div>
- 
- <div class="sidebar-section">
-   <div class="second-sidebar">
-    <h1 class="sidebar-info">Connection tanteque</h1>  
-    <p>Mail_utillisateur@societe.com</p> 
- 
-  </div>  <h1 class="sidebar-info si_mgbox"> Merci de renseigner l'ensemble des informations pour que nous puissions répondre au mieux å votre demand.</h1>  
- 
- 
- </div>
- </div>
- <!-- Rightpart-section -->
- <div class="dashboard-main-section1">
-   <div class="mbldisplay ">
-     <div class="bar1"></div>
-     <div class="bar2"></div>
-     <div class="bar3"></div>
- 
-   </div>
-   <form id="msform" action="{% url 'create_ticket' %}" method="post">{% csrf_token %}
+<script>
+  function firstnextfunc() {
+    var ticket_title = $("#ticket_title").val();
+    var contact_aplicant_mail = $("#contact_aplicant_mail").val();
+    var lastname = $("#lastname").val();
+    var firstname = $("#firstname").val();
+    var phone = $("#phone").val();
+    var enterprise = $("#enterprise").val();
+    var mailcopy = $("#mailcopy").val();
+    if (ticket_title != "" && contact_aplicant_mail != "" &&
+      contact_aplicant_mail.match('[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,}$') &&
+      lastname != "" && firstname != "" && enterprise != "" && mailcopy != "" &&
+      mailcopy.match('[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,}$')) {
+      if (phone != "") {
+        if (!phone.match('[0-9]{10}')) {
+          $("#phoneerr1").css("display", "block")
+        } else {
+          $("#titleerr").css("display", "none")
+          $("#contact_aplicant_mailerr").css("display", "none")
+          $("#contact_aplicant_mailerr1").css("display", "none")
+          $("#lastnameerr").css("display", "none")
+          $("#firstnameerr").css("display", "none")
+          $("#phoneerr1").css("display", "none")
+          $("#enterpriseerr").css("display", "none")
+          $("#mailcopyerr").css("display", "none")
+          $("#mailcopyerr1").css("display", "none")
 
-    <div class="row row1">
-     <div class="col-md-12 col-md-12  pd_none">
-       <div class="top_box">
-         <img src="{% static 'image/BellBlue.png' %}">
-         <div class="heading_n">
-           <h1>Nouvel Ordre Achat</h1>
-           <h3> Creation d'une nouvelle demande d'acha</h3>
-         </div>
-       </div>
- 
- 
-     </div>
-     <div class="col-md-12 col-sm-12 pd_none">
-      <!-- progressbar -->
-      <div class="zig-zag-bottom">
-       <ul id="progressbar">
-         <li class="inProgress">Demande</li>
-         <li class=""> Ordre </li>
-         <li>Adresse</li>
-         <li>Confirmation</li>
-       </ul>
-     </div>
- 
- 
-   </div>
-   <div class="col-lg-11  col-md-12 common_css_f pd_none">
-     <!-- fieldsets -->
-     <fieldset class="row">
-      <div class="col-lg-4 col-md-4 col-sm-12">
-       <div class="form-group " >
-         <label> Titre de l'ordre  <span>*</span> :</label>
-       </div>
-     </div> 
-     <div class="col-lg-8 col-md-8 col-sm-12">
-       <div class="form-group" >
-         <input type="text" id="ticket_title" name="ticket_title" placeholder="Achat matériel informatique " >
-       </div>
-     </div>
-     <div class="col-lg-4 col-md-4 col-sm-12">
-       <div class="form-group " >
-         <label> Mail Demandeur <span>*</span> :</label>
-       </div>
-     </div> 
-     <div class="col-lg-8 col-md-8 col-sm-12">
-       <div class="form-group" >
-         <input type="text" name="contact_aplicant_mail"  placeholder="Mail_utillisateur@société.com" >
-       </div>
-     </div> 
-     <div class="col-lg-4 col-md-4 col-sm-12">
-       <div class="form-group " >
-         <label>Nom<span>*</span> :</label>
-       </div>
-     </div> 
-     <div class="col-lg-8 col-md-8 col-sm-12">
-       <div class="form-group" >
-         <input type="text" name="lastname" placeholder="Gerard" >
-       </div>
-     </div> 
-     <div class="col-lg-4 col-md-4 col-sm-12">
-       <div class="form-group " >
-         <label>Prénom <span>*</span> :</label>
-       </div>
-     </div> 
-     <div class="col-lg-8 col-md-8 col-sm-12">
-       <div class="form-group" >
-         <input type="text" name="firstname" placeholder="MENVUSSA" >
-       </div>
-     </div>  
-     <div class="col-lg-4 col-md-4 col-sm-12">
-       <div class="form-group " >
-         <label>N de telephone :</label>
-       </div>
-     </div> 
-     <div class="col-lg-8 col-md-8 col-sm-12">
-       <div class="form-group" >
-         <input type="text" name="phone" placeholder="" >
-       </div>
-     </div> 
-     <div class="col-lg-4 col-md-4 col-sm-12">
-       <div class="form-group " >
-         <label>Enterprise / Service <span>*</span> :</label>
-       </div>
-     </div> 
-     <div class="col-lg-8 col-md-8 col-sm-12">
-       <div class="form-group" >
-         <input type="text" name="enterprise" id="ticket_enterprise_service" placeholder="" >
-       </div>
-     </div> 
-     <div class="col-lg-4 col-md-4 col-sm-12">
-       <div class="form-group " >
-         <label>Mail personne en copie <span>*</span> :</label>
-       </div>
-     </div> 
-     <div class="col-lg-8 col-md-8 col-sm-12">
-       <div class="form-group" >
-         <input type="text" name="mailcopy" placeholder="" >
-       </div>
-     </div> 
- 
- 
-     <span class="next action-button">Suivant <i class="fa fa-long-arrow-right" aria-hidden="true"></i></span>
- 
-   </fieldset>
-   <fieldset>
-     <div class="col-lg-4 col-md-4 col-sm-12">
-       <div class="form-group" >
-         <label>Nom du Fournisseur <span>*</span> :</label>
-       </div>
-     </div> 
-     <div class="col-lg-8 col-md-8 col-sm-12">
-       <div class="form-group" >
-         <input type="text" name="provider" placeholder="Ex : Amazon " >
-       </div>
-     </div> 
-     <div class="col-lg-4 col-md-4 col-sm-12">
-       <div class="form-group " >
-         <label>Site du Fournisseu :</label>
-       </div>
-     </div> 
-     <div class="col-lg-8 col-md-8 col-sm-12">
-       <div class="form-group" >
-         <input type="text" name="provider_web_link" placeholder="Ex : https://www.amazon.fr " >
-       </div>
-     </div>
-     <div class="col-lg-4 col-md-4 col-sm-12">
-       <div class="form-group " >
-         <label> Description de Ia demande <span>*</span> :</label>
-       </div>
-     </div> 
-     <div class="col-lg-8 col-md-8 col-sm-12">
-       <div class="form-group" >
-         <textarea name="description" rows="6" cols="50">Description, quantité, référence, liens.</textarea>
-       </div>
-     </div> 
-     <div class="col-lg-4 col-md-4 col-sm-12">
-       <div class="form-group " >
-         <label>Pieces jointes <span>*</span> :</label>
-       </div>
-     </div> 
-     <div class="col-lg-8 col-md-8 col-sm-12">
-       <div class="form-group" >
-        <ul class="attachment">
-            
-         <li><p><img src="{% static 'image/powerpoint.png' %}"  class="icon_zip"><a href="">Liste des pieces ppt<i class="fa fa-times" aria-hidden="true"></i></a></p>
-           <p> <img src="{% static 'image/doc.svg' %}" class="icon_zip"><a href="">Liste des prix docx <i class="fa fa-times" aria-hidden="true"></i> </a></p>
-         </li>
-       </ul>
-     </div>
-   </div> 
- 
- 
- 
-   <span class="previous action-button-previous"><i class="fa fa-long-arrow-left" aria-hidden="true"></i> Precedent </span>
-   <span class="next action-button">Suivant <i class="fa fa-long-arrow-right" aria-hidden="true"></i></span>
- </fieldset>
- <fieldset>
-   <div class=" foSi">
-     <label> ADRESSE DE LIVRAISON  </label> <br>
-   </div>
-   <div class="col-lg-4 col-md-4 col-sm-12">
-     <div class="form-group " >
-       <label>Chez <span>*</span> :</label>
-     </div>
-   </div> 
-   <div class="col-lg-8 col-md-8 col-sm-12">
-     <div class="form-group" >
-       <input type="text" name="place" placeholder="" >
-     </div>
-   </div> 
-   <div class="col-lg-4 col-md-4 col-sm-12">
-     <div class="form-group " >
-       <label>Adresse <span>*</span> :</label>
-     </div>
-   </div> 
-   <div class="col-lg-8 col-md-8 col-sm-12">
-     <div class="form-group" >
-      <textarea rows="6" name="deliver_address" cols="50">184 rue du lavoir Båtiment 3</textarea>
+          $('#firstnext').trigger("click");
+        }
+      } else {
+        $("#titleerr").css("display", "none")
+        $("#contact_aplicant_mailerr").css("display", "none")
+        $("#contact_aplicant_mailerr1").css("display", "none")
+        $("#lastnameerr").css("display", "none")
+        $("#firstnameerr").css("display", "none")
+        $("#phoneerr1").css("display", "none")
+        $("#enterpriseerr").css("display", "none")
+        $("#mailcopyerr").css("display", "none")
+        $("#mailcopyerr1").css("display", "none")
+
+        $('#firstnext').trigger("click");
+      }
+    } else {
+      if (ticket_title == "") {
+        $("#titleerr").css("display", "block")
+      } else {
+        $("#titleerr").css("display", "none")
+      }
+      if (contact_aplicant_mail == "") {
+        $("#contact_aplicant_mailerr").css("display", "block")
+        $("#contact_aplicant_mailerr1").css("display", "none")
+      } else {
+        if (!contact_aplicant_mail.match('[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,}$')) {
+          $("#contact_aplicant_mailerr").css("display", "none")
+          $("#contact_aplicant_mailerr1").css("display", "block")
+        } else {
+          $("#contact_aplicant_mailerr").css("display", "none")
+          $("#contact_aplicant_mailerr1").css("display", "none")
+        }
+      }
+      if (lastname == "") {
+        $("#lastnameerr").css("display", "block")
+      } else {
+        $("#lastnameerr").css("display", "none")
+      }
+      if (firstname == "") {
+        $("#firstnameerr").css("display", "block")
+      } else {
+        $("#firstnameerr").css("display", "none")
+      }
+      if (phone != "") {
+        if (!phone.match('[0-9]{9}')) {
+          $("#phoneerr1").css("display", "block")
+        } else {
+          $("#phoneerr1").css("display", "none")
+        }
+      }
+      if (enterprise == "") {
+        $("#enterpriseerr").css("display", "block")
+      } else {
+        $("#enterpriseerr").css("display", "none")
+      }
+      if (mailcopy != "") {
+        if (!mailcopy.match('[0-9]{9}')) {
+          $("#mailcopyerr1").css("display", "block")
+        } else {
+          $("#mailcopyerr1").css("display", "none")
+        }
+      }
+    }
+
+  }
+
+  function secondnextfunc() {
+    var provider = $("#provider").val();
+    var provider_web_link = $("#provider_web_link").val();
+    var description = $("#description").val();
+    if (provider != "" && description != "") {
+      if (provider_web_link != "") {
+        if (!provider_web_link.match('https?://.+')) {
+          $("#provider_web_linkerr").css("display", "block")
+        } else {
+          $("#providererr").css("display", "none")
+          $("#provider_web_linkerr").css("display", "none")
+          $("#descriptionerr").css("display", "none")
+
+          $('#secondnext').trigger("click");
+        }
+      } else {
+        $("#providererr").css("display", "none")
+        $("#provider_web_linkerr").css("display", "none")
+        $("#descriptionerr").css("display", "none")
+
+        $('#secondnext').trigger("click");
+      }
+    } else {
+      if (provider == "") {
+        $("#providererr").css("display", "block")
+      } else {
+        $("#providererr").css("display", "none")
+      }
+      if (provider_web_link != "") {
+        if (!provider_web_link.match('https?://.+')) {
+          $("#provider_web_linkerr").css("display", "block")
+        } else {
+          $("#provider_web_linkerr").css("display", "none")
+        }
+      } else {
+        $("#provider_web_linkerr").css("display", "none")
+      }
+      if (description == "") {
+        $("#descriptionerr").css("display", "block")
+      } else {
+        $("#descriptionerr").css("display", "none")
+      }
+    }
+
+  }
+
+  function thirdnextfunc() {
+    var place = $("#place").val();
+    var deliver_address = $("#deliver_address").val();
+    var postal_code = $("#postal_code").val();
+    var city = $("#city").val();
+    var deliver_name = $("#deliver_name").val();
+    var phone_delivery = $("#phone_delivery").val();
+
+    if (place != "" && deliver_address != "" && city != "" && deliver_name != "" && postal_code != "" &&
+      postal_code.match('[0-9]')) {
+      if (phone_delivery != "") {
+        if (!phone_delivery.match('[0-9]')) {
+          $("#phone_deliveryerr").css("display", "block")
+        } else {
+          $("#placeerr").css("display", "none")
+          $("#deliver_addresserrerr").css("display", "none")
+          $("#postal_codeerr").css("display", "none")
+          $("#postal_codeerr1").css("display", "none")
+          $("#cityerr").css("display", "none")
+          $("#deliver_nameerr").css("display", "none")
+          $("#phone_deliveryerr").css("display", "none")
+
+
+          $("#vticket_title").html($("#ticket_title").val())
+          $("#vcontact_aplicant_mail").html($("#contact_aplicant_mail").val())
+          $("#vlastname").html($("#lastname").val())
+          $("#vfirstname").html($("#firstname").val())
+          $("#vphone").html($("#phone").val())
+          $("#venterprise").html($("#enterprise").val())
+          $("#vmailcopy").html($("#mailcopy").val())
+
+          $("#vprovider").html($("#provider").val())
+          $("#vprovider_web_link").html($("#provider_web_link").val())
+          $("#vdescription").html($("#description").val())
+
+          $("#vplace").html($("#place").val())
+          $("#vdeliver_address").html($("#deliver_address").val())
+          $("#vpostal_code").html($("#postal_code").val())
+          $("#vcity").html($("#city").val())
+          $("#vdeliver_name").html($("#deliver_name").val())
+          $("#vphone_delivery").html($("#phone_delivery").val())
+          $("#vdescription_delivery").html($("#description_delivery").val())
+
+          $('#thirdnext').trigger("click");
+        }
+      } else {
+        $("#placeerr").css("display", "none")
+        $("#deliver_addresserrerr").css("display", "none")
+        $("#postal_codeerr").css("display", "none")
+        $("#postal_codeerr1").css("display", "none")
+        $("#cityerr").css("display", "none")
+        $("#deliver_nameerr").css("display", "none")
+        $("#phone_deliveryerr").css("display", "none")
+
+        $("#vticket_title").html($("#ticket_title").val())
+        $("#vcontact_aplicant_mail").html($("#contact_aplicant_mail").val())
+        $("#vlastname").html($("#lastname").val())
+        $("#vfirstname").html($("#firstname").val())
+        $("#vphone").html($("#phone").val())
+        $("#venterprise").html($("#enterprise").val())
+        $("#vmailcopy").html($("#mailcopy").val())
+
+        $("#vprovider").html($("#provider").val())
+        $("#vprovider_web_link").html($("#provider_web_link").val())
+        $("#vdescription").html($("#description").val())
+
+        $("#vplace").html($("#place").val())
+        $("#vdeliver_address").html($("#deliver_address").val())
+        $("#vpostal_code").html($("#postal_code").val())
+        $("#vcity").html($("#city").val())
+        $("#vdeliver_name").html($("#deliver_name").val())
+        $("#vphone_delivery").html($("#phone_delivery").val())
+        $("#vdescription_delivery").html($("#description_delivery").val())
+
+        $('#thirdnext').trigger("click");
+      }
+    } else {
+      if (place == "") {
+        $("#placeerr").css("display", "block")
+      } else {
+        $("#placeerr").css("display", "none")
+      }
+      if (deliver_address == "") {
+        $("#deliver_addresserr").css("display", "block")
+      } else {
+        $("#deliver_addresserr").css("display", "none")
+      }
+      if (city == "") {
+        $("#cityerr").css("display", "block")
+      } else {
+        $("#cityerr").css("display", "none")
+      }
+      if (deliver_name == "") {
+        $("#deliver_nameerr").css("display", "block")
+      } else {
+        $("#deliver_nameerr").css("display", "none")
+      }
+      if (phone_delivery != "") {
+        if (!phone_delivery.match('[0-9]{9}')) {
+          $("#phone_deliveryerr").css("display", "block")
+        } else {
+          $("#phone_deliveryerr").css("display", "none")
+        }
+      } else {
+        $("#phone_deliveryerr").css("display", "none")
+      }
+      if (postal_code != "") {
+        if (!postal_code.match('[0-9]')) {
+          $("#postal_codeerr").css("display", "none")
+          $("#postal_codeerr1").css("display", "block")
+        } else {
+          $("#postal_codeerr").css("display", "none")
+          $("#postal_codeerr1").css("display", "none")
+        }
+      } else {
+        $("#postal_codeerr").css("display", "block")
+        $("#postal_codeerr1").css("display", "none")
+      }
+    }
+
+  } 
+</script>
+
+<div class="css-7zhzs9-ContainerNavigationMask">
+  <div class=" css-jdgyoy-PrimaryItemsList">
+    <div data-testid="GlobalNavigation">
+      <div>
+        <ul class="css-1rawbl">
+
+          <li class="logo_img">
+            <img src="{% static 'image/Open-Order.png' %}">
+          </li>
+          <li>
+            <img src="{% static 'image/Homeblank.svg' %}">
+          </li>
+          <li>
+            <img src="{% static 'image/PlusWhite.png' %}">
+          </li>
+          <li>
+            <img src="{% static 'image/LogoutWhite.svg' %}">
+          </li>
+
+        </ul>
+      </div>
+
+    </div>
+
+    <div class="sidebar-section">
+      <div class="second-sidebar">
+        <h1 class="sidebar-info">Connection tanteque</h1>
+        <p>Mail_utillisateur@societe.com</p>
+
+      </div>
+      <h1 class="sidebar-info si_mgbox"> Merci de renseigner l'ensemble des informations pour que nous puissions
+        répondre au mieux å votre demand.</h1>
+
+
     </div>
   </div>
-  <div class="col-lg-4 col-md-4 col-sm-12">
-   <div class="form-group " >
-     <label>Code Postal <span>*</span> :</label>
-   </div>
- </div> 
- <div class="col-lg-8 col-md-8 col-sm-12">
-   <div class="form-group" >
-     <input type="text" name="postal_code"  placeholder=" Ex : 01600" >
-   </div>
- </div>
- <div class="col-lg-4 col-md-4 col-sm-12">
-   <div class="form-group " >
-     <label>Ville <span>*</span> :</label>
-   </div>
- </div> 
- <div class="col-lg-8 col-md-8 col-sm-12">
-   <div class="form-group" >
-     <input name="city" type="text" placeholder=" Ex : Reyrieux">
-   </div>
- </div>
- <div class=" foSi">
-   <label> CONTACT DE LIVRAISON  </label> <br>
- </div>
- <div class="col-lg-4 col-md-4 col-sm-12">
-   <div class="form-group " >
-     <label>Nom Prénom <span>*</span> :</label>
-   </div>
- </div> 
- <div class="col-lg-8 col-md-8 col-sm-12">
-   <div class="form-group" >
-     <input type="text" name="deliver_name" placeholder=" Gérard MEMVUSSA">
-   </div>
- </div>
- <div class="col-lg-4 col-md-4 col-sm-12">
-   <div class="form-group " >
-     <label>Téléphone :</label>
-   </div>
- </div> 
- <div class="col-lg-8 col-md-8 col-sm-12">
-   <div class="form-group" >
-     <input type="text" name="phone_delivery" placeholder=" Ex : 184 rue du lavoir">
-   </div>
- </div>  
- <div class="col-lg-4 col-md-4 col-sm-12">
-   <div class="form-group " >
-     <label>Complément d'information :</label>
-   </div>
- </div> 
- <div class="col-lg-8 col-md-8 col-sm-12">
-   <div class="form-group" >
-    <textarea name="instruction" rows="6" cols="50">Ex : Numéro de Porte, Code d'accés, Horaire</textarea>
+  <!-- Rightpart-section -->
+  <div class="dashboard-main-section1">
+    <div class="mbldisplay ">
+      <div class="bar1"></div>
+      <div class="bar2"></div>
+      <div class="bar3"></div>
+
+    </div>
+    <form id="msform" action="{% url 'create' %}" method="post" enctype='multipart/form-data'>{% csrf_token %}
+
+      <div class="row row1">
+        <div class="col-md-12 col-md-12  pd_none">
+          <div class="top_box">
+            <img src="{% static 'image/BellBlue.png' %}">
+            <div class="heading_n">
+              <h1>Nouvel Ordre Achat</h1>
+              <h3> Creation d'une nouvelle demande d'acha</h3>
+            </div>
+          </div>
+
+
+        </div>
+        <div class="col-md-12 col-sm-12 pd_none">
+          <!-- progressbar -->
+          <div class="zig-zag-bottom">
+            <ul id="progressbar">
+              <li class="inProgress">Demande</li>
+              <li class=""> Ordre </li>
+              <li>Adresse</li>
+              <li>Confirmation</li>
+            </ul>
+          </div>
+
+
+        </div>
+        <div class="col-lg-11  col-md-12 common_css_f pd_none">
+          <!-- fieldsets -->
+          <fieldset class="row">
+            <div class="col-lg-4 col-md-4 col-sm-12">
+              <div class="form-group ">
+                <label> Titre de l'ordre <span>*</span> :</label>
+              </div>
+            </div>
+            <div class="col-lg-8 col-md-8 col-sm-12">
+              <div class="form-group">
+                <input type="text" id="ticket_title" name="ticket_title" placeholder="Achat matériel informatique ">
+                <span style="display: none;" id="titleerr">Please enter Titre de l'ordre</span>
+              </div>
+            </div>
+            <div class="col-lg-4 col-md-4 col-sm-12">
+              <div class="form-group ">
+                <label> Mail Demandeur <span>*</span> :</label>
+              </div>
+            </div>
+            <div class="col-lg-8 col-md-8 col-sm-12">
+              <div class="form-group">
+                <input type="text" name="contact_aplicant_mail" id="contact_aplicant_mail"
+                  placeholder="Mail_utillisateur@société.com">
+                <span style="display: none;" id="contact_aplicant_mailerr">Please enter Mail Demandeur</span>
+                <span style="display: none;" id="contact_aplicant_mailerr1">Please enter correct Mail Demandeur</span>
+              </div>
+            </div>
+            <div class="col-lg-4 col-md-4 col-sm-12">
+              <div class="form-group ">
+                <label>Nom<span>*</span> :</label>
+              </div>
+            </div>
+            <div class="col-lg-8 col-md-8 col-sm-12">
+              <div class="form-group">
+                <input type="text" name="lastname" id="lastname" placeholder="Gerard">
+                <span style="display: none;" id="lastnameerr">Please enter Nom</span>
+              </div>
+            </div>
+            <div class="col-lg-4 col-md-4 col-sm-12">
+              <div class="form-group ">
+                <label>Prénom <span>*</span> :</label>
+              </div>
+            </div>
+            <div class="col-lg-8 col-md-8 col-sm-12">
+              <div class="form-group">
+                <input type="text" name="firstname" id="firstname" placeholder="MENVUSSA">
+                <span style="display: none;" id="firstnameerr">Please enter Prénom</span>
+              </div>
+            </div>
+            <div class="col-lg-4 col-md-4 col-sm-12">
+              <div class="form-group ">
+                <label>N de telephone :</label>
+              </div>
+            </div>
+            <div class="col-lg-8 col-md-8 col-sm-12">
+              <div class="form-group">
+                <input type="text" name="phone" id="phone" placeholder="">
+                <span style="display: none;" id="phoneerr1">Please enter valid N de telephone</span>
+              </div>
+            </div>
+            <div class="col-lg-4 col-md-4 col-sm-12">
+              <div class="form-group ">
+                <label>Enterprise / Service <span>*</span> :</label>
+              </div>
+            </div>
+            <div class="col-lg-8 col-md-8 col-sm-12">
+              <div class="form-group">
+                <input type="text" name="enterprise" id="enterprise" id="ticket_enterprise_service" placeholder="">
+                <span style="display: none;" id="enterpriseerr">Please enter Enterprise / Service</span>
+              </div>
+            </div>
+            <div class="col-lg-4 col-md-4 col-sm-12">
+              <div class="form-group ">
+                <label>Mail personne en copie :</label>
+              </div>
+            </div>
+            <div class="col-lg-8 col-md-8 col-sm-12">
+              <div class="form-group">
+                <input type="text" name="mailcopy" id="mailcopy" placeholder="">
+                <span style="display: none;" id="mailcopyerr1">Please enter valid Mail personne en copie</span>
+              </div>
+            </div>
+
+            <span class="action-button" onclick="firstnextfunc()">Suivant <i class="fa fa-long-arrow-right"
+                aria-hidden="true"></i></span>
+            <span id="firstnext" style="display: none;" class="next action-button">Suivant <i
+                class="fa fa-long-arrow-right" aria-hidden="true"></i></span>
+
+          </fieldset>
+          <fieldset>
+            <div class="col-lg-4 col-md-4 col-sm-12">
+              <div class="form-group">
+                <label>Nom du Fournisseur <span>*</span> :</label>
+              </div>
+            </div>
+            <div class="col-lg-8 col-md-8 col-sm-12">
+              <div class="form-group">
+                <input type="text" id="provider" name="provider" placeholder="Ex : Amazon ">
+                <span style="display: none;" id="providererr">Please enter Nom du Fournisseur</span>
+              </div>
+            </div>
+            <div class="col-lg-4 col-md-4 col-sm-12">
+              <div class="form-group ">
+                <label>Site du Fournisseu :</label>
+              </div>
+            </div>
+            <div class="col-lg-8 col-md-8 col-sm-12">
+              <div class="form-group">
+                <input type="text" id="provider_web_link" name="provider_web_link"
+                  placeholder="Ex : https://www.amazon.fr ">
+                <span style="display: none;" id="provider_web_linkerr">Please enter valid Site du Fournisseu</span>
+              </div>
+            </div>
+            <div class="col-lg-4 col-md-4 col-sm-12">
+              <div class="form-group ">
+                <label> Description de Ia demande <span>*</span> :</label>
+              </div>
+            </div>
+            <div class="col-lg-8 col-md-8 col-sm-12">
+              <div class="form-group">
+                <textarea name="description" id="description" rows="6" cols="50"></textarea>
+                <span style="display: none;" id="descriptionerr">Please enter Description de Ia demande</span>
+              </div>
+            </div>
+            <div class="col-lg-4 col-md-4 col-sm-12">
+              <div class="form-group ">
+                <label>Pieces jointes :</label>
+              </div>
+            </div>
+            <div class="col-lg-8 col-md-8 col-sm-12">
+              <div class="form-group">
+                <input type="file" id="attachment" name="attachment">
+              </div>
+            </div>
+            <!-- <div class="col-lg-8 col-md-8 col-sm-12">
+              <div class="form-group">
+                <ul class="attachment">
+                  <li>
+                    <p><img src="{% static 'image/powerpoint.png' %}" class="icon_zip"><a href="">Liste des pieces ppt<i
+                          class="fa fa-times" aria-hidden="true"></i></a></p>
+                    <p><img src="{% static 'image/doc.svg' %}" class="icon_zip"><a href="">Liste des prix docx <i
+                          class="fa fa-times" aria-hidden="true"></i> </a></p>
+                  </li>
+                </ul>
+              </div>
+            </div> -->
+            <span class="previous action-button-previous"><i class="fa fa-long-arrow-left" aria-hidden="true"></i>
+              Precedent </span>
+            <span class="action-button" onclick="secondnextfunc()">Suivant <i class="fa fa-long-arrow-right"
+                aria-hidden="true"></i></span>
+            <span id="secondnext" style="display: none;" class="next action-button">Suivant <i
+                class="fa fa-long-arrow-right" aria-hidden="true"></i></span>
+          </fieldset>
+          <fieldset>
+            <div class=" foSi">
+              <label> ADRESSE DE LIVRAISON </label> <br>
+            </div>
+            <div class="col-lg-4 col-md-4 col-sm-12">
+              <div class="form-group ">
+                <label>Chez <span>*</span> :</label>
+              </div>
+            </div>
+            <div class="col-lg-8 col-md-8 col-sm-12">
+              <div class="form-group">
+                <input type="text" name="place" id="place" placeholder="">
+                <span style="display: none;" id="placeerr">Please enter Chez</span>
+              </div>
+            </div>
+            <div class="col-lg-4 col-md-4 col-sm-12">
+              <div class="form-group ">
+                <label>Adresse <span>*</span> :</label>
+              </div>
+            </div>
+            <div class="col-lg-8 col-md-8 col-sm-12">
+              <div class="form-group">
+                <textarea rows="6" name="deliver_address" id="deliver_address" cols="50"></textarea>
+                <span style="display: none;" id="deliver_addresserr">Please enter Adresse</span>
+              </div>
+            </div>
+            <div class="col-lg-4 col-md-4 col-sm-12">
+              <div class="form-group ">
+                <label>Code Postal <span>*</span> :</label>
+              </div>
+            </div>
+            <div class="col-lg-8 col-md-8 col-sm-12">
+              <div class="form-group">
+                <input type="text" name="postal_code" id="postal_code" placeholder=" Ex : 01600">
+                <span style="display: none;" id="postal_codeerr">Please enter Code Postal</span>
+                <span style="display: none;" id="postal_codeerr1">Please enter valid Code Postal</span>
+              </div>
+            </div>
+            <div class="col-lg-4 col-md-4 col-sm-12">
+              <div class="form-group ">
+                <label>Ville <span>*</span> :</label>
+              </div>
+            </div>
+            <div class="col-lg-8 col-md-8 col-sm-12">
+              <div class="form-group">
+                <input name="city" id="city" type="text" placeholder=" Ex : Reyrieux">
+                <span style="display: none;" id="cityerr">Please enter Ville</span>
+              </div>
+            </div>
+            <div class=" foSi">
+              <label> CONTACT DE LIVRAISON </label> <br>
+            </div>
+            <div class="col-lg-4 col-md-4 col-sm-12">
+              <div class="form-group ">
+                <label>Nom Prénom <span>*</span> :</label>
+              </div>
+            </div>
+            <div class="col-lg-8 col-md-8 col-sm-12">
+              <div class="form-group">
+                <input type="text" name="deliver_name" id="deliver_name" placeholder=" Gérard MEMVUSSA">
+                <span style="display: none;" id="deliver_nameerr">Please enter Nom Prénom</span>
+              </div>
+            </div>
+            <div class="col-lg-4 col-md-4 col-sm-12">
+              <div class="form-group ">
+                <label>Téléphone :</label>
+              </div>
+            </div>
+            <div class="col-lg-8 col-md-8 col-sm-12">
+              <div class="form-group">
+                <input type="text" name="phone_delivery" id="phone_delivery" placeholder=" Ex : 184 rue du lavoir">
+                <span style="display: none;" id="phone_deliveryerr">Please enter valid Téléphone</span>
+              </div>
+            </div>
+            <div class="col-lg-4 col-md-4 col-sm-12">
+              <div class="form-group ">
+                <label>Complément d'information :</label>
+              </div>
+            </div>
+            <div class="col-lg-8 col-md-8 col-sm-12">
+              <div class="form-group">
+                <textarea name="instruction" id="description_delivery" rows="6" cols="50"></textarea>
+              </div>
+            </div>
+
+            <span class="previous action-button-previous"><i class="fa fa-long-arrow-left" aria-hidden="true"></i>
+              Precedent </span>
+            <span id="thirdnext" style="display: none;" class="next action-button">Suivant <i
+                class="fa fa-long-arrow-right" aria-hidden="true"></i></span>
+            <span onclick="thirdnextfunc()" class="action-button">Suivant <i class="fa fa-long-arrow-right"
+                aria-hidden="true"></i></span>
+          </fieldset>
+          <fieldset>
+            <h2 class="fs-title">Resume</h2>
+            <h3 class="fs-subtitle" id="vticket_title"></h3>
+            <ul class="details_view col-md-offset-3 col-md-9 col-sm-12">
+              <li>
+                <p id="vlastname"></p>
+                <p id="vfirstname"></p>
+                <p id="vphone"></p>
+                <p id="venterprise"></p>
+                <p id="vcontact_aplicant_mail"></p>
+                <p id="vmailcopy"></p>
+              </li>
+              <li>
+                <p id="vplace"></p>
+                <p id="vdeliver_address"></p>
+                <p id="vpostal_code"></p>
+                <p id="vcity"></p>
+              </li>
+            </ul>
+            <ul class="details_view col-md-offset-3 col-md-9 col-sm-12">
+              <li>
+                <p id="vprovider"><p id="vprovider_web_link"></p></p>
+                <p id="vdescription"></p>
+              </li>
+              <li>
+                <p id="vdeliver_name"></p>
+                <p id="vphone_delivery"></p>
+                <p id="vdescription_delivery"></p>
+              </li>
+            </ul>
+            <ul class="attachment details_view col-md-offset-3 col-md-9 col-sm-12">
+              <li>
+                <p> <img src="{% static 'image/powerpoint.png' %}" class="icon_zip"><a href="">Liste des pieces ppt<i
+                      class="fa fa-times" aria-hidden="true"></i></a></p>
+                <p> <img src="{% static 'image/doc.svg' %}" class="icon_zip"><a href="">Liste des prix docx <i
+                      class="fa fa-times" aria-hidden="true"></i> </a></p>
+              </li>
+            </ul>
+
+            <span class="previous action-button-previous"><i class="fa fa-long-arrow-left" aria-hidden="true"></i>
+              Precedent </span>
+            <!-- <span class="next action-button" >Valider <i class="fa fa-check" aria-hidden="true"></i></span> -->
+            <input class="next action-button" type="submit" name="Valider" value="Valider">
+          </fieldset>
+          <fieldset>
+            <div class="col-lg-11 col-md-12 col-sm-12">
+              <h2 class="fs-title">Merci. Votre ordre achat å bien été envoyée.</h2>
+
+              <div class="o_blog">
+                <h2 class="fs-title"> II porte Ie numéro :</h2>
+                <div class="orderBox">
+                  <h1>Order-234 <span class="u_name">Achat fourniture</span></h1>
+                  <h1>Statuts :<span> Order Place</span></h1>
+                </div>
+              </div>
+              <div class="o_btn_box">
+                <button class="bck_btn"> <img src="{% static 'image/PlusWhite.png' %}"> Créer un nouvel ordre
+                  d'achat</button>
+                <button class="su_btn"> Retourner a l' Accueil <img src="{% static 'image/Homeblank.svg' %}"></button>
+              </div>
+
+              <!-- case 2 -->
+              <hr>
+              <div class="o_blog">
+                <h2 class="fs-title"><span><img src="{% static 'image/error.png' %}"></span><span> Une erreur s'est
+                    produite </span></h2>
+                <div class="orderBox">
+                  <h1><span><img src="{% static 'image/msg.svg' %}" class="errorIm"></span><span> Merci de contacter
+                      l'équipe Open Order en cliquant </span> <a href="">ici</a></h1>
+                </div>
+              </div>
+              <div class="o_btn_box">
+                <button class="bck_btn"><img src="{% static 'image/PlusWhite.png' %}"> Créer un nouvel ordre
+                  d'achat</button>
+                <button class="su_btn">Retourner a l' Accueil <img src="{% static 'image/Homeblank.svg' %}"></button>
+              </div>
+            </div>
+
+
+
+          </fieldset>
+        </div>
+
+        <!-- /.MultiStep Form -->
+
+
+      </div>
+    </form>
   </div>
- </div>
- 
-<span class="previous action-button-previous"><i class="fa fa-long-arrow-left" aria-hidden="true"></i> Precedent </span>
-<span class="next action-button">Suivant <i class="fa fa-long-arrow-right" aria-hidden="true"></i></span>
- </fieldset>
- <fieldset>
-   <h2 class="fs-title">Resume</h2>
-   <h3 class="fs-subtitle">Achat fourniture </h3>
-   <ul class="details_view col-md-offset-3 col-md-9 col-sm-12">
-     <li><p>Gérard</p> <p>MENVUSSA</p> <p>06 67 78 89</p>
-       <p>Travaux </p> <p>Mail utillisateur@société.com</p> <p>Mail _copie@société.com</p></li>
-       <li><p>Open ORDER</p> <p>184 rue du lavoir Båtiment 3</p> <p>01600</p><p>Reyrieux</p> </li>
-     </ul>
-     <ul class="details_view col-md-offset-3 col-md-9 col-sm-12">
-       <li> <p>Amazon<p></p>https://www.amazon.fr</p>  <p>Description, quantité, référence, liens.</p></li>
-       <li><p>Gérard MEMVUSSA</p><p>06 67 78 89</p><p>  Numéro de Porte, Code d'accés, Horaire.</p></li>
-     </ul> 
-     <ul class="attachment details_view col-md-offset-3 col-md-9 col-sm-12">
-       <li><p> <img src="{% static 'image/powerpoint.png' %}" class="icon_zip"><a href="">Liste des pieces ppt<i class="fa fa-times" aria-hidden="true"></i></a></p>
-         <p> <img src="{% static 'image/doc.svg' %}" class="icon_zip"><a href="">Liste des prix docx <i class="fa fa-times" aria-hidden="true"></i> </a></p>
-       </li>
-     </ul>
- 
-     <span class="previous action-button-previous"><i class="fa fa-long-arrow-left" aria-hidden="true"></i> Precedent </span>
-     <!-- <span class="next action-button" >Valider <i class="fa fa-check" aria-hidden="true"></i></span> -->
-      <input class="next action-button" type="submit" name="Valider" value="Valider">
- </fieldset>
- <fieldset> <div class="col-lg-11 col-md-12 col-sm-12">
-   <h2 class="fs-title">Merci. Votre ordre achat å bien été envoyée.</h2>
- 
-   <div class="o_blog"> 
-     <h2 class="fs-title"> II porte Ie numéro  :</h2>
-     <div class="orderBox">
-       <h1>Order-234 <span class="u_name">Achat fourniture</span></h1>   
-       <h1>Statuts :<span> Order Place</span></h1>
-     </div>
-   </div>
-   <div class="o_btn_box">
-     <button class="bck_btn"> <img src="{% static 'image/PlusWhite.png' %}" > Créer un nouvel ordre d'achat</button>
-     <button class="su_btn"> Retourner a l' Accueil <img src="{% static 'image/Homeblank.svg' %}" ></button>
-   </div>
- 
-   <!-- case 2 -->
-   <hr>
-   <div class="o_blog"> 
-     <h2 class="fs-title"><span><img src="{% static 'image/error.png' %}"></span><span> Une erreur s'est produite </span></h2>
-     <div class="orderBox"> 
-       <h1><span><img src="{% static 'image/msg.svg' %}" class="errorIm"></span><span> Merci de contacter l'équipe Open Order en cliquant </span> <a href="">ici</a></h1>
-     </div>
-   </div>
-   <div class="o_btn_box">
-     <button class="bck_btn"><img src="{% static 'image/PlusWhite.png' %}"> Créer un nouvel ordre d'achat</button>
-     <button class="su_btn">Retourner a l' Accueil <img src="{% static 'image/Homeblank.svg' %}"></button>
-   </div>
- </div>
- 
- 
-    
- </fieldset>
- </div>
- 
- <!-- /.MultiStep Form -->
- 
- 
- </div>
- </form>
- </div>
- 
- 
- </div>
 
- {% include 'partials/_footer-scripts.html'%}
 
- {% endblock %}
+</div>
+
+{% include 'partials/_footer-scripts.html'%}
+
+{% endblock %}
