@@ -24,6 +24,7 @@
     $.get('add_comment/' + value, function (data) {
     });
     value=""
+    window.location.reload()
   }
   </script>
 
@@ -37,7 +38,7 @@
              <img src="{% static 'image/Open-Order.png' %}">
            </li>
            <li>
-             <a href=" "> <img src="{% static 'image/Homeblank.svg'%}"></a>
+             <a href=""> <img src="{% static 'image/Homeblank.svg'%}"></a>
            </li>
            <li>
             <img src="{% static 'image/PlusWhite.png' %}">
@@ -63,27 +64,35 @@
         <p class="sideh">	 Derniers commentaires sur cet ordre achat :</p>
 
         </div>
+        {% for comment in comments %}
+          <div class="about-orders">
 
-        <div class="about-orders">
-          <h1>[Date comrnentaire] </h1>
-          <p>[Texte commentaire JIRA 5]</p>
+          <h1>[{{comment.body}}] </h1>
+          <p>[{{comment.created}}]</p>
         </div>
-        <div class="about-orders">
-          <h1>[Date comrnentaire] </h1>
-          <p>[Texte commentaire JIRA 4]</p>
-        </div>
-        <div class="about-orders">
-          <h1>[Date comrnentaire] </h1>
-          <p>[Texte commentaire JIRA 3]</p>
-        </div>
-        <div class="about-orders">
-          <h1>[Date comrnentaire] </h1>
-          <p>[Texte commentaire JIRA 2]</p>
-        </div>
-        <div class="about-orders">
-          <h1>[Date comrnentaire] </h1>
-          <p>[Texte commentaire JIRA 1]</p>
-        </div>
+        {% endfor %}
+
+<!--        <div class="about-orders">-->
+
+<!--          <h1>[Date comrnentaire] </h1>-->
+<!--          <p>[Texte commentaire JIRA 5]</p>-->
+<!--        </div>-->
+<!--        <div class="about-orders">-->
+<!--          <h1>[Date comrnentaire] </h1>-->
+<!--          <p>[Texte commentaire JIRA 4]</p>-->
+<!--        </div>-->
+<!--        <div class="about-orders">-->
+<!--          <h1>[Date comrnentaire] </h1>-->
+<!--          <p>[Texte commentaire JIRA 3]</p>-->
+<!--        </div>-->
+<!--        <div class="about-orders">-->
+<!--          <h1>[Date comrnentaire] </h1>-->
+<!--          <p>[Texte commentaire JIRA 2]</p>-->
+<!--        </div>-->
+<!--        <div class="about-orders">-->
+<!--          <h1>[Date comrnentaire] </h1>-->
+<!--          <p>[Texte commentaire JIRA 1]</p>-->
+<!--        </div>-->
        </div>
 </div>
 <!-- Rightpart-section -->
@@ -152,8 +161,8 @@
 
 
         	<p>
-                Date de Ia demande :<span>{{details.fields.created}} xx/xx/xxxx </span></p>
-        	<p>Date actualisation :<span> {{details.fields.updated}} xx/xx/xxxx </span></p>
+                Date de Ia demande :<span>{{details.fields.created}}  </span></p>
+        	<p>Date actualisation :<span> {{details.fields.updated}}  </span></p>
         	<br>
         	<p>Ref Offre <span> [DEVIS REF]</span></p>
         	<p>Montant HI <span> X XXX,XXC HT</span></p>
@@ -251,8 +260,12 @@
 
 </div>
 
+<!--<h1>comments</h1>-->
+<!--{% for comment in comments %}-->
+<!--{{comment.body}}-->
+<!--{{comment.created}}-->
+<!--{% endfor %}-->
 
-<h1>Remove this</h1>
-{{details}}
-
+<!--<h1>Remove this</h1>-->
+<!--{{details}}-->
 {% endblock %}

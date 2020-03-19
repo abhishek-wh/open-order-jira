@@ -114,9 +114,12 @@ def getTicketByUsername(user_id):
     jira=JIRA(options=jira_options,basic_auth=('contact@wowdesigns.fr','guPJmBOx3nVhEWMFogxRAB84'))  
     issues=jira.search_issues("project='ORDER' and reporter='"+user_id+"'")
     return issues
-
+a=""
 def getTicketBykey(request,value):
-    add_comment("","")
+    global a
+    a=value
+    comments=add_comment("","")
+    print("aaaa",comments)
     print("issue_key-----",value)
     jira_options={'server': 'https://nrc.atlassian.net/'}
     jira=JIRA(options=jira_options,basic_auth=('contact@wowdesigns.fr','guPJmBOx3nVhEWMFogxRAB84'))
@@ -127,33 +130,45 @@ def getTicketBykey(request,value):
         # print("aqpppppp",i.raw)
         issues_detail=i.raw['fields']['status']['statusCategory']['name']
         # print("issues_detaillll",issues_detail)
-    context = {'issues_detail': issues_detail,'order_number':value,'details':i.raw}
+    context = {'issues_detail': issues_detail,'order_number':value,'details':i.raw,'comments':comments}
     return render(request, 'pages/detail.html',context)
 
+
+
+
 def add_comment(request,value):
+    global a
+    print("gfd",a)
+
     if len(value)!=0:
         print("value---start",value)
         jira_options = {'server': 'https://nrc.atlassian.net/'}
         jira = JIRA(options=jira_options, basic_auth=('contact@wowdesigns.fr', 'guPJmBOx3nVhEWMFogxRAB84'))
-
-        comments = jira.comments("ORDER-129")
+        comments = jira.comments(a)
         print("cc--", comments)
         for comment in comments:
             print("comments---", comment.raw)
-        comment = jira.add_comment("ORDER-129", value)
+        comment = jira.add_comment(a, value)
         # jira = JIRA(options=jira_options, basic_auth=('contact@wowdesigns.fr', 'guPJmBOx3nVhEWMFogxRAB84'))
         # comment = jira.add_comment("ORDER-129", value)
+
+        comments = jira.comments(a)
+        # print("cc--", comments)
+        for comment in comments:
+            print("comme!!", comment.raw['body'])
     else:
-        print("else")
+        print("else==")
         jira_options = {'server': 'https://nrc.atlassian.net/'}
         jira = JIRA(options=jira_options, basic_auth=('contact@wowdesigns.fr', 'guPJmBOx3nVhEWMFogxRAB84'))
 
-        comments = jira.comments("ORDER-129")
-        print("cc--", comments)
+        comments = jira.comments(a)
+        # print("cc--", comments)
+        recent_comment=[]
         for comment in comments:
-            print("commen====", comment.raw)
+            recent_comment.append(comment)
+            # print("comme!!", comment.raw['body'])
     # return render(request, 'pages/detail.html',{})
-    return "success"
+    return comments
 
 
 # def createTicketByUsername(request,ticket_title,issue_description):
