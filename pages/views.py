@@ -28,17 +28,19 @@ def index(request):
         if (is_user == False):
             is_jira_connect = settings.objects.filter(is_jira_app_connected=False).exists()
             if (is_jira_connect):
-                jira_api = getUser(username)      
-                if (jira_api['status_code'] == 200):
-                    record1 = logged_in_user.objects.all()
-                    record = logged_in_user.objects.all().exists()
-                    if (record == True):
-                        request.session['username'] = username
-                    else:
-                        logged_in_user(user_email=username).save()
-                    return redirect('pages/dashboard')
-                else:
-                    msg = "Cet utilisateur n'est pas en jira"
+                request.session['username'] = username
+                return redirect('pages/dashboard')
+                # jira_api = getUser(username)      
+                # if (jira_api['status_code'] == 200):
+                #     record1 = logged_in_user.objects.all()
+                #     record = logged_in_user.objects.all().exists()
+                #     if (record == True):
+                #         request.session['username'] = username
+                #     else:
+                #         logged_in_user(user_email=username).save()
+                #     return redirect('pages/dashboard')
+                # else:
+                #     msg = "Cet utilisateur n'est pas en jira"
             else:
                 msg = "Pas connecté"
         else:
@@ -114,10 +116,11 @@ def dashboard(request):
 
 
 
-def getTicketByUsername(user_id):
+def getTicketByUsername(email_id):
     jira_options={'server': 'https://nrc.atlassian.net/'}
     jira=JIRA(options=jira_options,basic_auth=('contact@wowdesigns.fr','guPJmBOx3nVhEWMFogxRAB84'))  
-    issues=jira.search_issues("project='ORDER' and reporter='"+user_id+"'")
+    # issues=jira.search_issues("project='ORDER' and reporter='"+user_id+"'")
+    issues = jira.search_issues(" cf[10039]= '"+email_id+"' ")
     return issues
 
 def getTicketBykey(request,value):
@@ -245,27 +248,20 @@ def logout(request):
     return render(request, 'pages/index.html', context)
 
 
-def create_ticket(request):   
-    return render(request,'pages/createticket.html')
-
-def add_attachments(issue_key, doc_file):
-    jira_options={'server': 'https://nrc.atlassian.net/'}
-    jira=JIRA(options=jira_options,basic_auth=('contact@wowdesigns.fr','guPJmBOx3nVhEWMFogxRAB84'))
-    result=""
-    with open('/home/user/Desktop/abhishek joshi/projects/open system/OpenSys/OpenSys'+doc_file, 'rb') as f:
-        result=jira.add_attachment(issue=issue_key, attachment=f)
-    return result
-
-def create(request):
+def create_ticket(request):      
     if request.method == 'POST':
+        sdata = settings.objects.all()
+        project_id=sdata[0].jira_project_id
         jira_options = {'server': 'https://nrc.atlassian.net/'}
         jira = JIRA(options=jira_options, basic_auth=('contact@wowdesigns.fr', 'guPJmBOx3nVhEWMFogxRAB84'))
-        myfile1 = request.FILES['attachment']
-        fs = FileSystemStorage(location=setting.MEDIA_ROOT) #defaults to   MEDIA_ROOT  
-        filename = fs.save(myfile1.name, myfile1)
-        file_url = fs.url(filename)
-        print("myfileeeeeeeeeeeeeeeeeeeeeeeeeeeee",file_url)        
-        new_issue = jira.create_issue(project='ORDER',
+        
+        # myfile1 = request.FILES['attachment']
+        # fs = FileSystemStorage(location=setting.MEDIA_ROOT) #defaults to MEDIA_ROOT  
+        # filename = fs.save(myfile1.name, myfile1)
+        # file_url = fs.url(filename)
+        # print("file_url===================",file_url)     
+
+        new_issue = jira.create_issue(project=project_id,
         summary=request.POST.get('ticket_title',""),
         description=request.POST.get('description',""),
         issuetype={"name": "Commande"},
@@ -285,7 +281,23 @@ def create(request):
         customfield_10054=request.POST.get('phone_delivery',""),
         customfield_10076=request.POST.get('instruction',""))
 
-        print("new_issueeeeeeeeeeeeeeeeeeeeeeeeee",new_issue)
-        res=add_attachments(new_issue,file_url)
+        print("new_issue== ",new_issue)
+        
+        # res=add_attachments(str(new_issue),file_url)
+        
+        res=str(new_issue)
+        return HttpResponse(res)
+    else:
+        return render(request,'pages/createticket.html')
 
-    return HttpResponse('Success')
+def add_attachments(issue_key, doc_file):
+    jira_options={'server': 'https://nrc.atlassian.net/'}
+    jira=JIRA(options=jira_options,basic_auth=('contact@wowdesigns.fr','guPJmBOx3nVhEWMFogxRAB84'))
+    result=""
+    with open('/home/user/Desktop/abhishek joshi/projects/open system/OpenSys/OpenSys/'+doc_file, 'rb') as f:
+        result=jira.add_attachment(issue=issue_key, attachment=f)
+    return result
+
+def create(request):    
+    
+    return render(request,'pages/createticket.html')

@@ -23,8 +23,7 @@
     var mailcopy = $("#mailcopy").val();
     if (ticket_title != "" && contact_aplicant_mail != "" &&
       contact_aplicant_mail.match('[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,}$') &&
-      lastname != "" && firstname != "" && enterprise != "" && mailcopy != "" &&
-      mailcopy.match('[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,}$')) {
+      lastname != "" && firstname != "" && enterprise != "" ) {
       if (phone != "") {
         if (!phone.match('[0-9]{10}')) {
           $("#phoneerr1").css("display", "block")
@@ -95,7 +94,7 @@
         $("#enterpriseerr").css("display", "none")
       }
       if (mailcopy != "") {
-        if (!mailcopy.match('[0-9]{9}')) {
+        if (!mailcopy.match('[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,}$')) {
           $("#mailcopyerr1").css("display", "block")
         } else {
           $("#mailcopyerr1").css("display", "none")
@@ -271,7 +270,36 @@
       }
     }
 
-  } 
+  }
+
+  function formSubmit() {
+    debugger;
+    event.preventDefault();
+    var friendForm = $("#msform");
+    var posting = $.post(friendForm.attr('action'), friendForm.serialize());
+    posting.done(function (data) {
+      alert(data)
+      $("#order_id").html(data)
+      $("#faileddiv").css("display","none")
+      $("#successdiv").css("display","block")
+    });
+    posting.fail(function (data) {
+      $("#order_id").html('')
+      $("#faileddiv").css("display","block")
+      $("#successdiv").css("display","none")
+    });
+  }
+
+  function goback(){
+    $.get('create', function (data) {
+    });
+  }
+
+  function logout() {
+    window.location.replace("/pages/logout")
+  }
+
+  
 </script>
 
 <div class="css-7zhzs9-ContainerNavigationMask">
@@ -283,14 +311,15 @@
           <li class="logo_img">
             <img src="{% static 'image/Open-Order.png' %}">
           </li>
+          <a href="dashboard">
           <li>
             <img src="{% static 'image/Homeblank.svg' %}">
-          </li>
-          <li>
+          </li></a>
+          <!-- <li>
             <img src="{% static 'image/PlusWhite.png' %}">
-          </li>
+          </li> -->
           <li>
-            <img src="{% static 'image/LogoutWhite.svg' %}">
+           <span onclick="logout()"> <img src="{% static 'image/LogoutWhite.svg' %}"></span>
           </li>
 
         </ul>
@@ -318,7 +347,7 @@
       <div class="bar3"></div>
 
     </div>
-    <form id="msform" action="{% url 'create' %}" method="post" enctype='multipart/form-data'>{% csrf_token %}
+    <form id="msform" action="{% url 'create_ticket' %}" method="post" enctype='multipart/form-data'>{% csrf_token %}
 
       <div class="row row1">
         <div class="col-md-12 col-md-12  pd_none">
@@ -611,7 +640,9 @@
             </ul>
             <ul class="details_view col-md-offset-3 col-md-9 col-sm-12">
               <li>
-                <p id="vprovider"><p id="vprovider_web_link"></p></p>
+                <p id="vprovider">
+                  <p id="vprovider_web_link"></p>
+                </p>
                 <p id="vdescription"></p>
               </li>
               <li>
@@ -632,39 +663,45 @@
             <span class="previous action-button-previous"><i class="fa fa-long-arrow-left" aria-hidden="true"></i>
               Precedent </span>
             <!-- <span class="next action-button" >Valider <i class="fa fa-check" aria-hidden="true"></i></span> -->
-            <input class="next action-button" type="submit" name="Valider" value="Valider">
+            <!-- <input class="next action-button" type="button" onclick="formSubmit()" name="Valider" value="Valider"> -->
+         
+ <span class="next action-button"><input class="lastvalider" type="button" onclick="formSubmit()" name="Valider" value="Valider"><i class="fa fa-check" aria-hidden="true"></i></span>
           </fieldset>
           <fieldset>
             <div class="col-lg-11 col-md-12 col-sm-12">
-              <h2 class="fs-title">Merci. Votre ordre achat å bien été envoyée.</h2>
 
-              <div class="o_blog">
-                <h2 class="fs-title"> II porte Ie numéro :</h2>
-                <div class="orderBox">
-                  <h1>Order-234 <span class="u_name">Achat fourniture</span></h1>
-                  <h1>Statuts :<span> Order Place</span></h1>
+              <div style="display: none;" id="successdiv">
+                <h2 class="fs-title">Merci. Votre ordre achat å bien été envoyée.</h2>
+                <div class="o_blog">
+                  <h2 class="fs-title"> II porte Ie numéro :</h2>
+                  <div class="orderBox">
+                    <h1><span id="order_id"></span> <span class="u_name">Achat fourniture</span></h1>
+                    <h1>Statuts :<span> Order Place</span></h1>
+                  </div>
                 </div>
-              </div>
-              <div class="o_btn_box">
-                <button class="bck_btn"> <img src="{% static 'image/PlusWhite.png' %}"> Créer un nouvel ordre
-                  d'achat</button>
-                <button class="su_btn"> Retourner a l' Accueil <img src="{% static 'image/Homeblank.svg' %}"></button>
+                <div class="o_btn_box">
+                  <button onclick="goback()" class="bck_btn"> <img src="{% static 'image/PlusWhite.png' %}"> Créer un nouvel ordre
+                    d'achat</button>
+                    <a href="dashboard.html"><button class="su_btn"> Retourner a l' Accueil <img src="{% static 'image/Homeblank.svg' %}"></button></a>
+                </div>
               </div>
 
               <!-- case 2 -->
-              <hr>
-              <div class="o_blog">
-                <h2 class="fs-title"><span><img src="{% static 'image/error.png' %}"></span><span> Une erreur s'est
-                    produite </span></h2>
-                <div class="orderBox">
-                  <h1><span><img src="{% static 'image/msg.svg' %}" class="errorIm"></span><span> Merci de contacter
-                      l'équipe Open Order en cliquant </span> <a href="">ici</a></h1>
+              <!-- <hr> -->
+              <div style="display: none;" id="faileddiv">
+                <div class="o_blog">
+                  <h2 class="fs-title"><span><img src="{% static 'image/error.png' %}"></span><span> Une erreur s'est
+                      produite </span></h2>
+                  <div class="orderBox">
+                    <h1><span><img src="{% static 'image/msg.svg' %}" class="errorIm"></span><span> Merci de contacter
+                        l'équipe Open Order en cliquant </span> <a href="">ici</a></h1>
+                  </div>
                 </div>
-              </div>
-              <div class="o_btn_box">
-                <button class="bck_btn"><img src="{% static 'image/PlusWhite.png' %}"> Créer un nouvel ordre
-                  d'achat</button>
-                <button class="su_btn">Retourner a l' Accueil <img src="{% static 'image/Homeblank.svg' %}"></button>
+                <div class="o_btn_box">
+                  <button  onclick="goback()" class="bck_btn"><img src="{% static 'image/PlusWhite.png' %}"> Créer un nouvel ordre
+                    d'achat</button>
+                    <a href="dashboard.html"><button class="su_btn">Retourner a l' Accueil <img src="{% static 'image/Homeblank.svg' %}"></button></a>
+                </div>
               </div>
             </div>
 
