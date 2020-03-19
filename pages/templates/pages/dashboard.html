@@ -84,6 +84,10 @@ window.onload =function (){
         Connection tanteque</h1>
         <p>{{user_email}}</p>
         </div>
+          <span class="hoverRighticon1">
+       <i class="fa fa-angle-left firstic1" aria-hidden="true" style="display: none;"></i>
+       <i class="fa fa-angle-right secIcon1" aria-hidden="true" style="display: block;"></i>
+     </span>
 
         <div class="about-orders">
           <h1>Les Derniers Orders</h1>
@@ -180,7 +184,8 @@ window.onload =function (){
       {% for i in page_obj %}
         <tr>
           <td><!-- {{ forloop.counter}} --><img src="{% static 'image/add.png'%} " class="tab_icon"></td> 
-          <td>{{i.issue_id}}</td>
+<!--          <td>{{i.issue_id}}</td>-->
+          <td><a href="detail/{{i.key}}">{{i.issue_id}}</a></td>
           <td>{{i.key}}</td>
           <td>{{i.issue_type}}</td>
           <td>{{i.project}}</td>

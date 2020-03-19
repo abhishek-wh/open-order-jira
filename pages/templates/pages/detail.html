@@ -1,0 +1,258 @@
+{% load static %}
+{% block content %}
+{% include '_head.html'%}
+{% include 'partials/_footer-scripts.html'%}
+{{ issue_detail }}
+<!-- MultiStep Form -->
+<script>
+<!--function find() {-->
+<!--    var value;-->
+<!--  debugger-->
+<!--    value=$('#search_txt').val()-->
+<!--    window.location.replace("add_comment/"+value)-->
+<!--    alert(value)-->
+<!--    $.get('dashboard/' + value, function (data) {-->
+<!--      debugger-->
+<!--      window.location.replace("abc"+value)-->
+<!--    });-->
+<!--  }-->
+<!--add comment-->
+  function find() {
+    var value;
+    value=$('#search_txt').val()
+    alert(value)
+    $.get('add_comment/' + value, function (data) {
+    });
+    value=""
+  }
+  </script>
+
+ <div class="css-7zhzs9-ContainerNavigationMask">
+   <div class=" css-jdgyoy-PrimaryItemsList"> <div data-testid="GlobalNavigation">
+       <div>
+         <ul class="css-1rawbl">
+
+           <li class="logo_img">
+
+             <img src="{% static 'image/Open-Order.png' %}">
+           </li>
+           <li>
+             <a href=" "> <img src="{% static 'image/Homeblank.svg'%}"></a>
+           </li>
+           <li>
+            <img src="{% static 'image/PlusWhite.png' %}">
+          </li>
+          <li>
+            <img src="{% static 'image/LogoutWhite.svg' %}">
+          </li>
+
+        </ul>
+       </div>
+
+    </div>
+
+      <div class="sidebar-section">
+        <div class="second-sidebar1">
+      <h1 class="sidebar-info" style="visibility: hidden;">Connection tanteque</h1>
+        <p>{{details.fields.reporter.emailAddress}}</p>
+        <div class="orderBox2">
+
+        <input type="text" id="search_txt" onchange="find()" style="color:black; text-color:black;" placeholder="Aioutet un commentoire" name="add_comment" id="add_comment">
+        </div>
+
+        <p class="sideh">	 Derniers commentaires sur cet ordre achat :</p>
+
+        </div>
+
+        <div class="about-orders">
+          <h1>[Date comrnentaire] </h1>
+          <p>[Texte commentaire JIRA 5]</p>
+        </div>
+        <div class="about-orders">
+          <h1>[Date comrnentaire] </h1>
+          <p>[Texte commentaire JIRA 4]</p>
+        </div>
+        <div class="about-orders">
+          <h1>[Date comrnentaire] </h1>
+          <p>[Texte commentaire JIRA 3]</p>
+        </div>
+        <div class="about-orders">
+          <h1>[Date comrnentaire] </h1>
+          <p>[Texte commentaire JIRA 2]</p>
+        </div>
+        <div class="about-orders">
+          <h1>[Date comrnentaire] </h1>
+          <p>[Texte commentaire JIRA 1]</p>
+        </div>
+       </div>
+</div>
+<!-- Rightpart-section -->
+       <div class="dashboard-main-section1">
+    <div class="mbldisplay ">
+  <div class="bar1"></div>
+  <div class="bar2"></div>
+  <div class="bar3"></div>
+
+    </div>
+    <form id="msform1">
+         <div class="row row1">
+          <div class="col-lg-10 col-md-9  pd_none">
+            <div class="top_box1">
+              <span><img src="{% static 'image/BoxGreen.png' %}"></span>
+              <div class="heading_n">
+
+                <h1>Ordew Number {{order_number}}</h1>
+                <h3>{{details.fields.summary}} </h3>
+                <span class="msg">cet ordre est en cours de realisation</span>
+              </div>
+            </div>
+
+
+          </div>
+
+           <div class="col-lg-2 col-md-3  pd_none btn_top_blog">
+
+            <button id="btn_top"> {{  issues_detail }} </button>
+             <span class="msg">Annuler l'ordre </span>
+               </div>
+      <div class="col-md-12 col-sm-12 pd_none">
+       <!-- progressbar -->
+       <div class="zig-zag-bottom1">
+        <ul id="progressbar1">
+          <li class="inProgress">Order Placed</li>
+          <li class="">Devis Envoye</li>
+          <li>Commande Recue</li>
+          <li>Order Execute</li>
+          <li>facture Emise</li>
+          <li>facture Regiee</li>
+        </ul>
+      </div>
+
+
+    </div>
+    <div class="col-lg-12  col-md-12 common_css_f1 pd_none">
+    <!-- fieldsets -->
+      <fieldset class="text-left">
+       <div class="col-lg-12 col-md-12 col-sm-12">
+          <label> INFORMATION L'ORDRE ACHAT  </label> <br>
+        </div>
+      <div class="col-lg-6 col-md-6 col-sm-12">
+        <p class="head_p">Demand' par : </p>
+        <p class="detalValue">[{{details.fields.customfield_10033}}] [{{details.fields.customfield_10032}}]  <i class="fa fa-pencil" aria-hidden="true" style="cursor: pointer;"></i></p>
+        <p class="detalValue">[{{details.fields.customfield_10077}}]</p>
+        <p class="detalValue">[{{details.fields.customfield_10039}}]</p>
+        <p class="detalValue">[{{details.fields.customfield_10037}}]</p>
+        <br>
+        <p class="head_p">Second Contact :</p>
+        <p class="detalValue">[Mail du demandeur]</p>
+        <br>
+        <p class="detalValue">[{{details.fields.description}}]</p> <br>
+       </div>
+        <div class="col-lg-6 col-md-6 col-sm-12">
+
+
+        	<p>
+                Date de Ia demande :<span>{{details.fields.created}} xx/xx/xxxx </span></p>
+        	<p>Date actualisation :<span> {{details.fields.updated}} xx/xx/xxxx </span></p>
+        	<br>
+        	<p>Ref Offre <span> [DEVIS REF]</span></p>
+        	<p>Montant HI <span> X XXX,XXC HT</span></p>
+        	<p>Montant TTC <span> X XXX,XXC TTC</span></p>
+        	<br>
+        	<p>Nom du Fournisseur <span class="detalValue">[{{details.fields.customfield_10041}}]</span></p>
+        	<p>Site du Fournisseur <span class="detalValue">[{{details.fields.customfield_10042}}]</span></p>
+
+        </div>
+        <div class="col-lg-12 col-md-12 col-sm-12">
+          <label>INFORMATION SUR LA LIVRAISON</label> <br>
+        </div>
+        <div class="col-lg-6 col-md-6 col-sm-12">
+        <p class="head_p">Contact Livraison : </p>
+        <p class="detalValue">[{{details.fields.customfield_10053}}]</p>
+        <p class="detalValue">[{{details.fields.customfield_10054}}]</p>
+        <br>
+        <p class="head_p">Adresse livraison :</p>
+        <p class="detalValue">[{{details.fields.customfield_10078}}]</p>
+        <p class="detalValue">[{{details.fields.customfield_10050}}]</p>
+        <p class="detalValue">[{{details.fields.customfield_10058}}]<span class="detalValue"> [{{details.fields.customfield_10052}}]</span></p>
+        <p>[{{details.fields.customfield_10076}}]</p>
+        <br>
+         <p class="head_p">Livraison,Numero de suivi du colls : </p>
+         <p class="detalValue">[{{details.fields.customfield_10055}}]</p>
+       </div>
+
+        <div class="col-lg-6 col-md-6 col-sm-12">
+
+        	<br>
+        	<p>Ref Commande <span class="detalValue">[COMMANDE REF]</span></p>
+        	<p>Montant HI <span class=""> X XXX,XXC HT</span></p>
+        	<p>Montant TTC <span class=""> X XXX,XXC TTC</span></p>
+        	<br>
+        	<p>Ref Facture <span class="detalValue">[DEVIS REF]</span></p>
+        	<p>Montant HI <span class=""> X XXX,XXC HT</span></p>
+        	<p>Montant TTC <span class=""> X XXX,XXC TTC</span></p>
+        	<br>
+        	<p>Contact Facture <span class="detalValue">[{{details.fields.customfield_10033}}] [{{details.fields.customfield_10032}}]</span></p>
+        	<p>Mail <span class="detalValue">{{details.fields.reporter.emailAddress}}</span></p>
+        	<br>
+        	<ul class="attachment">
+        		<li><img src="{% static 'images/zip.svg' %}" class="zipImg"></li>
+        		<li> <p class="head_p">Pieces jointes </p>
+        			<p><img src="images/powerpoint.png" class="icon_zip"><a href="">Liste des pieces ppt<i class="fa fa-times" aria-hidden="true"></i></a></p>
+        <p> <img src="images/doc.svg" class="icon_zip"><a href="">Liste des prix docx <i class="fa fa-times" aria-hidden="true"></i> </a></p>
+      </li>
+        	</ul>
+
+        </div>
+
+
+
+
+       	<span class="next action-button">Next <i class="fa fa-arrow-right" aria-hidden="true"></i></span>
+
+    </fieldset>
+    <fieldset>
+
+      <span class="previous action-button-previous"><i class="fa fa-arrow-left" aria-hidden="true"></i> Previous </span>
+      <span class="next action-button">Next <i class="fa fa-arrow-right" aria-hidden="true"></i></span>
+    </fieldset>
+    <fieldset>
+
+
+
+    <span class="previous action-button-previous"><i class="fa fa-arrow-left" aria-hidden="true"></i> Previous </span>
+    <span class="next action-button">Next <i class="fa fa-arrow-right" aria-hidden="true"></i></span>
+  </fieldset>
+  <fieldset>
+
+
+
+    <span class="previous action-button-previous"><i class="fa fa-arrow-left" aria-hidden="true"></i> Previous </span>
+    <span class="next action-button">Next <i class="fa fa-check" aria-hidden="true"></i></span>
+  </fieldset>
+  <fieldset>
+
+      <span class="previous action-button-previous"><i class="fa fa-arrow-left" aria-hidden="true"></i> Previous </span>
+ <span class="next action-button">Next <i class="fa fa-check" aria-hidden="true"></i></span>
+  </fieldset>
+  <fieldset>
+
+ <span class="next action-button">Submit <i class="fa fa-check" aria-hidden="true"></i></span>
+  </fieldset>
+</div>
+
+<!-- /.MultiStep Form -->
+
+
+</div>
+</form>
+       </div>
+
+
+</div>
+
+
+<h1>Remove this</h1>
+{{details}}
+
+{% endblock %}
