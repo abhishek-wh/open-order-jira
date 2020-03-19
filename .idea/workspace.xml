@@ -2,9 +2,18 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="f0c8fd87-a288-44a6-bb4d-e917196ef5ab" name="Default Changelist" comment="">
+      <change afterPath="$PROJECT_DIR$/OpenSys/media/abc.txt" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/OpenSys/media/abc_16XlMsw.txt" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/OpenSys/media/abc_72ugHQ5.txt" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/OpenSys/media/abc_Am68q56.txt" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/OpenSys/media/abc_KF6AyOO.txt" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/OpenSys/media/abc_e4zW2zI.txt" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/OpenSys/media/abc_iBAp52W.txt" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/pages/abc.txt" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/db.sqlite3" beforeDir="false" afterPath="$PROJECT_DIR$/db.sqlite3" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/pages/templates/pages/detail.html" beforeDir="false" afterPath="$PROJECT_DIR$/pages/templates/pages/detail.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/db.sqlite3" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/pages/templates/pages/createticket.html" beforeDir="false" afterPath="$PROJECT_DIR$/pages/templates/pages/createticket.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/pages/urls.py" beforeDir="false" afterPath="$PROJECT_DIR$/pages/urls.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/pages/views.py" beforeDir="false" afterPath="$PROJECT_DIR$/pages/views.py" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
@@ -69,9 +78,9 @@
       <screen x="0" y="0" width="1536" height="834" />
     </state>
     <state x="477" y="246" key="com.intellij.ide.util.TipDialog/0.0.1536.834@0.0.1536.834" timestamp="1584594085685" />
-    <state x="431" y="155" width="672" height="678" key="search.everywhere.popup" timestamp="1583320532993">
+    <state x="431" y="155" width="672" height="678" key="search.everywhere.popup" timestamp="1584615154765">
       <screen x="0" y="0" width="1536" height="834" />
     </state>
-    <state x="431" y="155" width="672" height="678" key="search.everywhere.popup/0.0.1536.834@0.0.1536.834" timestamp="1583320532993" />
+    <state x="431" y="155" width="672" height="678" key="search.everywhere.popup/0.0.1536.834@0.0.1536.834" timestamp="1584615154765" />
   </component>
 </project>

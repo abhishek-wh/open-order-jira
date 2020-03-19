@@ -6,6 +6,11 @@ import json
 from django.core.paginator import Paginator
 import jira
 from jira.client import JIRA
+from django.core.files import File
+from django.core.files.storage import default_storage
+from django.core.files.storage import FileSystemStorage
+from django.conf import settings as setting
+from django.http import HttpResponse
 
 url = "https://nrc.atlassian.net/rest/api/2/"
 auth = HTTPBasicAuth("contact@wowdesigns.fr", "guPJmBOx3nVhEWMFogxRAB84")
@@ -39,7 +44,7 @@ def index(request):
         else:
             msg = "Utilisateur bloqué"
 
-    context = {'var': msg, 'welcome_text': welcome_text}
+    context = {'var': msg, 'welcome_text': 'welcome_text'}
 
     return render(request, 'pages/index.html', context)
 
@@ -255,10 +260,26 @@ def logout(request):
     return render(request, 'pages/index.html', context)
 
 
-def create_ticket(request):    
+def create_ticket(request):   
+    return render(request,'pages/createticket.html')
+
+def add_attachments(issue_key, doc_file):
+    jira_options={'server': 'https://nrc.atlassian.net/'}
+    jira=JIRA(options=jira_options,basic_auth=('contact@wowdesigns.fr','guPJmBOx3nVhEWMFogxRAB84'))
+    result=""
+    with open('/home/user/Desktop/abhishek joshi/projects/open system/OpenSys/OpenSys'+doc_file, 'rb') as f:
+        result=jira.add_attachment(issue=issue_key, attachment=f)
+    return result
+
+def create(request):
     if request.method == 'POST':
         jira_options = {'server': 'https://nrc.atlassian.net/'}
         jira = JIRA(options=jira_options, basic_auth=('contact@wowdesigns.fr', 'guPJmBOx3nVhEWMFogxRAB84'))
+        myfile1 = request.FILES['attachment']
+        fs = FileSystemStorage(location=setting.MEDIA_ROOT) #defaults to   MEDIA_ROOT  
+        filename = fs.save(myfile1.name, myfile1)
+        file_url = fs.url(filename)
+        print("myfileeeeeeeeeeeeeeeeeeeeeeeeeeeee",file_url)        
         new_issue = jira.create_issue(project='ORDER',
         summary=request.POST.get('ticket_title',""),
         description=request.POST.get('description',""),
@@ -279,8 +300,7 @@ def create_ticket(request):
         customfield_10054=request.POST.get('phone_delivery',""),
         customfield_10076=request.POST.get('instruction',""))
 
-    return render(request,'pages/createticket.html')
+        print("new_issueeeeeeeeeeeeeeeeeeeeeeeeee",new_issue)
+        res=add_attachments(new_issue,file_url)
 
-def create(request):
-    return render(request, 'pages/createticket.html')
-
+    return HttpResponse('Success')
