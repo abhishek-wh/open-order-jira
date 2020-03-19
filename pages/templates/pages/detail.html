@@ -3,20 +3,8 @@
 {% include '_head.html'%}
 {% include 'partials/_footer-scripts.html'%}
 {{ issue_detail }}
-<!-- MultiStep Form -->
 <script>
-<!--function find() {-->
-<!--    var value;-->
-<!--  debugger-->
-<!--    value=$('#search_txt').val()-->
-<!--    window.location.replace("add_comment/"+value)-->
-<!--    alert(value)-->
-<!--    $.get('dashboard/' + value, function (data) {-->
-<!--      debugger-->
-<!--      window.location.replace("abc"+value)-->
-<!--    });-->
-<!--  }-->
-<!--add comment-->
+
   function find() {
     var value;
     value=$('#search_txt').val()
@@ -25,6 +13,10 @@
     });
     value=""
     window.location.reload()
+  }
+
+  function logout() {
+    window.location.replace("/pages/logout")
   }
   </script>
 
@@ -37,14 +29,16 @@
 
              <img src="{% static 'image/Open-Order.png' %}">
            </li>
+           <a href="/pages/dashboard">
+            <li>
+              <img src="{% static 'image/Homeblank.svg' %}">
+            </li></a>
            <li>
-             <a href=""> <img src="{% static 'image/Homeblank.svg'%}"></a>
-           </li>
-           <li>
-            <img src="{% static 'image/PlusWhite.png' %}">
+            <a href="/pages/createticket" target="_blank"><img onclick="create_ticket()"
+                src="{% static 'image/PlusWhite.png'%}"></a>
           </li>
           <li>
-            <img src="{% static 'image/LogoutWhite.svg' %}">
+            <span onclick="logout()"> <img src="{% static 'image/LogoutWhite.svg' %}"></span>
           </li>
 
         </ul>

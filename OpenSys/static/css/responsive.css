@@ -7,7 +7,16 @@
 .block-section{width: auto;}
 .chng-password{width: auto;}*/
 
-.dashboard-main-section {width: 63%;}
+/* .dashboard-main-section {width: 63%;} */
+.dashboard-main-sectionUser {width: 70%;}
+.form-group1 input {width: 300px;}
+.textBlock1 textarea { width: 300px;}
+.block-search input { width: 200px;}
+.sidebar-section-red {width: 175px; } 
+ul.project-section li p {font-size: 14px;}
+.css-1rawbl img { height: 20px; }
+.css-1rawbl .logo_img img { height: 50px; }
+.sidebar-section {width: 145px; }
 }
 
 
@@ -30,6 +39,13 @@
 .table-main-section h1 { margin: 18px 0; font-size: 18px; line-height: 1; }
 .table-content span {margin-top: -6px;}
 .heading-m h1 {font-size: 25px;}
+.heading-m h1 span { font-size: 19px; }
+.dashboard-main-section { width: 72%; }
+.sidebar-info ,.about-orders h1 {font-size: 12px;}
+.about-orders p {font-size: 11px;}
+.operate-btn {font-size: 13px;}
+.second-sidebar1 p.sideh {font-size: 15px!important;}
+
 }
 
 

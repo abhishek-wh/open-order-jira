@@ -1,5 +1,5 @@
 
-body{font-family: 'Segoe UI Emoji','sans-serif';}
+body{font-family: 'Segoe UI Emoji';}
 /*body{font-family: 'Poppins';}*/
 a:hover{text-decoration:none; color: #e95a50;}
 input:focus, select:focus, textarea:focus {outline: 0;}
@@ -120,14 +120,16 @@ fieldset.form-group {position: relative; }
     /*justify-content: space-between;*/
     padding-bottom: calc(20px);
     padding-top: 24px;
-    width: 64px;    height: calc(100vh + 291px);
+    width: 64px;    height: calc(100vh + 350px);
     /*height: calc(100vh - 0px);*/
     background-color: rgb(7, 71, 166);
     color: rgb(255, 255, 255);
     fill: rgb(7, 71, 166);
     transition: background-color 0.3s cubic-bezier(0.2, 0, 0, 1) 0s, color 0.3s cubic-bezier(0.2, 0, 0, 1) 0s;
 }
-
+.form-control:focus{
+    /* border: none! important; */
+    box-shadow: none!important;}
 .css-jdgyoy-PrimaryItemsList {
        /* -webkit-box-align: center; */
     /* align-items: center; */
@@ -250,11 +252,8 @@ fieldset.form-group {position: relative; }
 .css-2rawbl img{height: 32px;}
 .css-2rawbl li{padding-bottom: 18px;cursor: pointer;}
 .css-2rawbl .logo_img img{height: 60px;}
-.sidebar-section-red{background-color: #c01200;box-shadow: 0 8px 6px 1px #ad0e00}
-.sidebar-section-red {
-    background-color: #c01200;
-    box-shadow: 0 8px 6px 1px #ad0e00;
-}
+.sidebar-section-red{background-color: #c01200;box-shadow: 0 8px 6px 1px #ad0e00;word-break: break-all;}
+
 .heading-red h1 { font-size: 40px; color: #c01200; text-align: center;
     margin-top: 50px;}
 .heading-red p{ font-size: 20px; color: #404040; text-align: center; text-transform: uppercase;
@@ -307,7 +306,7 @@ fieldset.form-group {position: relative; }
 }
 
 #button-1 .checkbox:checked + .knobs:before
-{ content: 'NO';height: 18px;left: 25px;background-color: #fff;}
+{ content: 'NO';height: 20px;left: 25px;background-color: #fff;}
 
 #button-1 .checkbox:checked ~ .layer{background-color: #c01200;}
 
@@ -316,7 +315,7 @@ fieldset.form-group {position: relative; }
 .project-section{margin-top: 15px;}
 .syd-content p {padding-left: 70px;padding-top: 5px;}
 .form-group1 input{border-radius: 5px; border: none; background-color: #e9e9e9;
-    padding: 3px 10px; width: 300px; height: 33px; font-size: 16px;     font-style: italic;}
+    padding: 3px 10px; width: 500px; height: 33px; font-size: 16px;     font-style: italic;}
 .form-group2 input{border-radius: 5px; border: none; background-color: #e9e9e9;
     padding: 5px 10px;  height: 80px; width: 300px; font-size: 16px; font-style: italic;} 
 .main-sec-red1{margin-top: 45px; /**/}
@@ -324,7 +323,7 @@ fieldset.form-group {position: relative; }
     padding: 2px 10px; width: 300px; height: 33px; font-size: 16px;
     font-style: italic;}
 .textBlock1 textarea {
-    width:300px;
+    width:500px;
     overflow: auto;
     resize: vertical;
     background: #e9e9e9;
@@ -362,7 +361,7 @@ border-radius: 20px; position: relative;
     justify-content: space-between;}
 .newlogo-img img{height: 60px; width: 200px;}
 .block-section{/*width: 750px;*/ margin-bottom: 50px; margin-left: 0; }
-.block-search input {    width: 200px;
+.block-search input {    width: 397px;
     background-color: #e8e8e8;
     border: none;
     height: 30px;
@@ -414,13 +413,13 @@ li.notification {border-right: 1px solid #4d4d4d;}
     position: absolute;
     top: -13px;
     right: -1px;
-    padding: 2px 5px 0px 5px;
+    padding: 2px 5px 2px 5px;
     border-radius: 50%;
     background: red;
     color: white;
-    font-size: 10px;
+    font-size: 9px;
 }
-
+.foSi label {    margin-bottom: 15px !important;}
 li.page-item {
     padding: 0 11px;
 }
@@ -577,7 +576,7 @@ a.page-link {
 }
 .hoverRighticon:hover,.hoverRighticon1:hover{background: #002060;color: #fff;}
 .sidebar-section-red {width: 215px;position: relative;}
-.secIcon{display: none;}
+.secIcon{display: none;    font-weight: bold;}
 .sidebar-section.removesidebarU{width: 15px;}
 .sidebar-section-red.removesidebar{width: 15px;}
 .hoverRighticon.changehovericon{left: 8px;}
@@ -606,7 +605,7 @@ a.page-link {
 .hoverRighticon,.hoverRighticon1{display: none;}
 .sidebar-section:hover .hoverRighticon1,.sidebar-section-red:hover .hoverRighticon,
 .sidebar-section-red.removesidebar .hoverRighticon,.sidebar-section.removesidebar .hoverRighticon1{display: block}
-.sidebar-section.removesidebar1 .hoverRighticon1.changehovericon1{display: block;    top: 3%;}
+.sidebar-section.removesidebar1 .hoverRighticon1.changehovericon1{display: block;top:3.2%;}
 .errorMsgNoTickt{font-size: 16px;color: #000;font-style: italic;font-weight: 800;margin-bottom: 15px;}
 .errorMsgNoTickt1{font-size: 16px;color: #262626;margin-bottom: 10px;}
 .errorMsgNoTickt2{font-size: 16px;font-style: italic;color: #262626;}
@@ -621,3 +620,20 @@ table.dataTable thead .sorting:after { opacity: 0.4 !important; color: #2977c4; 
 .hoverRighticon1.changehovericon1{left: 8px;top: 7%;}
 .hoverRighticon1{ left: 207px; z-index: 999999; position: absolute; top: 7%; background: #fff; width: 20px; height: 20px; border: 1px solid #a6a6a6; border-radius: 50%; cursor: pointer; padding: 2px 6px; box-shadow: -1px 0px 5px #a2a2a2;}
 .sidebar-section.removesidebar1{width: 15px;}
+.createTickMsg{float: left;float: left;font-size: 12px;margin-bottom: 15px;}
+.orderBox2 #search_txt{color: #ffffff; border: none; width: 100%; background: transparent; } 
+.orderBox2 #search_txt::-webkit-input-placeholder { color: #fff; }
+.scrollBox{overflow-y: scroll;height: 300px;}
+
+
+.scrollbar::-webkit-scrollbar { /* background-color:#fff; */ width:8px }
+.scrollbar::-webkit-scrollbar-track { /* background-color:#fff */ }
+.scrollbar::-webkit-scrollbar-track:hover { /* background-color:#f4f4f4 */ }
+/* scrollbar itself */
+.scrollbar::-webkit-scrollbar-thumb { background-color:#3ab401;	background-image: -webkit-linear-gradient(90deg, transparent, rgba(0, 0, 0, 0.4) 50%, transparent, transparent); border-radius:16px; border:2px solid #fff }
+.scrollbar::-webkit-scrollbar-thumb:hover { background-color:#298500; border:2px solid #f4f4f4 }
+.scrollbar::-webkit-scrollbar-button {display:none}
+.scrollbar {overflow-y: scroll}
+.overflow{min-height: 100vh}
+.list-of-users span a:hover{font-weight: 700;    color: #c01a00;}
+.attachment a .fa{margin-left: 10px;}

@@ -47,8 +47,8 @@ pid=""
 def dashboard(request):
     if request.user.is_authenticated == True:
         blocked_user_record=blocked_user.objects.all()
-        for i in range(len(blocked_user_record)):
-            print("blocked_user_email",blocked_user_record[i].user_email)
+        # for i in range(len(blocked_user_record)):
+        #     print("blocked_user_email",blocked_user_record[i].user_email)
 
         data=settings.objects.all()
         global toggle

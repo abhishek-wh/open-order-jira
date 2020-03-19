@@ -330,7 +330,7 @@
     <div class="sidebar-section">
       <div class="second-sidebar">
         <h1 class="sidebar-info">Connection tanteque</h1>
-        <p>Mail_utillisateur@societe.com</p>
+        <p>{{user_email}}</p>
 
       </div>
       <h1 class="sidebar-info si_mgbox"> Merci de renseigner l'ensemble des informations pour que nous puissions
@@ -395,7 +395,7 @@
             </div>
             <div class="col-lg-8 col-md-8 col-sm-12">
               <div class="form-group">
-                <input type="text" name="contact_aplicant_mail" id="contact_aplicant_mail"
+                <input type="text" name="contact_aplicant_mail" id="contact_aplicant_mail" readonly value="{{user_email}}"
                   placeholder="Mail_utillisateur@société.com">
                 <span style="display: none;" id="contact_aplicant_mailerr">Please enter Mail Demandeur</span>
                 <span style="display: none;" id="contact_aplicant_mailerr1">Please enter correct Mail Demandeur</span>

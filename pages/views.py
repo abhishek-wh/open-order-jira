@@ -74,7 +74,6 @@ def dashboard(request):
         issues = getTicketByUsername(username)
         ticket_list.objects.all().delete()
         for issue in issues:
-            print("issue",issue.raw)
             desc = ""
             assi = ""
             try:
@@ -99,10 +98,8 @@ def dashboard(request):
 
         try:
             flag = True
-            print("aaaaaaaaaaa", t_list[0].issue_id)
         except:
             flag = False
-            print(flag)
         paginator = Paginator(t_list, 5)  # Show 5 contacts per page.
 
         page_number = request.GET.get('page')
@@ -127,17 +124,12 @@ def getTicketBykey(request,value):
     global a
     a=value
     comments=add_comment("","")
-    print("aaaa",comments)
-    print("issue_key-----",value)
     jira_options={'server': 'https://nrc.atlassian.net/'}
     jira=JIRA(options=jira_options,basic_auth=('contact@wowdesigns.fr','guPJmBOx3nVhEWMFogxRAB84'))
     issues=jira.search_issues("issue="+value)
-    print("issues==",issues)
     issues_detail=""
     for i in issues:
-        # print("aqpppppp",i.raw)
         issues_detail=i.raw['fields']['status']['statusCategory']['name']
-        # print("issues_detaillll",issues_detail)
     context = {'issues_detail': issues_detail,'order_number':value,'details':i.raw,'comments':comments}
     return render(request, 'pages/detail.html',context)
 
@@ -146,35 +138,25 @@ def getTicketBykey(request,value):
 
 def add_comment(request,value):
     global a
-    print("gfd",a)
 
     if len(value)!=0:
-        print("value---start",value)
         jira_options = {'server': 'https://nrc.atlassian.net/'}
         jira = JIRA(options=jira_options, basic_auth=('contact@wowdesigns.fr', 'guPJmBOx3nVhEWMFogxRAB84'))
         comments = jira.comments(a)
-        print("cc--", comments)
         for comment in comments:
-            print("comments---", comment.raw)
-        comment = jira.add_comment(a, value)
+            comment = jira.add_comment(a, value)
         # jira = JIRA(options=jira_options, basic_auth=('contact@wowdesigns.fr', 'guPJmBOx3nVhEWMFogxRAB84'))
         # comment = jira.add_comment("ORDER-129", value)
 
         comments = jira.comments(a)
-        # print("cc--", comments)
-        for comment in comments:
-            print("comme!!", comment.raw['body'])
     else:
-        print("else==")
         jira_options = {'server': 'https://nrc.atlassian.net/'}
         jira = JIRA(options=jira_options, basic_auth=('contact@wowdesigns.fr', 'guPJmBOx3nVhEWMFogxRAB84'))
 
         comments = jira.comments(a)
-        # print("cc--", comments)
         recent_comment=[]
         for comment in comments:
             recent_comment.append(comment)
-            # print("comme!!", comment.raw['body'])
     # return render(request, 'pages/detail.html',{})
     return comments
 
@@ -195,7 +177,6 @@ def search(request,value):
             issues = getTicketByUsername(username)
             ticket_list.objects.all().delete()
             for issue in issues:
-                print("issue",issue.raw)
                 desc = ""
                 assi = ""
                 try:
@@ -220,10 +201,8 @@ def search(request,value):
 
             try:
                 flag = True
-                print("aaaaaaaaaaa", t_list[0].issue_id)
             except:
                 flag = False
-                print(flag)
             paginator = Paginator(t_list, 5)  # Show 5 contacts per page.
 
             page_number = request.GET.get('page')
@@ -238,10 +217,8 @@ def search(request,value):
             t_list=ticket_list.objects.raw("SELECT * FROM pages_ticket_list where issue_id like '%"+value+"%' or key LIKE '%"+value+"%' OR issue_type LIKE '%"+value+"%' OR project LIKE '%"+value+"%' OR priority LIKE '%"+value+"%' OR description LIKE '%"+value+"%' OR assignee LIKE '%"+value+"%' OR status LIKE '%"+value+"%' or summary LIKE '%"+value+"%'")
             try:
                 flag=True
-                print("aaaaaaaaaaa",t_list[0].issue_id)
             except:
                 flag=False
-            print(flag)
             paginator = Paginator(t_list, 10) # Show 10 contacts per page.
             page_number = request.GET.get('page')
             page_obj = paginator.get_page(page_number)
@@ -265,6 +242,7 @@ def logout(request):
 
 def create_ticket(request):      
     if request.method == 'POST':
+        username = request.session['username']
         sdata = settings.objects.all()
         project_id=sdata[0].jira_project_id
         jira_options = {'server': 'https://nrc.atlassian.net/'}
@@ -274,13 +252,12 @@ def create_ticket(request):
         # fs = FileSystemStorage(location=setting.MEDIA_ROOT) #defaults to MEDIA_ROOT  
         # filename = fs.save(myfile1.name, myfile1)
         # file_url = fs.url(filename)
-        # print("file_url===================",file_url)     
 
         new_issue = jira.create_issue(project=project_id,
         summary=request.POST.get('ticket_title',""),
         description=request.POST.get('description',""),
         issuetype={"name": "Commande"},
-        customfield_10039=[request.POST.get('contact_aplicant_mail',"")],
+        customfield_10039=[username],
         customfield_10077=request.POST.get('enterprise',""),
         customfield_10032=request.POST.get('firstname',""),
         customfield_10033=request.POST.get('lastname',""),
@@ -296,14 +273,16 @@ def create_ticket(request):
         customfield_10054=request.POST.get('phone_delivery',""),
         customfield_10076=request.POST.get('instruction',""))
 
-        print("new_issue== ",new_issue)
+        
         
         # res=add_attachments(str(new_issue),file_url)
         
         res=str(new_issue)
         return HttpResponse(res)
     else:
-        return render(request,'pages/createticket.html')
+        username = request.session['username']
+        context = {'user_email': username}
+        return render(request,'pages/createticket.html',context)
 
 def add_attachments(issue_key, doc_file):
     jira_options={'server': 'https://nrc.atlassian.net/'}

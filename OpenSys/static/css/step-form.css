@@ -21,7 +21,7 @@
    /* margin-top: 30px;*/
 }
 
-#msform fieldset,#msform1 fieldset,,#msform2 fieldset{
+#msform fieldset,#msform1 fieldset,#msform2 fieldset{
     /* background: rgb(255, 255, 255); */
     border: 0 none;
     /* border-radius: 0px; */
@@ -46,12 +46,12 @@
     padding: 8px;
     border: 1px solid rgb(204, 204, 204);
     border-radius: 5px;
-    margin-bottom: 10px;
+    margin-bottom: 0px;
     width: 100%;
     box-sizing: border-box;
     color: rgb(38, 38, 38);
     font-size: 13px;
-    font-weight: 500;background: rgb(242, 242, 242);
+    font-weight: 800;background: rgb(242, 242, 242);
 }
 
 #msform input:focus, #msform textarea:focus,#msform1 input:focus, #msform1 textarea:focus,#msform2 input:focus, #msform2 textarea:focus {
@@ -126,7 +126,7 @@
 /*progressbar*/
 #progressbar {overflow: hidden;counter-reset: step;padding: 0px 10px;}
 #progressbar li {list-style-type: none; color: white;text-transform: capitalize; font-size: 14px; width: 25%; float: left; position: relative; letter-spacing: 1px; position: relative; }
-#progressbar li:before {content: ""; counter-increment: ; width: 40px; height: 40px; line-height: 26px; display: block; font-size: 12px; color: #333; background: rgb(63, 63, 63); border-radius: 25px; margin: 0 auto 10px auto; }
+#progressbar li:before {content: "";  width: 40px; height: 40px; line-height: 26px; display: block; font-size: 12px; color: #333; background: rgb(63, 63, 63); border-radius: 25px; margin: 0 auto 10px auto; }
 /*progressbar connectors*/
 #progressbar li:after {content: ''; width: 90%; height: 2px; height: 5px; background: rgb(63, 63, 63); position: absolute; left: -45%; top: 26%; /* z-index: 999999;*/ /* border-radius: 10px;*/ }
 #progressbar li.inProgress:after{/*background: rgb(63, 63, 63);*/ background: #fff;}
@@ -138,7 +138,7 @@
 /*progressbar*/
 #progressbar1 {overflow: hidden;counter-reset: step;padding: 0px 10px;}
 #progressbar1 li {list-style-type: none; color: white;text-transform: capitalize; font-size: 14px; width: 16.6667%; float: left; position: relative; letter-spacing: 1px; position: relative; }
-#progressbar1 li:before {content: ""; counter-increment: ; width: 40px; height: 40px; line-height: 26px; display: block; font-size: 12px; color: #333; background: rgb(63, 63, 63); border-radius: 25px; margin: 0 auto 10px auto; }
+#progressbar1 li:before {content: ""; width: 40px; height: 40px; line-height: 26px; display: block; font-size: 12px; color: #333; background: rgb(63, 63, 63); border-radius: 25px; margin: 0 auto 10px auto; }
 /*progressbar connectors*/
 #progressbar1 li:after {content: '';width: 85%;height: 5px;background: rgb(63, 63, 63);position: absolute;left: -43%; top: 26%; /* z-index: 999999;*/ /* border-radius: 10px;*/ }
 #progressbar1 li.inProgress:after{/*background: rgb(63, 63, 63);*/ height: 10%; background-size: 200px; background-image: url(../image/TransitionInprogress.png);}
@@ -173,7 +173,9 @@
     margin-bottom: 0;
     font-weight: 700;
 }
-.common_css_f .form-group{ margin-bottom: 0;text-align: right;}
+.common_css_f .form-group{ 
+    /* margin-bottom: 0; */
+    text-align: right;}
 .common_css_f .form-group span{color: rgb(192, 26, 0)}
 .zig-zag-bottom:after {
 background: linear-gradient(-45deg, rgba(0, 0, 0, 0) 16px, rgb(0, 32, 96) 0), linear-gradient(45deg, rgba(0, 0, 0, 0) 16px, rgb(0, 32, 96) 0);
@@ -209,7 +211,8 @@ background: linear-gradient(-45deg, rgba(0, 0, 0, 0) 16px, rgb(0, 32, 96) 0), li
     margin-bottom: 51px;}
 .details_view{    margin-top: 30px;display: -ms-flexbox; display: -webkit-box; display: flex; -webkit-box-pack: justify; margin-bottom: 5px; -ms-flex-pack: 
     center; justify-content: space-around; font-size: 18px; color: rgb(68, 68, 68); font-weight: 600; text-align: left;}
-.details_view li{    width: 50%;}
+.details_view li{    width: 50%;word-break: break-all;}
+.details_view li:first-child{padding-right: 20px;}
 .orderBox h1{font-size: 20px;/* text-transform: uppercase;*/ color: rgb(38, 38, 38); margin: 2px 0; font-weight: bold;}
 .orderBox{padding: 20px; border: 2px solid rgb(38, 38, 38); width: 50%; margin: 0 auto; border-radius: 10px;}
 .u_name{font-weight: 500;font-style: italic;}
@@ -273,18 +276,19 @@ background: linear-gradient(-45deg, rgba(0, 0, 0, 0) 16px, rgb(0, 32, 96) 0), li
 
 
 @media only screen and (min-width: 768px) and (max-width: 1022px){
-.common_css_f .form-group{ margin-bottom: 0;text-align: left;}
-.zig-zag-bottom {padding: 13px 0px 0px;background: rgb(0, 32, 96);height: 134px; margin-bottom: 51px;}
-#progressbar li:after {width: 64%!important;left: -32%!important;}
+.common_css_f .form-group{ margin-bottom: 10px;text-align: left;}
+.zig-zag-bottom {padding: 13px 0px 0px;background: rgb(0, 32, 96);height: 94px; margin-bottom: 51px;}
+#progressbar li:after {    width: 70%!important;
+    left: -35%!important;}
 #progressbar li.checked:first-child:after{display: none;}
 .orderBox {width: 100%;}
 #msform1 .btn_top_blog {text-align: left;padding: 0px 20px 25px;    height: auto;}
 .zig-zag-bottom1 {height: 120px!important;}
-#msform1 #progressbar1 li:after { width: 44% !important;left: -23% !important;top: 19% !important;}
+#msform1 #progressbar1 li:after { width: 56% !important;left: -28% !important;top: 19% !important;}
 #msform1 #progressbar1 li.checked:first-child:after {left: 78%;width: 45%;}
 fieldset {min-width: 100%;}
 .common_css_f1 fieldset label {font-size: 18px; margin: 18px 0px; } 
-.css-1rawbl {height: calc(100vh + 711px);}
+.css-1rawbl {height: calc(100vh + 711px);    width: 50px;}
 fieldset.row { padding-right: 15px; padding-left: 15px;}
 .action-button-previous {float: left;}
 fieldset .foSi {width: 100%; text-align: left;padding: 10px 15px; } }
@@ -295,12 +299,14 @@ fieldset .foSi {width: 100%; text-align: left;padding: 10px 15px; } }
 #progressbar li.checked:first-child:after{display: none;}
 .orderBox {width: 100%;}
 .zig-zag-bottom1 {height: 120px!important;}
-#progressbar1 li:after { width: 64% !important;left: -33% !important;}
+#progressbar1 li:after { width: 66% !important;left: -33% !important;}
 #progressbar1 li.checked:first-child:after {left: 69%; width: 66%;}
 /*#progressbar1 li.inProgress:after {top: 18%;}*/
 #progressbar1 li.checked:first-child:after{display: none;}
 #progressbar1 li:nth-child(3):after {top: 20%;}
 fieldset.row { margin-right: 15px; margin-left: 15px;}
+.second-sidebar1 p.sideh {font-size: 15px!important;}
+.btn_top_blog {height: 106px!important;padding: 15px 0px 15px!important;}
 }
 
 @media (max-width: 1440px){
@@ -325,6 +331,13 @@ fieldset.row { margin-right: 15px; margin-left: 15px;}
 @media (max-width: 1024px){
    .action-button,.action-button-previous{   
     margin-left: 1%; margin-bottom: 100px!important;} 
+    .heading_n {padding: 20px 0px;}
+    .top_box img {width: 70px; height: 70px;}
+    .heading_n h3 { font-size: 14px;}
+    .heading_n h1 {font-size: 16px;}
+    .top_box1>span, .top_box2>span {width: 70px!important;margin:20px !important;
+        height: 66px!important;}
+    .action-button-previous.lastPreviousBtn {margin-left: 1%!important; }
 
 }
 /*ticket form*/
@@ -401,7 +414,7 @@ fieldset.row { margin-right: 15px; margin-left: 15px;}
 #msform2 .next:hover,#msform2 .next:focus {box-shadow: 0 0 0 2px white, 0 0 0 3px #8e1e1e;}
 
 
-#btn_top {
+#btn_top {cursor: initial;
     background-color: transparent;
     border-radius: 0;
     padding: 0px 15px;
@@ -451,7 +464,7 @@ fieldset.row { margin-right: 15px; margin-left: 15px;}
 .attachment{display: flex;display: -webkit-box;display: -ms-flexbox;font-size: 14px;}
 .attachment img.zipImg{height: 64px;}
 .attachment a{color: #3b2c48;font-weight: 500;text-decoration: underline;}
-.icon_zip{height: 10px;}
+.icon_zip{height: 13px;margin-bottom: 5px;}
 .orderBox2 {
     padding: 10px;
     border: 2px solid #fff;color: #fff;
@@ -482,3 +495,17 @@ fieldset.row { margin-right: 15px; margin-left: 15px;}
   color: #000;font-weight: 600;
 }
 .si_mgbox{ margin: 0px 20px;}   
+.action-button-previous.lastPreviousBtn {margin-left: 10%;}
+.lastvalider {
+    padding: 0!important;
+    background: transparent!important;
+    /* position: relative; */
+    color: #fff !important;
+    border: none! important;
+    width: auto !important;
+}
+
+.lastvalider:before {
+  
+}
+.css-jdgyoy-PrimaryItemsList>div.GlobalNavigation{    background-color: rgb(7, 71, 166);}
