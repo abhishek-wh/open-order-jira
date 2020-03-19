@@ -42,7 +42,18 @@ $('input').blur(function(){
 
  }); 
 
-
+$('.hoverRighticon').click(function(){
+    $(".firstic").css('display', 'none');
+    $(".secIcon").css('display', 'block');
+    $(this).toggleClass('changehovericon');
+    $(this).parent().parent().toggleClass('removesidebar');
+});
+$('.hoverRighticon1').click(function(){
+    $(".firstic1").css('display', 'none');
+    $(".secIcon1").css('display', 'block');
+    $(this).toggleClass('changehovericon1');
+    $('.sidebar-section').toggleClass('removesidebar1');
+});
 
  
  

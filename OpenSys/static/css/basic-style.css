@@ -606,7 +606,7 @@ a.page-link {
 .hoverRighticon,.hoverRighticon1{display: none;}
 .sidebar-section:hover .hoverRighticon1,.sidebar-section-red:hover .hoverRighticon,
 .sidebar-section-red.removesidebar .hoverRighticon,.sidebar-section.removesidebar .hoverRighticon1{display: block}
-.sidebar-section.removesidebar1 .hoverRighticon1.changehovericon1{display: block;}
+.sidebar-section.removesidebar1 .hoverRighticon1.changehovericon1{display: block;    top: 3%;}
 .errorMsgNoTickt{font-size: 16px;color: #000;font-style: italic;font-weight: 800;margin-bottom: 15px;}
 .errorMsgNoTickt1{font-size: 16px;color: #262626;margin-bottom: 10px;}
 .errorMsgNoTickt2{font-size: 16px;font-style: italic;color: #262626;}
@@ -615,3 +615,9 @@ a.page-link {
 #example_length,#example_filter,#example_paginate,#example_info{display: none;}
 table.dataTable thead .sorting_asc:after{   position: absolute;opacity: 1 !important;color: #2977c4;}
 table.dataTable thead .sorting:after { opacity: 0.4 !important; color: #2977c4; }
+
+    .sidebar-section{position: relative;    width: 215px;}
+.secIcon1{display: none;}
+.hoverRighticon1.changehovericon1{left: 8px;top: 7%;}
+.hoverRighticon1{ left: 207px; z-index: 999999; position: absolute; top: 7%; background: #fff; width: 20px; height: 20px; border: 1px solid #a6a6a6; border-radius: 50%; cursor: pointer; padding: 2px 6px; box-shadow: -1px 0px 5px #a2a2a2;}
+.sidebar-section.removesidebar1{width: 15px;}

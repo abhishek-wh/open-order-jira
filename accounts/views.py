@@ -6,11 +6,7 @@ from pages.models import(blocked_user,settings)
 from django.views.generic import TemplateView
 from django.contrib.auth.models import User
 from django.contrib.auth import logout
-# from django import forms
-#
-# class NameForm(forms.Form):
-#     user_name = forms.CharField(label='Enter Votre email', max_length=100)
-#     print("user_name===",user_name)
+
 block_msg=""
 def login(request):
     email = ""
@@ -27,7 +23,6 @@ def login(request):
             try:
                 username = User.objects.get(email=email.lower()).username
                 user = auth.authenticate(username=username, password=password)
-                print("userrrrrrrrrrrrrrrr", user)
                 if user is not None:
                     auth.login(request, user)
                     return redirect('dashboard')
@@ -41,7 +36,6 @@ def login(request):
 
 def logout(request):
     auth.logout(request)
-    print("llllllllll")
     messages.info(request, "Logged out successfully!")
     # return redirect('index')
     return render(request, 'index',)
@@ -51,10 +45,8 @@ toggle=False
 wctext=""
 pid=""
 def dashboard(request):
-    print("dashboardgdfgdfgdf",request.user)
     if request.user.is_authenticated == True:
         blocked_user_record=blocked_user.objects.all()
-        print("blocked_user_count-----",len(blocked_user_record))
         for i in range(len(blocked_user_record)):
             print("blocked_user_email",blocked_user_record[i].user_email)
 
@@ -75,16 +67,13 @@ def dashboard(request):
     # {% if user.is_authenticatd %}
 
 def dash(request,value):
-    print("dashboard====================================================1",value)
     data=settings.objects.get(id=1)
     data.is_jira_app_connected=value
     data.save()
     return render(request, 'accounts/dashboard.html')
 
 def settingform(request):
-    print("dfdsfsdf=============================================================")
     # if request.method == 'POST':
-    print("dfdsfsdf=============================================================")
     welcometext = request.POST['welcometext']
     projectid=request.POST['projectid']
     data = settings.objects.get(id=1)
@@ -100,10 +89,7 @@ def changepassword(request):
         new_password = request.POST['new_password']
         confirm_password = request.POST['confirm_pwd']
         if(new_password==confirm_password):
-            print(old_password)
-            print(request.user)
             user = auth.authenticate(username=request.user,password=old_password)
-            print(user)
             if user is not None:
                 usr = User.objects.get(username=request.user)
                 usr.set_password(new_password)
@@ -121,22 +107,18 @@ def changepassword(request):
 
 
 def block_user(request,value):
-    print("dashboard====================ghfhkj================================1",value)
     record = blocked_user.objects.filter(user_email=value).exists()
-    print("record11111111111",record)
     if(record==True):
         global block_msg
         block_msg="Ya bloqueado"
         return render(request, 'accounts/dashboard.html')
     else:
-        print("elseeeeeeeee")
         data=blocked_user(user_email=value)
         data.save()
         return render(request, 'accounts/dashboard.html')
 
 
 def unblock_user(request,value):
-    print("value=========",value)
     data = blocked_user(id=value)
     data.delete()
     return render(request, 'accounts/dashboard.html')
