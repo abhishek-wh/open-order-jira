@@ -2,17 +2,10 @@
 {% block content %}
 {% include '_head.html'%}
 
-<!-- <head>
-    <meta charset="utf-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-    <meta name="description" content="">
-    <meta name="author" content="">
-    <link rel="icon" href="/static/image/favicon.png" type="image/png" sizes="16x16">
-    <title> Open Order Company</title>
- </head> -->
-
 
 <script>
+  sessionStorage.setItem("filter", "All")
+  sessionStorage.setItem("searchkey", "")
   function firstnextfunc() {
     var ticket_title = $("#ticket_title").val();
     var contact_aplicant_mail = $("#contact_aplicant_mail").val();
@@ -21,12 +14,26 @@
     var phone = $("#phone").val();
     var enterprise = $("#enterprise").val();
     var mailcopy = $("#mailcopy").val();
-    if (ticket_title != "" && contact_aplicant_mail != "" &&
-      contact_aplicant_mail.match('[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,}$') &&
-      lastname != "" && firstname != "" && enterprise != "" ) {
-      if (phone != "") {
-        if (!phone.match('[0-9]{10}')) {
-          $("#phoneerr1").css("display", "block")
+    if (phone != "") {
+      if (ticket_title != "" && contact_aplicant_mail != "" && phone.match('[0-9]{9}') &&
+        contact_aplicant_mail.match('[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,}$') &&
+        lastname != "" && firstname != "" && enterprise != "") {
+        if (phone != "") {
+          if (!phone.match('[0-9]{10}')) {
+            $("#phoneerr1").css("display", "block")
+          } else {
+            $("#titleerr").css("display", "none")
+            $("#contact_aplicant_mailerr").css("display", "none")
+            $("#contact_aplicant_mailerr1").css("display", "none")
+            $("#lastnameerr").css("display", "none")
+            $("#firstnameerr").css("display", "none")
+            $("#phoneerr1").css("display", "none")
+            $("#enterpriseerr").css("display", "none")
+            $("#mailcopyerr").css("display", "none")
+            $("#mailcopyerr1").css("display", "none")
+
+            $('#firstnext').trigger("click");
+          }
         } else {
           $("#titleerr").css("display", "none")
           $("#contact_aplicant_mailerr").css("display", "none")
@@ -41,66 +48,136 @@
           $('#firstnext').trigger("click");
         }
       } else {
-        $("#titleerr").css("display", "none")
-        $("#contact_aplicant_mailerr").css("display", "none")
-        $("#contact_aplicant_mailerr1").css("display", "none")
-        $("#lastnameerr").css("display", "none")
-        $("#firstnameerr").css("display", "none")
-        $("#phoneerr1").css("display", "none")
-        $("#enterpriseerr").css("display", "none")
-        $("#mailcopyerr").css("display", "none")
-        $("#mailcopyerr1").css("display", "none")
-
-        $('#firstnext').trigger("click");
+        if (ticket_title == "") {
+          $("#titleerr").css("display", "block")
+        } else {
+          $("#titleerr").css("display", "none")
+        }
+        if (contact_aplicant_mail == "") {
+          $("#contact_aplicant_mailerr").css("display", "block")
+          $("#contact_aplicant_mailerr1").css("display", "none")
+        } else {
+          if (!contact_aplicant_mail.match('[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,}$')) {
+            $("#contact_aplicant_mailerr").css("display", "none")
+            $("#contact_aplicant_mailerr1").css("display", "block")
+          } else {
+            $("#contact_aplicant_mailerr").css("display", "none")
+            $("#contact_aplicant_mailerr1").css("display", "none")
+          }
+        }
+        if (lastname == "") {
+          $("#lastnameerr").css("display", "block")
+        } else {
+          $("#lastnameerr").css("display", "none")
+        }
+        if (firstname == "") {
+          $("#firstnameerr").css("display", "block")
+        } else {
+          $("#firstnameerr").css("display", "none")
+        }
+        if (phone != "") {
+          if (!phone.match('[0-9]{9}')) {
+            $("#phoneerr1").css("display", "block")
+          } else {
+            $("#phoneerr1").css("display", "none")
+          }
+        }
+        if (enterprise == "") {
+          $("#enterpriseerr").css("display", "block")
+        } else {
+          $("#enterpriseerr").css("display", "none")
+        }
+        if (mailcopy != "") {
+          if (!mailcopy.match('[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,}$')) {
+            $("#mailcopyerr1").css("display", "block")
+          } else {
+            $("#mailcopyerr1").css("display", "none")
+          }
+        }
       }
     } else {
-      if (ticket_title == "") {
-        $("#titleerr").css("display", "block")
-      } else {
-        $("#titleerr").css("display", "none")
-      }
-      if (contact_aplicant_mail == "") {
-        $("#contact_aplicant_mailerr").css("display", "block")
-        $("#contact_aplicant_mailerr1").css("display", "none")
-      } else {
-        if (!contact_aplicant_mail.match('[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,}$')) {
-          $("#contact_aplicant_mailerr").css("display", "none")
-          $("#contact_aplicant_mailerr1").css("display", "block")
+      if (ticket_title != "" && contact_aplicant_mail != "" &&
+        contact_aplicant_mail.match('[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,}$') &&
+        lastname != "" && firstname != "" && enterprise != "") {
+        if (phone != "") {
+          if (!phone.match('[0-9]{10}')) {
+            $("#phoneerr1").css("display", "block")
+          } else {
+            $("#titleerr").css("display", "none")
+            $("#contact_aplicant_mailerr").css("display", "none")
+            $("#contact_aplicant_mailerr1").css("display", "none")
+            $("#lastnameerr").css("display", "none")
+            $("#firstnameerr").css("display", "none")
+            $("#phoneerr1").css("display", "none")
+            $("#enterpriseerr").css("display", "none")
+            $("#mailcopyerr").css("display", "none")
+            $("#mailcopyerr1").css("display", "none")
+
+            $('#firstnext').trigger("click");
+          }
         } else {
+          $("#titleerr").css("display", "none")
           $("#contact_aplicant_mailerr").css("display", "none")
           $("#contact_aplicant_mailerr1").css("display", "none")
-        }
-      }
-      if (lastname == "") {
-        $("#lastnameerr").css("display", "block")
-      } else {
-        $("#lastnameerr").css("display", "none")
-      }
-      if (firstname == "") {
-        $("#firstnameerr").css("display", "block")
-      } else {
-        $("#firstnameerr").css("display", "none")
-      }
-      if (phone != "") {
-        if (!phone.match('[0-9]{9}')) {
-          $("#phoneerr1").css("display", "block")
-        } else {
+          $("#lastnameerr").css("display", "none")
+          $("#firstnameerr").css("display", "none")
           $("#phoneerr1").css("display", "none")
-        }
-      }
-      if (enterprise == "") {
-        $("#enterpriseerr").css("display", "block")
-      } else {
-        $("#enterpriseerr").css("display", "none")
-      }
-      if (mailcopy != "") {
-        if (!mailcopy.match('[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,}$')) {
-          $("#mailcopyerr1").css("display", "block")
-        } else {
+          $("#enterpriseerr").css("display", "none")
+          $("#mailcopyerr").css("display", "none")
           $("#mailcopyerr1").css("display", "none")
+
+          $('#firstnext').trigger("click");
+        }
+      } else {
+        if (ticket_title == "") {
+          $("#titleerr").css("display", "block")
+        } else {
+          $("#titleerr").css("display", "none")
+        }
+        if (contact_aplicant_mail == "") {
+          $("#contact_aplicant_mailerr").css("display", "block")
+          $("#contact_aplicant_mailerr1").css("display", "none")
+        } else {
+          if (!contact_aplicant_mail.match('[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,}$')) {
+            $("#contact_aplicant_mailerr").css("display", "none")
+            $("#contact_aplicant_mailerr1").css("display", "block")
+          } else {
+            $("#contact_aplicant_mailerr").css("display", "none")
+            $("#contact_aplicant_mailerr1").css("display", "none")
+          }
+        }
+        if (lastname == "") {
+          $("#lastnameerr").css("display", "block")
+        } else {
+          $("#lastnameerr").css("display", "none")
+        }
+        if (firstname == "") {
+          $("#firstnameerr").css("display", "block")
+        } else {
+          $("#firstnameerr").css("display", "none")
+        }
+        if (phone != "") {
+          if (!phone.match('[0-9]{9}')) {
+            $("#phoneerr1").css("display", "block")
+          } else {
+            $("#phoneerr1").css("display", "none")
+          }
+        }
+        if (enterprise == "") {
+          $("#enterpriseerr").css("display", "block")
+        } else {
+          $("#enterpriseerr").css("display", "none")
+        }
+        if (mailcopy != "") {
+          if (!mailcopy.match('[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,}$')) {
+            $("#mailcopyerr1").css("display", "block")
+          } else {
+            $("#mailcopyerr1").css("display", "none")
+          }
         }
       }
     }
+
 
   }
 
@@ -151,6 +228,7 @@
   }
 
   function thirdnextfunc() {
+
     var place = $("#place").val();
     var deliver_address = $("#deliver_address").val();
     var postal_code = $("#postal_code").val();
@@ -192,7 +270,21 @@
           $("#vdeliver_name").html($("#deliver_name").val())
           $("#vphone_delivery").html($("#phone_delivery").val())
           $("#vdescription_delivery").html($("#description_delivery").val())
-
+          if ($('#attachment').val() != "") {
+            var list = document.getElementById('fileList');
+            while (list.hasChildNodes()) {
+              list.removeChild(ul.firstChild);
+            }
+            for (var x = 0; x < document.getElementById('attachment').files.length; x++) {
+              var li = document.createElement('li');
+              li.innerHTML = 'File ' + (x + 1) + ':  ' + document.getElementById('attachment').files[x].name;
+              list.append(li);
+            }
+            // $("#vattachments").html(document.getElementById('attachment').files[0].name)
+            // $("#attachmentsdiv").css("display", "block")
+          } else {
+            $("#attachmentsdiv").css("display", "none")
+          }
           $('#thirdnext').trigger("click");
         }
       } else {
@@ -223,10 +315,25 @@
         $("#vdeliver_name").html($("#deliver_name").val())
         $("#vphone_delivery").html($("#phone_delivery").val())
         $("#vdescription_delivery").html($("#description_delivery").val())
-
+        if ($('#attachment').val() != "") {
+          var list = document.getElementById('fileList');
+          while (list.hasChildNodes()) {
+            list.removeChild(ul.firstChild);
+          }
+          for (var x = 0; x < document.getElementById('attachment').files.length; x++) {
+            var li = document.createElement('li');
+            li.innerHTML = 'File ' + (x + 1) + ':  ' + document.getElementById('attachment').files[x].name;
+            list.append(li);
+          }
+          // $("#vattachments").html(document.getElementById('attachment').files[0].name)
+          // $("#attachmentsdiv").css("display", "block")
+        } else {
+          $("#attachmentsdiv").css("display", "none")
+        }
         $('#thirdnext').trigger("click");
       }
     } else {
+
       if (place == "") {
         $("#placeerr").css("display", "block")
       } else {
@@ -273,38 +380,81 @@
   }
 
   function formSubmit() {
-    debugger;
+    $("#progressdiv").css("display", "block")
     event.preventDefault();
     var friendForm = $("#msform");
     var posting = $.post(friendForm.attr('action'), friendForm.serialize());
     posting.done(function (data) {
-      alert(data)
+      if ($('#attachment').val() != "") {
+        formAttachments(data)
+      }
       $("#order_id").html(data)
-      $("#faileddiv").css("display","none")
-      $("#successdiv").css("display","block")
+      $("#faileddiv").css("display", "none")
+      $("#successdiv").css("display", "block")
+      $("#progressdiv").css("display", "none")
+      $('#submit_next').trigger("click");
     });
     posting.fail(function (data) {
       $("#order_id").html('')
-      $("#faileddiv").css("display","block")
-      $("#successdiv").css("display","none")
+      $("#faileddiv").css("display", "block")
+      $("#successdiv").css("display", "none")
+      $("#progressdiv").css("display", "none")
+      $('#submit_next').trigger("click");
     });
   }
 
-  function goback(){
-    $.get('create', function (data) {
-    });
+
+  function formAttachments(tkey) {
+    var form = new FormData(document.getElementById('aform'));
+
+    for (var x = 0; x < document.getElementById('attachment').files.length; x++) {
+      var file = document.getElementById('attachment').files[x];
+      if (file) {
+        form.append('attachment', file);
+        form.append('ticketkey', tkey);
+      }
+      $.ajax({
+        type: "POST",
+        url: "add_attachments",
+        data: form,
+        cache: false,
+        contentType: false, //must, tell jQuery not to process the data
+        processData: false,
+        //data: $("#upload_img").serialize(),
+        success: function (data) {
+        }
+      });
+    }
+
+
+  }
+
+  function removeAttachments() {
+    alert("right")
+    $('#attachment').val('');
+    $("#attachmentsdiv").css("display", "none")
+  }
+
+  function goback() {
+    event.preventDefault();
+    location.reload();
+  }
+
+  function gobackhome() {
+    event.preventDefault();
+    location.replace('/pages/dashboard');
   }
 
   function logout() {
     window.location.replace("/pages/logout")
   }
 
-  
+
 </script>
 
 <div class="css-7zhzs9-ContainerNavigationMask">
   <div class=" css-jdgyoy-PrimaryItemsList">
-    <div data-testid="GlobalNavigation">
+    <div data-testid="GlobalNavigation" class="GlobalNavigation">
       <div>
         <ul class="css-1rawbl">
 
@@ -312,14 +462,17 @@
             <img src="{% static 'image/Open-Order.png' %}">
           </li>
           <a href="dashboard">
+            <li>
+              <img src="{% static 'image/Homeblank.svg' %}">
+            </li>
+          </a>
+          <a onclick="goback()" href="">
+            <li>
+              <img src="{% static 'image/PlusWhite.png' %}">
+            </li>
+          </a>
           <li>
-            <img src="{% static 'image/Homeblank.svg' %}">
-          </li></a>
-          <!-- <li>
-            <img src="{% static 'image/PlusWhite.png' %}">
-          </li> -->
-          <li>
-           <span onclick="logout()"> <img src="{% static 'image/LogoutWhite.svg' %}"></span>
+            <span onclick="logout()"> <img src="{% static 'image/LogoutWhite.svg' %}"></span>
           </li>
 
         </ul>
@@ -333,6 +486,11 @@
         <p>{{user_email}}</p>
 
       </div>
+
+      <span class="hoverRighticon1">
+        <i class="fa fa-angle-left firstic1" aria-hidden="true" style="display: none;"></i>
+        <i class="fa fa-angle-right secIcon1" aria-hidden="true" style="display: block;"></i>
+      </span>
       <h1 class="sidebar-info si_mgbox"> Merci de renseigner l'ensemble des informations pour que nous puissions
         répondre au mieux å votre demand.</h1>
 
@@ -347,6 +505,8 @@
       <div class="bar3"></div>
 
     </div>
+    <form id="aform" method="post" enctype='multipart/form-data'>{% csrf_token %}
+    </form>
     <form id="msform" action="{% url 'create_ticket' %}" method="post" enctype='multipart/form-data'>{% csrf_token %}
 
       <div class="row row1">
@@ -385,7 +545,8 @@
             <div class="col-lg-8 col-md-8 col-sm-12">
               <div class="form-group">
                 <input type="text" id="ticket_title" name="ticket_title" placeholder="Achat matériel informatique ">
-                <span style="display: none;" id="titleerr">Please enter Titre de l'ordre</span>
+                <span style="display: none;" id="titleerr" class="createTickMsg">Entrez s'il vous plait Titre de
+                  l'ordre</span>
               </div>
             </div>
             <div class="col-lg-4 col-md-4 col-sm-12">
@@ -395,10 +556,12 @@
             </div>
             <div class="col-lg-8 col-md-8 col-sm-12">
               <div class="form-group">
-                <input type="text" name="contact_aplicant_mail" id="contact_aplicant_mail" readonly value="{{user_email}}"
-                  placeholder="Mail_utillisateur@société.com">
-                <span style="display: none;" id="contact_aplicant_mailerr">Please enter Mail Demandeur</span>
-                <span style="display: none;" id="contact_aplicant_mailerr1">Please enter correct Mail Demandeur</span>
+                <input type="text" name="contact_aplicant_mail" id="contact_aplicant_mail" readonly
+                  value="{{user_email}}" placeholder="Mail_utillisateur@société.com">
+                <span style="display: none;" id="contact_aplicant_mailerr" class="createTickMsg">Entrez s'il vous plait
+                  Mail Demandeur</span>
+                <span style="display: none;" id="contact_aplicant_mailerr1" class="createTickMsg">Entrez s'il vous plait
+                  correct Mail Demandeur</span>
               </div>
             </div>
             <div class="col-lg-4 col-md-4 col-sm-12">
@@ -409,7 +572,7 @@
             <div class="col-lg-8 col-md-8 col-sm-12">
               <div class="form-group">
                 <input type="text" name="lastname" id="lastname" placeholder="Gerard">
-                <span style="display: none;" id="lastnameerr">Please enter Nom</span>
+                <span style="display: none;" id="lastnameerr" class="createTickMsg">Entrez s'il vous plait Nom</span>
               </div>
             </div>
             <div class="col-lg-4 col-md-4 col-sm-12">
@@ -420,7 +583,8 @@
             <div class="col-lg-8 col-md-8 col-sm-12">
               <div class="form-group">
                 <input type="text" name="firstname" id="firstname" placeholder="MENVUSSA">
-                <span style="display: none;" id="firstnameerr">Please enter Prénom</span>
+                <span style="display: none;" id="firstnameerr" class="createTickMsg">Entrez s'il vous plait
+                  Prénom</span>
               </div>
             </div>
             <div class="col-lg-4 col-md-4 col-sm-12">
@@ -431,7 +595,8 @@
             <div class="col-lg-8 col-md-8 col-sm-12">
               <div class="form-group">
                 <input type="text" name="phone" id="phone" placeholder="">
-                <span style="display: none;" id="phoneerr1">Please enter valid N de telephone</span>
+                <span style="display: none;" id="phoneerr1" class="createTickMsg">Entrez s'il vous plait valide N de
+                  telephone</span>
               </div>
             </div>
             <div class="col-lg-4 col-md-4 col-sm-12">
@@ -442,7 +607,8 @@
             <div class="col-lg-8 col-md-8 col-sm-12">
               <div class="form-group">
                 <input type="text" name="enterprise" id="enterprise" id="ticket_enterprise_service" placeholder="">
-                <span style="display: none;" id="enterpriseerr">Please enter Enterprise / Service</span>
+                <span style="display: none;" id="enterpriseerr" class="createTickMsg">Entrez s'il vous plait Enterprise
+                  / Service</span>
               </div>
             </div>
             <div class="col-lg-4 col-md-4 col-sm-12">
@@ -453,7 +619,8 @@
             <div class="col-lg-8 col-md-8 col-sm-12">
               <div class="form-group">
                 <input type="text" name="mailcopy" id="mailcopy" placeholder="">
-                <span style="display: none;" id="mailcopyerr1">Please enter valid Mail personne en copie</span>
+                <span style="display: none;" id="mailcopyerr1" class="createTickMsg">Entrez s'il vous plait valide Mail
+                  personne en copie</span>
               </div>
             </div>
 
@@ -472,7 +639,8 @@
             <div class="col-lg-8 col-md-8 col-sm-12">
               <div class="form-group">
                 <input type="text" id="provider" name="provider" placeholder="Ex : Amazon ">
-                <span style="display: none;" id="providererr">Please enter Nom du Fournisseur</span>
+                <span style="display: none;" id="providererr" class="createTickMsg">Entrez s'il vous plait Nom du
+                  Fournisseur</span>
               </div>
             </div>
             <div class="col-lg-4 col-md-4 col-sm-12">
@@ -484,7 +652,8 @@
               <div class="form-group">
                 <input type="text" id="provider_web_link" name="provider_web_link"
                   placeholder="Ex : https://www.amazon.fr ">
-                <span style="display: none;" id="provider_web_linkerr">Please enter valid Site du Fournisseu</span>
+                <span style="display: none;" id="provider_web_linkerr" class="createTickMsg">Entrez s'il vous plait
+                  valide Site du Fournisseu</span>
               </div>
             </div>
             <div class="col-lg-4 col-md-4 col-sm-12">
@@ -495,7 +664,8 @@
             <div class="col-lg-8 col-md-8 col-sm-12">
               <div class="form-group">
                 <textarea name="description" id="description" rows="6" cols="50"></textarea>
-                <span style="display: none;" id="descriptionerr">Please enter Description de Ia demande</span>
+                <span style="display: none;" id="descriptionerr" class="createTickMsg">Entrez s'il vous plait
+                  Description de Ia demande</span>
               </div>
             </div>
             <div class="col-lg-4 col-md-4 col-sm-12">
@@ -505,7 +675,7 @@
             </div>
             <div class="col-lg-8 col-md-8 col-sm-12">
               <div class="form-group">
-                <input type="file" id="attachment" name="attachment">
+                <input type="file" id="attachment" name="attachment[]" multiple>
               </div>
             </div>
             <!-- <div class="col-lg-8 col-md-8 col-sm-12">
@@ -539,7 +709,7 @@
             <div class="col-lg-8 col-md-8 col-sm-12">
               <div class="form-group">
                 <input type="text" name="place" id="place" placeholder="">
-                <span style="display: none;" id="placeerr">Please enter Chez</span>
+                <span style="display: none;" id="placeerr" class="createTickMsg">Entrez s'il vous plait Chez</span>
               </div>
             </div>
             <div class="col-lg-4 col-md-4 col-sm-12">
@@ -550,7 +720,8 @@
             <div class="col-lg-8 col-md-8 col-sm-12">
               <div class="form-group">
                 <textarea rows="6" name="deliver_address" id="deliver_address" cols="50"></textarea>
-                <span style="display: none;" id="deliver_addresserr">Please enter Adresse</span>
+                <span style="display: none;" id="deliver_addresserr" class="createTickMsg">Entrez s'il vous plait
+                  Adresse</span>
               </div>
             </div>
             <div class="col-lg-4 col-md-4 col-sm-12">
@@ -561,8 +732,10 @@
             <div class="col-lg-8 col-md-8 col-sm-12">
               <div class="form-group">
                 <input type="text" name="postal_code" id="postal_code" placeholder=" Ex : 01600">
-                <span style="display: none;" id="postal_codeerr">Please enter Code Postal</span>
-                <span style="display: none;" id="postal_codeerr1">Please enter valid Code Postal</span>
+                <span style="display: none;" id="postal_codeerr" class="createTickMsg">Entrez s'il vous plait Code
+                  Postal</span>
+                <span style="display: none;" id="postal_codeerr1" class="createTickMsg">Entrez s'il vous plait valide
+                  Code Postal</span>
               </div>
             </div>
             <div class="col-lg-4 col-md-4 col-sm-12">
@@ -573,7 +746,7 @@
             <div class="col-lg-8 col-md-8 col-sm-12">
               <div class="form-group">
                 <input name="city" id="city" type="text" placeholder=" Ex : Reyrieux">
-                <span style="display: none;" id="cityerr">Please enter Ville</span>
+                <span style="display: none;" id="cityerr" class="createTickMsg">Entrez s'il vous plait Ville</span>
               </div>
             </div>
             <div class=" foSi">
@@ -587,7 +760,8 @@
             <div class="col-lg-8 col-md-8 col-sm-12">
               <div class="form-group">
                 <input type="text" name="deliver_name" id="deliver_name" placeholder=" Gérard MEMVUSSA">
-                <span style="display: none;" id="deliver_nameerr">Please enter Nom Prénom</span>
+                <span style="display: none;" id="deliver_nameerr" class="createTickMsg">Entrez s'il vous plait Nom
+                  Prénom</span>
               </div>
             </div>
             <div class="col-lg-4 col-md-4 col-sm-12">
@@ -598,7 +772,8 @@
             <div class="col-lg-8 col-md-8 col-sm-12">
               <div class="form-group">
                 <input type="text" name="phone_delivery" id="phone_delivery" placeholder=" Ex : 184 rue du lavoir">
-                <span style="display: none;" id="phone_deliveryerr">Please enter valid Téléphone</span>
+                <span style="display: none;" id="phone_deliveryerr" class="createTickMsg">Entrez s'il vous plait valide
+                  Téléphone</span>
               </div>
             </div>
             <div class="col-lg-4 col-md-4 col-sm-12">
@@ -622,7 +797,7 @@
           <fieldset>
             <h2 class="fs-title">Resume</h2>
             <h3 class="fs-subtitle" id="vticket_title"></h3>
-            <ul class="details_view col-md-offset-3 col-md-9 col-sm-12">
+            <ul class="details_view col-md-offset-1 col-md-11 col-sm-12">
               <li>
                 <p id="vlastname"></p>
                 <p id="vfirstname"></p>
@@ -638,7 +813,7 @@
                 <p id="vcity"></p>
               </li>
             </ul>
-            <ul class="details_view col-md-offset-3 col-md-9 col-sm-12">
+            <ul class="details_view col-md-offset-1 col-md-11 col-sm-12">
               <li>
                 <p id="vprovider">
                   <p id="vprovider_web_link"></p>
@@ -651,21 +826,29 @@
                 <p id="vdescription_delivery"></p>
               </li>
             </ul>
-            <ul class="attachment details_view col-md-offset-3 col-md-9 col-sm-12">
+            <ul class="attachment details_view col-md-offset-1 col-md-11 col-sm-12">
               <li>
-                <p> <img src="{% static 'image/powerpoint.png' %}" class="icon_zip"><a href="">Liste des pieces ppt<i
-                      class="fa fa-times" aria-hidden="true"></i></a></p>
-                <p> <img src="{% static 'image/doc.svg' %}" class="icon_zip"><a href="">Liste des prix docx <i
-                      class="fa fa-times" aria-hidden="true"></i> </a></p>
+                <!-- <p id="vattachments"><a href=""><i class="fa fa-times" aria-hidden="true"></i></a></p> -->
+                <div id="attachmentsdiv">
+                  <ul id="fileList"></ul>
+                  <!-- <span id="vattachments"></span> <img src="{% static 'image/close.png' %}" class="icon_zip"
+                    onclick="removeAttachments()"> -->
+                </div>
+                <!-- <p> <img src="{% static 'image/doc.svg' %}" class="icon_zip"><a href="">Liste des prix docx <i
+                      class="fa fa-times" aria-hidden="true"></i> </a></p> -->
               </li>
             </ul>
 
-            <span class="previous action-button-previous"><i class="fa fa-long-arrow-left" aria-hidden="true"></i>
+            <span class="previous action-button-previous lastPreviousBtn"><i class="fa fa-long-arrow-left"
+                aria-hidden="true"></i>
               Precedent </span>
             <!-- <span class="next action-button" >Valider <i class="fa fa-check" aria-hidden="true"></i></span> -->
             <!-- <input class="next action-button" type="button" onclick="formSubmit()" name="Valider" value="Valider"> -->
-         
- <span class="next action-button"><input class="lastvalider" type="button" onclick="formSubmit()" name="Valider" value="Valider"><i class="fa fa-check" aria-hidden="true"></i></span>
+
+            <span class="action-button"><input class="lastvalider" type="button" onclick="formSubmit()" name="Valider"
+                value="Valider"> <i class="fa fa-check" aria-hidden="true"></i></span>
+            <span style="display: none;" id="submit_next" class="next action-button"><input class="lastvalider"
+                type="button" name="Valider" value="Valider"> <i class="fa fa-check" aria-hidden="true"></i></span>
           </fieldset>
           <fieldset>
             <div class="col-lg-11 col-md-12 col-sm-12">
@@ -676,13 +859,16 @@
                   <h2 class="fs-title"> II porte Ie numéro :</h2>
                   <div class="orderBox">
                     <h1><span id="order_id"></span> <span class="u_name">Achat fourniture</span></h1>
-                    <h1>Statuts :<span> Order Place</span></h1>
+                    <h1>Statuts :<span> PLACE DE COMMANDE</span></h1>
                   </div>
                 </div>
                 <div class="o_btn_box">
-                  <button onclick="goback()" class="bck_btn"> <img src="{% static 'image/PlusWhite.png' %}"> Créer un nouvel ordre
+                  <button style="cursor: pointer;" onclick="goback()" class="bck_btn"> <img
+                      src="{% static 'image/PlusWhite.png' %}"> Créer un
+                    nouvel ordre
                     d'achat</button>
-                    <a href="dashboard.html"><button class="su_btn"> Retourner a l' Accueil <img src="{% static 'image/Homeblank.svg' %}"></button></a>
+                  <button style="cursor: pointer;" onclick="gobackhome()" class="su_btn"> Retourner a l' Accueil <img
+                      src="{% static 'image/Homeblank.svg' %}"></button>
                 </div>
               </div>
 
@@ -698,9 +884,12 @@
                   </div>
                 </div>
                 <div class="o_btn_box">
-                  <button  onclick="goback()" class="bck_btn"><img src="{% static 'image/PlusWhite.png' %}"> Créer un nouvel ordre
+                  <button style="cursor: pointer;" onclick="goback()" class="bck_btn"> <img
+                      src="{% static 'image/PlusWhite.png' %}"> Créer un
+                    nouvel ordre
                     d'achat</button>
-                    <a href="dashboard.html"><button class="su_btn">Retourner a l' Accueil <img src="{% static 'image/Homeblank.svg' %}"></button></a>
+                  <button style="cursor: pointer;" onclick="gobackhome()" class="su_btn"> Retourner a l' Accueil <img
+                      src="{% static 'image/Homeblank.svg' %}"></button>
                 </div>
               </div>
             </div>
@@ -719,7 +908,16 @@
 
 
 </div>
-
+<div id="progressdiv" style="position: fixed;display: none;
+z-index: 199;
+left: 0;
+top: 0;
+width: 100%;
+height: 100%;
+overflow: auto;
+background-color: rgba(0,0,0,.4);"><img style="margin-top: 20%;
+    height: 109px;
+    margin-left: 48%;" src="{% static 'image/progres.gif' %}"></div>
 {% include 'partials/_footer-scripts.html'%}
 
 {% endblock %}

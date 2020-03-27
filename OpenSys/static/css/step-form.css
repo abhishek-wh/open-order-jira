@@ -197,6 +197,11 @@ background: linear-gradient(-45deg, rgba(0, 0, 0, 0) 16px, rgb(0, 32, 96) 0), li
     background-repeat: no-repeat;}   
 
 #progressbar1 li.inProgress:before{ background: linear-gradient(to right, #ffffff 50%, rgb(63, 63, 63) 50%);}
+#progressbar1 li.complete:before {
+    background-image: url(../image/StepOK.png);
+    background-size: 40px;
+    background-repeat: no-repeat;
+ }
 #progressbar1 li.checked:before{background-image: url(../image/StepOK.png); background-size: 40px; 
     background-repeat: no-repeat;}
 #progressbar1 li.cancle:before{background-image: url(../image/StepKO.png);background-size: 40px;
@@ -464,11 +469,10 @@ fieldset.row { margin-right: 15px; margin-left: 15px;}
 .attachment{display: flex;display: -webkit-box;display: -ms-flexbox;font-size: 14px;}
 .attachment img.zipImg{height: 64px;}
 .attachment a{color: #3b2c48;font-weight: 500;text-decoration: underline;}
-.icon_zip{height: 13px;margin-bottom: 5px;}
+.icon_zip{height: 17px;margin-bottom: 5px;cursor: pointer;}
 .orderBox2 {
     padding: 10px;
-    border: 2px solid #fff;color: #fff;
- 
+    border: 2px solid #fff;color: #fff; 
     margin: 0 auto;
     border-radius: 10px;
 }.second-sidebar1 {
@@ -509,3 +513,43 @@ fieldset.row { margin-right: 15px; margin-left: 15px;}
   
 }
 .css-jdgyoy-PrimaryItemsList>div.GlobalNavigation{    background-color: rgb(7, 71, 166);}
+
+
+
+
+
+
+@media (max-width: 1024px) {
+    .top_box4>span, .top_box3>span {
+       width: 70px!important;
+       margin: 20px !important;
+       height: 66px!important;
+    }
+    }
+.btn_top_blog2 {color: #fff; text-align: left; background: #fdc003; height: 131px; padding: 45px 0px 45px; }
+.top_box3 {display: -ms-flexbox; display: -webkit-box; display: flex; background: #fdc003; color: rgb(255, 255, 255); }
+.zig-zag-bottom3{padding: 20px 0px; background: #bf8f00; height: 100px; margin-bottom: 51px; }
+.zig-zag-bottom3:after {background: linear-gradient(-45deg, rgba(0, 0, 0, 0) 16px, #bf8f00 0), linear-gradient(45deg, rgba(0, 0, 0, 0) 16px,#bf8f00 0); background-repeat: repeat-x; background-position: left bottom;
+    background-size: 16px 22px; content: ""; display: block; width: 100%; height: 32px; position: relative; top: 0px; left: 0px; }
+.top_box3>span, .top_box4>span {padding: 10px 15px; width: 100px; height: 100px; background: rgb(255, 255, 255);
+    /* background: rgb(255, 255, 255); */ border-radius: 50%; margin: 10px 20px; }
+.btn_top_blog4 {color: #fff; text-align: left; background: #262626; height: 131px; padding: 45px 0px 45px; }
+.top_box4 {display: -ms-flexbox; display: -webkit-box; display: flex; background: #262626; color: rgb(255, 255, 255); }
+.zig-zag-bottom4 {padding: 20px 0px; background: #000000; height: 100px; margin-bottom: 51px; }
+.zig-zag-bottom4:after {background: linear-gradient(-45deg, rgba(0, 0, 0, 0) 16px, #000000 0), linear-gradient(45deg, rgba(0, 0, 0, 0) 16px,#000000 0);
+    background-repeat: repeat-x; background-position: left bottom; background-size: 16px 22px; content: "";
+    display: block; width: 100%; height: 32px; position: relative; top: 0px; left: 0px; }
+
+
+    #progressbar1 li.success:after {background: #fff;}
+#progressbar1 li.success:before {
+   background-image: url(../image/StepOK.png);
+   background-size: 40px;
+   background-repeat: no-repeat;
+}
+
+.common_css_f1 {
+    color: #262626;
+    word-break: break-all;
+    overflow: hidden;
+    }

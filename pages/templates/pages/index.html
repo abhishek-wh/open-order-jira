@@ -8,6 +8,10 @@
 <!--{{ var }}-->
 <!--</h1>-->
 <!--<h1>&#45;&#45;&#45;&#45;&#45;&#45;</h1>-->
+<script>
+	sessionStorage.setItem("filter", "All")
+	sessionStorage.setItem("searchkey", "")
+</script>
 <body class="welcome">
 	<section class="valign-wrapper wow animated zoomIn" id="login" data-wow-delay="0.4s">
 		<div class="container">
@@ -48,10 +52,9 @@
 						<!-- <fieldset class="form-group common_css ">
 							<label for="exampleInputPassword1">Enter Votre email</label>
 							<input type="email" class="form-control" id="exampleInputPassword1" placeholder="">
-
 						</fieldset> -->
 						 <div class="form-group">
-      						<label class="form-label" for="email">Enter User name</label>
+      						<label class="form-label" for="email">Entrez votre e-mail</label>
       						<input id="email" name="em" class="form-input" type="text" />
 							 <h1 class="block_msg">{{var}}</h1>
     					</div>

@@ -1,5 +1,5 @@
 
-body{font-family: 'Segoe UI Emoji';}
+body{font-family: 'Segoe UI Emoji','Segoe UI Regular';}
 /*body{font-family: 'Poppins';}*/
 a:hover{text-decoration:none; color: #e95a50;}
 input:focus, select:focus, textarea:focus {outline: 0;}
@@ -637,3 +637,7 @@ table.dataTable thead .sorting:after { opacity: 0.4 !important; color: #2977c4; 
 .overflow{min-height: 100vh}
 .list-of-users span a:hover{font-weight: 700;    color: #c01a00;}
 .attachment a .fa{margin-left: 10px;}
+.table>thead:first-child>tr:first-child>th:first-child:after {
+   display:none;
+}
+.daterangepicker.ltr.show-calendar.opensleft{right: 296.406px !important;left: 520px !important;}

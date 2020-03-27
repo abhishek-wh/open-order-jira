@@ -5,35 +5,98 @@
 {{ issue_detail }}
 <script>
 
-  function find() {
+
+  function find(e) {
     var value;
-    value=$('#search_txt').val()
-    alert(value)
-    $.get('add_comment/' + value, function (data) {
-    });
-    value=""
-    window.location.reload()
+    if (e.keyCode == 13) {
+      value = $('#search_txt').val()
+      $.get('add_comment/' + value, function (data) {
+      });
+      $('#dummyComment').css("display", "block");
+      $("#comment").html('[' + value + ']');
+      $('#search_txt').val("");
+    }
+
+
   }
 
   function logout() {
     window.location.replace("/pages/logout")
   }
-  </script>
 
- <div class="css-7zhzs9-ContainerNavigationMask">
-   <div class=" css-jdgyoy-PrimaryItemsList"> <div data-testid="GlobalNavigation">
-       <div>
-         <ul class="css-1rawbl">
+  function showform() {
+    $('#viewform').css("display", "none");
+    $('#editform').css("display", "block");
+  }
 
-           <li class="logo_img">
+  function showform2() {
+    $('#viewform2').css("display", "none");
+    $('#editform2').css("display", "block");
+  }
 
-             <img src="{% static 'image/Open-Order.png' %}">
-           </li>
-           <a href="/pages/dashboard">
+  function formSubmit() {
+    $("#progressdiv").css("display", "block")
+    event.preventDefault();
+    var EditForm = $("#basicform");
+    var posting = $.post(EditForm.attr('action'), EditForm.serialize());
+    posting.done(function (data) {
+      $("#progressdiv").css("display", "none")
+      event.preventDefault();
+      location.reload();
+    });
+    posting.fail(function (data) {
+      $("#progressdiv").css("display", "block")
+    });
+  }
+
+  function formSubmit2() {
+    $("#progressdiv").css("display", "block")
+    event.preventDefault();
+    var EditForm2 = $("#basicform2");
+    var posting = $.post(EditForm2.attr('action'), EditForm2.serialize());
+    posting.done(function (data) {
+      $("#progressdiv").css("display", "none")
+      event.preventDefault();
+      location.reload();
+    });
+    posting.fail(function (data) {
+      $("#progressdiv").css("display", "block")
+    });
+  }
+
+  function cancelticket() {
+    var issue_key = $('#order_number').val()
+    var result = confirm("L’ordre de d’achat sera annulé. Etes-vous sur ?");
+    if (result) {
+      $("#progressdiv").css("display", "block")
+      $.get('cancelissue/' + issue_key, function (data) {
+        $("#progressdiv").css("display", "none")
+        event.preventDefault();
+        location.reload();
+      });
+    } else {
+      $("#progressdiv").css("display", "block")
+    }
+  }
+
+</script>
+
+<div class="css-7zhzs9-ContainerNavigationMask">
+  <div class=" css-jdgyoy-PrimaryItemsList">
+    <div data-testid="GlobalNavigation">
+      <div>
+        <ul class="css-1rawbl">
+
+          <li class="logo_img">
+
+            <img src="{% static 'image/Open-Order.png' %}">
+          </li>
+          <a href="/pages/dashboard">
             <li>
               <img src="{% static 'image/Homeblank.svg' %}">
-            </li></a>
-           <li>
+            </li>
+          </a>
+          <li>
             <a href="/pages/createticket" target="_blank"><img onclick="create_ticket()"
                 src="{% static 'image/PlusWhite.png'%}"></a>
           </li>
@@ -42,224 +105,527 @@
           </li>
 
         </ul>
-       </div>
+      </div>
 
     </div>
 
-      <div class="sidebar-section">
-        <div class="second-sidebar1">
-      <h1 class="sidebar-info" style="visibility: hidden;">Connection tanteque</h1>
+    <div class="sidebar-section">
+      <div class="second-sidebar1">
+        <h1 class="sidebar-info" style="visibility: hidden;">Connection tanteque</h1>
         <p>{{details.fields.reporter.emailAddress}}</p>
         <div class="orderBox2">
 
-        <input type="text" id="search_txt" onchange="find()" style="color:black; text-color:black;" placeholder="Aioutet un commentoire" name="add_comment" id="add_comment">
+          <input type="text" id="search_txt" onkeypress="find(event)" style="color:black; text-color:black;"
+            placeholder="Aioutet un commentoire" name="add_comment" id="add_comment">
         </div>
 
-        <p class="sideh">	 Derniers commentaires sur cet ordre achat :</p>
+        <p class="sideh"> Derniers commentaires sur cet ordre achat :</p>
 
-        </div>
-        {% for comment in comments %}
+      </div>
+      <div class="scrollBox scrollbar">
+        <div class="overflow">
+          <div class="about-orders" style="display:none" id="dummyComment">
+
+            <h1 id="comment"></h1>
+            <p>Juste maintenant</p>
+          </div>
+          {% for comment in comments %}
           <div class="about-orders">
 
-          <h1>[{{comment.body}}] </h1>
-          <p>[{{comment.created}}]</p>
-        </div>
-        {% endfor %}
-
-<!--        <div class="about-orders">-->
-
-<!--          <h1>[Date comrnentaire] </h1>-->
-<!--          <p>[Texte commentaire JIRA 5]</p>-->
-<!--        </div>-->
-<!--        <div class="about-orders">-->
-<!--          <h1>[Date comrnentaire] </h1>-->
-<!--          <p>[Texte commentaire JIRA 4]</p>-->
-<!--        </div>-->
-<!--        <div class="about-orders">-->
-<!--          <h1>[Date comrnentaire] </h1>-->
-<!--          <p>[Texte commentaire JIRA 3]</p>-->
-<!--        </div>-->
-<!--        <div class="about-orders">-->
-<!--          <h1>[Date comrnentaire] </h1>-->
-<!--          <p>[Texte commentaire JIRA 2]</p>-->
-<!--        </div>-->
-<!--        <div class="about-orders">-->
-<!--          <h1>[Date comrnentaire] </h1>-->
-<!--          <p>[Texte commentaire JIRA 1]</p>-->
-<!--        </div>-->
-       </div>
-</div>
-<!-- Rightpart-section -->
-       <div class="dashboard-main-section1">
-    <div class="mbldisplay ">
-  <div class="bar1"></div>
-  <div class="bar2"></div>
-  <div class="bar3"></div>
-
-    </div>
-    <form id="msform1">
-         <div class="row row1">
-          <div class="col-lg-10 col-md-9  pd_none">
-            <div class="top_box1">
-              <span><img src="{% static 'image/BoxGreen.png' %}"></span>
-              <div class="heading_n">
-
-                <h1>Ordew Number {{order_number}}</h1>
-                <h3>{{details.fields.summary}} </h3>
-                <span class="msg">cet ordre est en cours de realisation</span>
-              </div>
-            </div>
-
-
+            <h1>{{comment.body}}</h1>
+            <p>{{comment.created}}</p>
           </div>
 
-           <div class="col-lg-2 col-md-3  pd_none btn_top_blog">
 
-            <button id="btn_top"> {{  issues_detail }} </button>
-             <span class="msg">Annuler l'ordre </span>
-               </div>
-      <div class="col-md-12 col-sm-12 pd_none">
-       <!-- progressbar -->
-       <div class="zig-zag-bottom1">
-        <ul id="progressbar1">
-          <li class="inProgress">Order Placed</li>
-          <li class="">Devis Envoye</li>
-          <li>Commande Recue</li>
-          <li>Order Execute</li>
-          <li>facture Emise</li>
-          <li>facture Regiee</li>
-        </ul>
+          {% endfor %}
+
+          <!--        <div class="about-orders">-->
+
+          <!--          <h1>[Date comrnentaire] </h1>-->
+          <!--          <p>[Texte commentaire JIRA 5]</p>-->
+          <!--        </div>-->
+          <!--        <div class="about-orders">-->
+          <!--          <h1>[Date comrnentaire] </h1>-->
+          <!--          <p>[Texte commentaire JIRA 4]</p>-->
+          <!--        </div>-->
+          <!--        <div class="about-orders">-->
+          <!--          <h1>[Date comrnentaire] </h1>-->
+          <!--          <p>[Texte commentaire JIRA 3]</p>-->
+          <!--        </div>-->
+          <!--        <div class="about-orders">-->
+          <!--          <h1>[Date comrnentaire] </h1>-->
+          <!--          <p>[Texte commentaire JIRA 2]</p>-->
+          <!--        </div>-->
+          <!--        <div class="about-orders">-->
+          <!--          <h1>[Date comrnentaire] </h1>-->
+          <!--          <p>[Texte commentaire JIRA 1]</p>-->
+          <!--        </div>-->
+        </div>
       </div>
-
+    </div>
+  </div>
+  <!-- Rightpart-section -->
+  <div class="dashboard-main-section1">
+    <div class="mbldisplay ">
+      <div class="bar1"></div>
+      <div class="bar2"></div>
+      <div class="bar3"></div>
 
     </div>
-    <div class="col-lg-12  col-md-12 common_css_f1 pd_none">
-    <!-- fieldsets -->
-      <fieldset class="text-left">
-       <div class="col-lg-12 col-md-12 col-sm-12">
-          <label> INFORMATION L'ORDRE ACHAT  </label> <br>
-        </div>
-      <div class="col-lg-6 col-md-6 col-sm-12">
-        <p class="head_p">Demand' par : </p>
-        <p class="detalValue">[{{details.fields.customfield_10033}}] [{{details.fields.customfield_10032}}]  <i class="fa fa-pencil" aria-hidden="true" style="cursor: pointer;"></i></p>
-        <p class="detalValue">[{{details.fields.customfield_10077}}]</p>
-        <p class="detalValue">[{{details.fields.customfield_10039}}]</p>
-        <p class="detalValue">[{{details.fields.customfield_10037}}]</p>
-        <br>
-        <p class="head_p">Second Contact :</p>
-        <p class="detalValue">[Mail du demandeur]</p>
-        <br>
-        <p class="detalValue">[{{details.fields.description}}]</p> <br>
-       </div>
-        <div class="col-lg-6 col-md-6 col-sm-12">
+    <div id="msform1">
+      <div class="row row1">
+        <div class="col-lg-10 col-md-9  pd_none">
+          {% ifequal issues_detail 'A faire' %}
+          <div class="top_box1">
+            <span><img src="{% static 'image/BoxGreen.png' %}"></span>
+            {% endifequal %}
+            {% ifequal issues_detail 'Annulé' %}
+            <div class="top_box3">
+              <span><img src="{% static 'image/BoxYellow.svg' %}"></span>
+              {% endifequal %}
+              {% ifequal issues_detail 'En cours' %}
+              <div class="top_box1">
+                <span><img src="{% static 'image/BoxGreen.png' %}"></span>
+                {% endifequal %}
+                {% ifequal issues_detail 'Bloqué' %}
+                <div class="top_box2">
+                  <span><img src="{% static 'image/BoxRed.png' %}"></span>
+                  {% endifequal %}
+                  {% ifequal issues_detail 'Terminé' %}
+                  <div class="top_box4">
+                    <span><img src="{% static 'image/BoxGrey.svg' %}"></span>
+                    {% endifequal %}
+                    <div class="heading_n">
+
+                      <h1>Ordew Number {{order_number}}</h1>
+                      <h3>{{details.fields.summary}} </h3>
+                      <span class="msg">cet ordre est en cours de realisation</span>
+                    </div>
+                  </div>
+                </div>
+                {% ifequal issues_detail 'A faire' %}
+                <div class="col-lg-2 col-md-3  pd_none btn_top_blog">
+                  {% endifequal %}
+                  {% ifequal issues_detail 'Annulé' %}
+                  <div class="col-lg-2 col-md-3  pd_none btn_top_blog2">
+                    {% endifequal %}
+                    {% ifequal issues_detail 'En cours' %}
+                    <div class="col-lg-2 col-md-3  pd_none btn_top_blog">
+                      {% endifequal %}
+                      {% ifequal issues_detail 'Bloqué' %}
+                      <div class="col-lg-2 col-md-3  pd_none btn_top_blog1">
+                        {% endifequal %}
+                        {% ifequal issues_detail 'Terminé' %}
+                        <div class="col-lg-2 col-md-3  pd_none btn_top_blog4">
+                          {% endifequal %}
+
+                          <button id="btn_top"> {{  issues_detail }} </button>
+                          <input type="hidden" value="{{order_number}}" id="order_number">
+                          {% ifequal issues_detail 'En cours' %}
+                          {% ifequal issue_status 'Ordre Placé' %}
+                          <span onclick="cancelticket()" style="cursor: pointer;" class="msg">Annuler l'ordre </span>
+                          {% endifequal %}
+                          {% ifequal issue_status 'Offre En Cours' %}
+                          <span onclick="cancelticket()" style="cursor: pointer;" class="msg">Annuler l'ordre </span>
+                          {% endifequal %}
+                          {% ifequal issue_status 'Offre Envoyée' %}
+                          <span onclick="cancelticket()" style="cursor: pointer;" class="msg">Annuler l'ordre </span>
+                          {% endifequal %}
+                          {% ifequal issue_status 'Commande En Attente' %}
+                          <span onclick="cancelticket()" style="cursor: pointer;" class="msg">Annuler l'ordre </span>
+                          {% endifequal %}
+                          {% ifequal issue_status 'Commande Reçue' %}
+                          <span onclick="cancelticket()" style="cursor: pointer;" class="msg">Annuler l'ordre </span>
+                          {% endifequal %}
+                          {% endifequal %}
+
+                        </div>
+                        <div class="col-md-12 col-sm-12 pd_none">
+                          <!-- progressbar -->
+                          {% ifequal issues_detail 'A faire' %}
+                          <div class="zig-zag-bottom1">
+                            {% endifequal %}
+                            {% ifequal issues_detail 'Annulé' %}
+                            <div class="zig-zag-bottom3">
+                              {% endifequal %}
+                              {% ifequal issues_detail 'En cours' %}
+                              <div class="zig-zag-bottom1">
+                                {% endifequal %}
+                                {% ifequal issues_detail 'Bloqué' %}
+                                <div class="zig-zag-bottom2">
+                                  {% endifequal %}
+                                  {% ifequal issues_detail 'Terminé' %}
+                                  <div class="zig-zag-bottom4">
+                                    {% endifequal %}
+                                    <ul id="progressbar1">
+                                      {% ifequal issues_detail 'A faire' %}
+                                      <li class="inProgress">Order Placed</li>
+                                      <li>Devis Envoye</li>
+                                      <li>Commande Recue</li>
+                                      <li>Order Execute</li>
+                                      <li>facture Emise</li>
+                                      <li>facture Regiee</li>
+                                      {% endifequal %}
+                                      {% ifequal issues_detail 'En cours' %}
+                                      {% ifequal issue_status 'Ordre Placé' %}
+                                      <li class="complete">Order Placed</li>
+                                      <li>Devis Envoye</li>
+                                      <li>Commande Recue</li>
+                                      <li>Order Execute</li>
+                                      <li>facture Emise</li>
+                                      <li>facture Regiee</li>
+                                      {% endifequal %}
+                                      {% ifequal issue_status 'Offre En Cours' %}
+                                      <li class="complete">Order Placed</li>
+                                      <li class="inProgress">Devis Envoye</li>
+                                      <li>Commande Recue</li>
+                                      <li>Order Execute</li>
+                                      <li>facture Emise</li>
+                                      <li>facture Regiee</li>
+                                      {% endifequal %}
+                                      {% ifequal issue_status 'Offre Envoyée' %}
+                                      <li class="complete">Order Placed</li>
+                                      <li class="success">Devis Envoye</li>
+                                      <li>Commande Recue</li>
+                                      <li>Order Execute</li>
+                                      <li>facture Emise</li>
+                                      <li>facture Regiee</li>
+                                      {% endifequal %}
+                                      {% ifequal issue_status 'Commande En Attente' %}
+                                      <li class="complete">Order Placed</li>
+                                      <li class="success">Devis Envoye</li>
+                                      <li class="inProgress">Commande Recue</li>
+                                      <li>Order Execute</li>
+                                      <li>facture Emise</li>
+                                      <li>facture Regiee</li>
+                                      {% endifequal %}
+                                      {% ifequal issue_status 'Commande Reçue' %}
+                                      <li class="complete">Order Placed</li>
+                                      <li class="success">Devis Envoye</li>
+                                      <li class="success">Commande Recue</li>
+                                      <li>Order Execute</li>
+                                      <li>facture Emise</li>
+                                      <li>facture Regiee</li>
+                                      {% endifequal %}
+                                      {% ifequal issue_status 'Ordre En Cours' %}
+                                      <li class="complete">Order Placed</li>
+                                      <li class="success">Devis Envoye</li>
+                                      <li class="success">Commande Recue</li>
+                                      <li class="inProgress">Order Execute</li>
+                                      <li>facture Emise</li>
+                                      <li>facture Regiee</li>
+                                      {% endifequal %}
+                                      {% ifequal issue_status 'Ordre Exécuté' %}
+                                      <li class="complete">Order Placed</li>
+                                      <li class="success">Devis Envoye</li>
+                                      <li class="success">Commande Recue</li>
+                                      <li class="success">Order Execute</li>
+                                      <li>facture Emise</li>
+                                      <li>facture Regiee</li>
+                                      {% endifequal %}
+                                      {% ifequal issue_status 'Facture En Cours' %}
+                                      <li class="complete">Order Placed</li>
+                                      <li class="success">Devis Envoye</li>
+                                      <li class="success">Commande Recue</li>
+                                      <li class="success">Order Execute</li>
+                                      <li class="inProgress">facture Emise</li>
+                                      <li>facture Regiee</li>
+                                      {% endifequal %}
+                                      {% ifequal issue_status 'Facture Envoyée' %}
+                                      <li class="complete">Order Placed</li>
+                                      <li class="success">Devis Envoye</li>
+                                      <li class="success">Commande Recue</li>
+                                      <li class="success">Order Execute</li>
+                                      <li class="success">facture Emise</li>
+                                      <li class="inProgress">facture Regiee</li>
+                                      {% endifequal %}
+                                      {% ifequal issue_status 'Facture Réglée' %}
+                                      <li class="complete">Order Placed</li>
+                                      <li class="success">Devis Envoye</li>
+                                      <li class="success">Commande Recue</li>
+                                      <li class="success">Order Execute</li>
+                                      <li class="success">facture Emise</li>
+                                      <li class="success">facture Regiee</li>
+                                      {% endifequal %}
+                                      {% endifequal %}
+                                      {% ifequal issues_detail 'Annulé' %}
+                                      <li class="cancle">Order Placed</li>
+                                      <li class="cancle">Devis Envoye</li>
+                                      <li class="cancle">Commande Recue</li>
+                                      <li class="cancle">Order Execute</li>
+                                      <li class="cancle">facture Emise</li>
+                                      <li class="cancle">facture Regiee</li>
+                                      {% endifequal %}
+                                      {% ifequal issues_detail 'Bloqué' %}
+                                      <li class="complete">Order Placed</li>
+                                      <li>Devis Envoye</li>
+                                      <li>Commande Recue</li>
+                                      <li>Order Execute</li>
+                                      <li>facture Emise</li>
+                                      <li>facture Regiee</li>
+                                      {% endifequal %}
+                                      {% ifequal issues_detail 'Terminé' %}
+                                      <li class="complete">Order Placed</li>
+                                      <li class="success">Devis Envoye</li>
+                                      <li class="success">Commande Recue</li>
+                                      <li class="success">Order Execute</li>
+                                      <li class="success">facture Emise</li>
+                                      <li class="success">facture Regiee</li>
+                                      {% endifequal %}
+                                    </ul>
+                                  </div>
 
 
-        	<p>
-                Date de Ia demande :<span>{{details.fields.created}}  </span></p>
-        	<p>Date actualisation :<span> {{details.fields.updated}}  </span></p>
-        	<br>
-        	<p>Ref Offre <span> [DEVIS REF]</span></p>
-        	<p>Montant HI <span> X XXX,XXC HT</span></p>
-        	<p>Montant TTC <span> X XXX,XXC TTC</span></p>
-        	<br>
-        	<p>Nom du Fournisseur <span class="detalValue">[{{details.fields.customfield_10041}}]</span></p>
-        	<p>Site du Fournisseur <span class="detalValue">[{{details.fields.customfield_10042}}]</span></p>
+                                </div>
+                                <div class="col-lg-12  col-md-12 common_css_f1 pd_none">
+                                  <!-- fieldsets -->
+                                  <fieldset class="text-left">
+                                    <div class="col-lg-12 col-md-12 col-sm-12">
+                                      <label> INFORMATION L'ORDRE ACHAT </label> <br>
+                                    </div>
+                                    <div class="col-lg-6 col-md-6 col-sm-12">
+                                      <span id="viewform">
+                                        <p class="head_p">Demand' par : </p>
+                                        <p class="detalValue">{{details.fields.customfield_10033}}
+                                          {{details.fields.customfield_10032}}
+                                          {% ifequal issues_detail 'En cours' %}
+                                          {% ifequal issue_status 'Ordre Placé' %}
+                                          <i onclick="showform()" class="fa fa-pencil" aria-hidden="true"
+                                            style="cursor: pointer;"></i>
+                                          {% endifequal %}
+                                          {% ifequal issue_status 'Offre En Cours' %}
+                                          <i onclick="showform()" class="fa fa-pencil" aria-hidden="true"
+                                            style="cursor: pointer;"></i>
+                                          {% endifequal %}
+                                          {% ifequal issue_status 'Offre Envoyée' %}
+                                          <i onclick="showform()" class="fa fa-pencil" aria-hidden="true"
+                                            style="cursor: pointer;"></i>
+                                          {% endifequal %}
+                                          {% ifequal issue_status 'Commande En Attente' %}
+                                          <i onclick="showform()" class="fa fa-pencil" aria-hidden="true"
+                                            style="cursor: pointer;"></i>
+                                          {% endifequal %}
+                                          {% ifequal issue_status 'Commande Reçue' %}
+                                          <i onclick="showform()" class="fa fa-pencil" aria-hidden="true"
+                                            style="cursor: pointer;"></i>
+                                          {% endifequal %}
+                                          {% endifequal %}
+                                        </p>
 
-        </div>
-        <div class="col-lg-12 col-md-12 col-sm-12">
-          <label>INFORMATION SUR LA LIVRAISON</label> <br>
-        </div>
-        <div class="col-lg-6 col-md-6 col-sm-12">
-        <p class="head_p">Contact Livraison : </p>
-        <p class="detalValue">[{{details.fields.customfield_10053}}]</p>
-        <p class="detalValue">[{{details.fields.customfield_10054}}]</p>
-        <br>
-        <p class="head_p">Adresse livraison :</p>
-        <p class="detalValue">[{{details.fields.customfield_10078}}]</p>
-        <p class="detalValue">[{{details.fields.customfield_10050}}]</p>
-        <p class="detalValue">[{{details.fields.customfield_10058}}]<span class="detalValue"> [{{details.fields.customfield_10052}}]</span></p>
-        <p>[{{details.fields.customfield_10076}}]</p>
-        <br>
-         <p class="head_p">Livraison,Numero de suivi du colls : </p>
-         <p class="detalValue">[{{details.fields.customfield_10055}}]</p>
-       </div>
+                                        <p class="detalValue">{{details.fields.customfield_10077}}</p>
+                                        <p class="detalValue">{{details.fields.customfield_10039}}</p>
+                                        <p class="detalValue">{{details.fields.customfield_10037}}</p>
+                                        <br>
+                                        <p class="head_p">Second Contact :</p>
+                                        <p class="detalValue">{{details.fields.customfield_10040}}</p>
+                                        <br>
+                                        <p class="detalValue">{{details.fields.description}}</p> <br>
+                                      </span>
+                                      <span style="display: none;" id="editform">
+                                        <form id="basicform" action="{% url 'edit_ticket' %}" method="post">
+                                          {% csrf_token %}
+                                          <p class="head_p">Demand' par : </p>
+                                          <input type="text" name="lastname"
+                                            value="{{details.fields.customfield_10033}}">
+                                          <input type="text" name="firstname"
+                                            value="{{details.fields.customfield_10032}}">
+                                          <input type="text" name="enterprise"
+                                            value="{{details.fields.customfield_10077}}">
+                                          <input type="text" readonly value="{{details.fields.customfield_10039}}">
+                                          <input type="text" name="phone" value="{{details.fields.customfield_10037}}">
+                                          <input type="hidden" name="issuekey" value="{{order_number}}">
+                                          <input type="hidden" name="emailid"
+                                            value="{{details.fields.customfield_10039}}">
+                                          <br>
+                                          <p class="head_p">Second Contact :</p>
+                                          <input type="text" name="backupmail"
+                                            value="{{details.fields.customfield_10040}}">
+                                          <input type="text" name="description" value="{{details.fields.description}}">
+                                          <input type="button" onclick="formSubmit()" name="submit" value="SOUMETTRE">
+                                        </form>
+                                      </span>
 
-        <div class="col-lg-6 col-md-6 col-sm-12">
+                                    </div>
+                                    <div class="col-lg-6 col-md-6 col-sm-12">
+                                      <p>Date de Ia demande:<span> {{details.fields.created}}</span></p>
+                                      <p>Date actualisation:<span> {{details.fields.updated}}</span></p>
+                                      <br>
+                                      <p>Ref Offre: <span> {{details.fields.customfield_10044}}</span></p>
+                                      <p>Montant HT: <span> {{details.fields.customfield_10045}}€ HT</span></p>
+                                      <p>Montant TTC: <span> {{details.fields.customfield_10046}}€ TTC</span></p>
+                                      <br>
+                                      <p>Nom du Fournisseur: <span
+                                          class="detalValue">{{details.fields.customfield_10041}}</span></p>
+                                      <p>Site du Fournisseur: <span
+                                          class="detalValue">{{details.fields.customfield_10042}}</span></p>
 
-        	<br>
-        	<p>Ref Commande <span class="detalValue">[COMMANDE REF]</span></p>
-        	<p>Montant HI <span class=""> X XXX,XXC HT</span></p>
-        	<p>Montant TTC <span class=""> X XXX,XXC TTC</span></p>
-        	<br>
-        	<p>Ref Facture <span class="detalValue">[DEVIS REF]</span></p>
-        	<p>Montant HI <span class=""> X XXX,XXC HT</span></p>
-        	<p>Montant TTC <span class=""> X XXX,XXC TTC</span></p>
-        	<br>
-        	<p>Contact Facture <span class="detalValue">[{{details.fields.customfield_10033}}] [{{details.fields.customfield_10032}}]</span></p>
-        	<p>Mail <span class="detalValue">{{details.fields.reporter.emailAddress}}</span></p>
-        	<br>
-        	<ul class="attachment">
-        		<li><img src="{% static 'images/zip.svg' %}" class="zipImg"></li>
-        		<li> <p class="head_p">Pieces jointes </p>
-        			<p><img src="images/powerpoint.png" class="icon_zip"><a href="">Liste des pieces ppt<i class="fa fa-times" aria-hidden="true"></i></a></p>
-        <p> <img src="images/doc.svg" class="icon_zip"><a href="">Liste des prix docx <i class="fa fa-times" aria-hidden="true"></i> </a></p>
-      </li>
-        	</ul>
+                                    </div>
+                                    <div class="col-lg-12 col-md-12 col-sm-12">
+                                      <label>INFORMATION SUR LA LIVRAISON</label> <br>
+                                    </div>
+                                    <div id="viewform2" class="col-lg-6 col-md-6 col-sm-12">
+                                      <p class="head_p">Contact Livraison: </p>
+                                      <p class="detalValue">{{details.fields.customfield_10053}}
+                                        {% ifequal issues_detail 'En cours' %}
+                                        {% ifequal issue_status 'Ordre Placé' %}
+                                        <i onclick="showform2()" class="fa fa-pencil" aria-hidden="true"
+                                          style="cursor: pointer;"></i>
+                                        {% endifequal %}
+                                        {% ifequal issue_status 'Offre En Cours' %}
+                                        <i onclick="showform2()" class="fa fa-pencil" aria-hidden="true"
+                                          style="cursor: pointer;"></i>
+                                        {% endifequal %}
+                                        {% ifequal issue_status 'Offre Envoyée' %}
+                                        <i onclick="showform2()" class="fa fa-pencil" aria-hidden="true"
+                                          style="cursor: pointer;"></i>
+                                        {% endifequal %}
+                                        {% ifequal issue_status 'Commande En Attente' %}
+                                        <i onclick="showform2()" class="fa fa-pencil" aria-hidden="true"
+                                          style="cursor: pointer;"></i>
+                                        {% endifequal %}
+                                        {% ifequal issue_status 'Commande Reçue' %}
+                                        <i onclick="showform2()" class="fa fa-pencil" aria-hidden="true"
+                                          style="cursor: pointer;"></i>
+                                        {% endifequal %}
+                                        {% endifequal %}
+                                      </p>
+                                      <p class="detalValue">{{details.fields.customfield_10054}}</p>
+                                      <br>
+                                      <p class="head_p">Adresse livraison :</p>
+                                      <p class="detalValue">{{details.fields.customfield_10078}}</p>
+                                      <p class="detalValue">{{details.fields.customfield_10050}}</p>
+                                      <p class="detalValue">{{details.fields.customfield_10058}}
+                                        <span class="detalValue">
+                                          {{details.fields.customfield_10052}}</span></p>
+                                      <p>{{details.fields.customfield_10076}}</p>
+                                      <br>
+                                      <p class="head_p">Livraison,Numero de suivi du colls: </p>
+                                      <p class="detalValue">{{details.fields.customfield_10055}}</p>
+                                    </div>
 
-        </div>
+                                    <div id="editform2" style="display: none;" class="col-lg-6 col-md-6 col-sm-12">
+                                      <form id="basicform2" action="{% url 'edit_ticket2' %}" method="post">
+                                        {% csrf_token %}
+                                        <p class="head_p">Contact Livraison: </p>
+                                        <input type="text" name="cf53" value="{{details.fields.customfield_10053}}">
+                                        <input type="text" name="cf54" value="{{details.fields.customfield_10054}}">
+                                        <br>
+                                        <p class="head_p">Adresse livraison :</p>
+                                        <input type="text" name="cf78" value="{{details.fields.customfield_10078}}">
+                                        <input type="text" name="cf50" value="{{details.fields.customfield_10050}}">
+                                        <input type="text" name="cf58" value="{{details.fields.customfield_10058}}">
+                                        <input type="text" name="cf52" value="{{details.fields.customfield_10052}}">
+                                        <input type="text" name="cf76" value="{{details.fields.customfield_10076}}">
+                                        <br>
+                                        <p class="head_p">Livraison,Numero de suivi du colls: </p>
+                                        <input type="text" name="cf55" value="{{details.fields.customfield_10055}}">
+                                        <input type="hidden" name="issuekey" value="{{order_number}}">
+                                        <input type="hidden" name="emailid"
+                                          value="{{details.fields.customfield_10039}}">
+                                        <input type="button" onclick="formSubmit2()" name="submit" value="SOUMETTRE">
+                                      </form>
+                                    </div>
+
+                                    <div class="col-lg-6 col-md-6 col-sm-12">
+
+                                      <br>
+                                      <p>Ref Commande: <span class="detalValue">[COMMANDE REF]</span></p>
+                                      <p>Montant HT: <span class=""> xx€ HT</span></p>
+                                      <p>Montant TTC: <span class=""> xx€ TTC</span></p>
+                                      <br>
+                                      <p>Ref Facture: <span
+                                          class="detalValue">{{details.fields.customfield_10062}}</span>
+                                      </p>
+                                      <p>Montant HT: <span class=""> {{details.fields.customfield_10063}}€ HT</span></p>
+                                      <p>Montant TTC: <span class=""> {{details.fields.customfield_10064}}€ TTC</span>
+                                      </p>
+                                      <br>
+                                      <p>Contact Facturation: <span class="">
+                                          {{details.fields.customfield_10060}}</span></p>
+                                      <p>Mail: <span class=""> {{details.fields.customfield_10061}}</span></p>
+                                      <!--            <br>-->
+                                      <!--            <p>Contact Facture <span class="detalValue">{{details.fields.customfield_10033}} {{details.fields.customfield_10032}}</span></p>-->
+                                      <!--            <p>Mail <span class="detalValue">{{details.fields.reporter.emailAddress}}</span></p>-->
+                                      <!--            <br>-->
+                                      <!--            Update start-->
+                                      {% if no_of_attachments > 0 %}
+                                      <ul class="attachment">
+                                        <li><img src="{% static 'image/zip.svg' %}" class="zipImg"></li>
+                                        <li>
+                                          <p class="head_p">Pièces jointes</p>
+                                          <p><img src="{% static 'image/powerpoint.png' %}" class="icon_zip"><a
+                                              href="{{zip_to_download}}">TÉLÉCHARGER UN FICHIER<i class="fa fa-times"
+                                                aria-hidden="true"></i></a></p>
+                                        </li>
+                                      </ul>
+                                      {% endif %}
+                                      <!--            Update end-->
+                                    </div>
+
+                                  </fieldset>
+                                  <fieldset>
+
+                                    <span class="previous action-button-previous"><i class="fa fa-arrow-left"
+                                        aria-hidden="true"></i> Previous </span>
+                                    <span class="next action-button">Next <i class="fa fa-arrow-right"
+                                        aria-hidden="true"></i></span>
+                                  </fieldset>
+                                  <fieldset>
 
 
 
-
-       	<span class="next action-button">Next <i class="fa fa-arrow-right" aria-hidden="true"></i></span>
-
-    </fieldset>
-    <fieldset>
-
-      <span class="previous action-button-previous"><i class="fa fa-arrow-left" aria-hidden="true"></i> Previous </span>
-      <span class="next action-button">Next <i class="fa fa-arrow-right" aria-hidden="true"></i></span>
-    </fieldset>
-    <fieldset>
+                                    <span class="previous action-button-previous"><i class="fa fa-arrow-left"
+                                        aria-hidden="true"></i> Previous </span>
+                                    <span class="next action-button">Next <i class="fa fa-arrow-right"
+                                        aria-hidden="true"></i></span>
+                                  </fieldset>
+                                  <fieldset>
 
 
 
-    <span class="previous action-button-previous"><i class="fa fa-arrow-left" aria-hidden="true"></i> Previous </span>
-    <span class="next action-button">Next <i class="fa fa-arrow-right" aria-hidden="true"></i></span>
-  </fieldset>
-  <fieldset>
+                                    <span class="previous action-button-previous"><i class="fa fa-arrow-left"
+                                        aria-hidden="true"></i> Previous </span>
+                                    <span class="next action-button">Next <i class="fa fa-check"
+                                        aria-hidden="true"></i></span>
+                                  </fieldset>
+                                  <fieldset>
+
+                                    <span class="previous action-button-previous"><i class="fa fa-arrow-left"
+                                        aria-hidden="true"></i> Previous </span>
+                                    <span class="next action-button">Next <i class="fa fa-check"
+                                        aria-hidden="true"></i></span>
+                                  </fieldset>
+                                  <fieldset>
+
+                                    <span class="next action-button">Submit <i class="fa fa-check"
+                                        aria-hidden="true"></i></span>
+                                  </fieldset>
+                                </div>
+
+                                <!-- /.MultiStep Form -->
 
 
-
-    <span class="previous action-button-previous"><i class="fa fa-arrow-left" aria-hidden="true"></i> Previous </span>
-    <span class="next action-button">Next <i class="fa fa-check" aria-hidden="true"></i></span>
-  </fieldset>
-  <fieldset>
-
-      <span class="previous action-button-previous"><i class="fa fa-arrow-left" aria-hidden="true"></i> Previous </span>
- <span class="next action-button">Next <i class="fa fa-check" aria-hidden="true"></i></span>
-  </fieldset>
-  <fieldset>
-
- <span class="next action-button">Submit <i class="fa fa-check" aria-hidden="true"></i></span>
-  </fieldset>
-</div>
-
-<!-- /.MultiStep Form -->
+                              </div>
+                            </div>
+                          </div>
 
 
-</div>
-</form>
-       </div>
-
-
-</div>
-
-<!--<h1>comments</h1>-->
-<!--{% for comment in comments %}-->
-<!--{{comment.body}}-->
-<!--{{comment.created}}-->
-<!--{% endfor %}-->
-
-<!--<h1>Remove this</h1>-->
-<!--{{details}}-->
-{% endblock %}
+                        </div>
+                        <div id="progressdiv" style="position: fixed;display: none;
+z-index: 199;
+left: 0;
+top: 0;
+width: 100%;
+height: 100%;
+overflow: auto;
+background-color: rgba(0,0,0,.4);"><img style="margin-top: 20%;
+    height: 109px;
+    margin-left: 48%;" src="{% static 'image/progres.gif' %}"></div>
+                        <!--<h1>comments</h1>-->
+                        <!--{% for comment in comments %}-->
+                        <!--{{comment.body}}-->
+                        <!--{{comment.created}}-->
+                        <!--{% endfor %}-->
+                        <!--<h1>Remove this</h1>-->
+                        <!--{{details}}-->
+                        {% endblock %}
