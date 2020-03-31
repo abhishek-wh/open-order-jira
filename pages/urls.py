@@ -18,4 +18,5 @@ urlpatterns =[
     path('pages/editticket',views.edit_ticket,name='edit_ticket'),
     path('pages/detail/cancelissue/<value>', views.cancelissue,name='cancelissue'),
     path('pages/editticket2',views.edit_ticket2,name='edit_ticket2'),
+    path('pages/DownloadZip', views.DownloadZip , name="DownloadZip")
 ] + static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)

@@ -553,3 +553,8 @@ fieldset.row { margin-right: 15px; margin-left: 15px;}
     word-break: break-all;
     overflow: hidden;
     }
+
+.edit_block {
+    background-color: white !important;
+    margin-bottom: 10px !important;
+    }

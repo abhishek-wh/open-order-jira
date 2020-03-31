@@ -12,13 +12,12 @@ from django.core.files.storage import FileSystemStorage
 from django.conf import settings as setting
 from django.http import HttpResponse
 from bootstrap_daterangepicker import widgets, fields
+from decouple import config
+import os
+import zipfile
+from shutil import make_archive
+from wsgiref.util import FileWrapper
 
-
-url = "https://nrc.atlassian.net/rest/api/2/"
-auth = HTTPBasicAuth("contact@wowdesigns.fr", "guPJmBOx3nVhEWMFogxRAB84")
-
-# url = "https://dishanshujagtap.atlassian.net/rest/api/2/"
-# auth = HTTPBasicAuth("dishanshu.jagtap@webhungers.com", "edItHS8Dbnh0XkkTWQjoFE45")
 
 def index(request):
     data = settings.objects.all()
@@ -72,6 +71,7 @@ def getUser(user_id):
 
 
 def dashboard(request):
+    request.session['filter'] = 'All'
     if request.session.has_key('username'):
         username = request.session['username']
         issues = getTicketByUsername(username)        
@@ -101,6 +101,8 @@ def dashboard(request):
                                        created=str(issue.raw['fields']['created']).split('T')[0],
                                        updated=str(issue.raw['fields']['updated']).split('T')[0],
                                        assignee=assi).save()
+
+        
         
         t_list = ticket_list.objects.all()
         lt_list=ticket_list.objects.raw("SELECT * FROM pages_ticket_list order by created DESC LIMIT 5")
@@ -112,12 +114,29 @@ def dashboard(request):
                 flag = False
         except:
             flag = False
-        paginator = Paginator(t_list, 5)  # Show 5 contacts per page.
 
+        paginator = Paginator(t_list, 50)  # Show 5 contacts per page.
         page_number = request.GET.get('page')
         page_obj = paginator.get_page(page_number)
+        start=0
+        total=len(t_list)
+        end=0
+        if(total<=50):
+            start=page_obj.number
+            end=total
+        else:
+            if(page_obj.number==1):
+                start=page_obj.number
+                end=page_obj.number*50
+            else:    
+                start=(page_obj.number*50)-49
+                if(page_obj.number*50<total):
+                    end=(page_obj.number*50)
+                else:
+                    end=total
+        
 
-        context = {'page_obj': page_obj, 'user_email': username, 'flag': flag, 'lt_list':lt_list, 'block_count':block_count}
+        context = {'start':start,'end':end,'total':total,'page_obj': page_obj, 'user_email': username, 'flag': flag, 'lt_list':lt_list, 'block_count':block_count}
         return render(request, 'pages/dashboard.html', context)
         # return render(request, 'pages/index.html')
     else:
@@ -128,60 +147,123 @@ def dashboard(request):
 def getTicketByUsername(email_id):
     sdata = settings.objects.all()
     project_id=sdata[0].jira_project_id
-    jira_options={'server': 'https://nrc.atlassian.net/'}
-    jira=JIRA(options=jira_options,basic_auth=('contact@wowdesigns.fr','guPJmBOx3nVhEWMFogxRAB84'))  
-    # issues=jira.search_issues("project='ORDER' and reporter='"+user_id+"'")
+    jira_options={'server': config('JIRA_URL')}
+    jira=JIRA(options=jira_options,basic_auth=(config('JIRA_USERNAME'),config('JIRA_PASSWORD'))) 
     issues=''
     try:
         issues = jira.search_issues(" project='"+project_id+"' and cf[10039]= '"+email_id+"' ")
     except:
         issues=''
     return issues
+
+# Declare the function to return all file paths of the particular directory
+def retrieve_file_paths(dirName):
+    # setup file paths variable
+    filePaths = []
+
+    # Read all directory, subdirectories and file lists
+    for root, directories, files in os.walk(dirName):
+        for filename in files:
+            # Create the full filepath by using os module.
+            filePath = os.path.join(root, filename)
+            filePaths.append(filePath)
+
+    # return all paths
+    return filePaths
+
 a=""
 def getTicketBykey(request,value):
-    global a
-    a=value
-    comments=add_comment("","")
-    jira_options={'server': 'https://nrc.atlassian.net/'}
-    jira=JIRA(options=jira_options,basic_auth=('contact@wowdesigns.fr','guPJmBOx3nVhEWMFogxRAB84'))
-    issues=jira.search_issues("issue="+value)
-    issues_detail=""
-    for i in issues:
-        # issues_detail=i.raw['fields']['status']['statusCategory']['name']
-        # issue_status=i.raw['fields']['status']['name']
-        if(i.raw['fields']['status']['statusCategory']['name']=='Terminé'):
-            issues_detail=i.raw['fields']['status']['statusCategory']['name']
-            if(i.raw['fields']['status']['name'] == 'Bloqué' or i.raw['fields']['status']['name'] == 'Annulé'):
-                issues_detail=i.raw['fields']['status']['name']
-                issue_status=i.raw['fields']['status']['name']
+    temp=False
+    if request.session.has_key('username'):
+        username = request.session['username']
+        issues = getTicketByUsername(username)
+        for issue in issues:
+            key = issue.raw['key']
+            if value == key:
+                temp=True
+    if temp==True:
+        global a
+        a=value
+        comments=add_comment("","")
+        jira_options={'server': config('JIRA_URL')}
+        jira=JIRA(options=jira_options,basic_auth=(config('JIRA_USERNAME'),config('JIRA_PASSWORD')))  
+        issues=jira.search_issues("issue="+value)
+        issues_detail=""
+        issue_status=""
+        for i in issues:     
+            if(i.raw['fields']['status']['statusCategory']['name']=='Terminé'):
+                issues_detail=i.raw['fields']['status']['statusCategory']['name']
+                if(i.raw['fields']['status']['name'] == 'Bloqué' or i.raw['fields']['status']['name'] == 'Annulé'):
+                    issues_detail=i.raw['fields']['status']['name']
+                    issue_status=i.raw['fields']['status']['name']
+                else:                    
+                    issues_detail=i.raw['fields']['status']['statusCategory']['name']
+                    issue_status=i.raw['fields']['status']['name']
             else:
                 issues_detail=i.raw['fields']['status']['statusCategory']['name']
                 issue_status=i.raw['fields']['status']['name']
-        else:
-            issues_detail=i.raw['fields']['status']['statusCategory']['name']
-            issue_status=i.raw['fields']['status']['name']
 
-    #attachments
-    jira_filename=""
-    jira_issue = jira.issue( value, expand = "attachment")
-    print("jira_issuess",jira_issue)
-    for attachment in jira_issue.fields.attachment:
-        image = attachment.get()
-        jira_filename = attachment.filename
-        print("cesvcsdv", jira_filename)
-        with open(jira_filename, 'wb') as f:
-            f.write(image)
-    flag=False
-    print("cesvcsdv", jira_filename)
-    if(jira_filename!=""):
-        flag=True
+        
+        # Getting previous state
+        issue = jira.issue(value, expand='changelog')
+        changelog = issue.changelog
+
+        previous_state=""
+        previous_staten=""
+        for history in changelog.histories:
+            for item in history.items:
+                if item.field == 'status':
+                    if(item.fromString=='Bloqué' or item.fromString=='Non démarré'):
+                        previous_staten=item.fromString
+                    else:
+                        previous_state=item.fromString
+        if(previous_state==""):
+            previous_state=previous_staten
+
+        #attachments
+        media_path = "OpenSys/media/"
+        jira_issue = jira.issue( value, expand = "attachment")
+        no_of_attachments = len(jira_issue.fields.attachment)
+        if no_of_attachments > 0 :
+            if os.path.exists(media_path+value)==False:
+                os.mkdir(media_path+value)
+
+        for attachment in jira_issue.fields.attachment:
+            with open(media_path+value+'/'+attachment.filename, 'wb') as file:
+                file.write(attachment.get())
+
+        attachment_zip_name = ""
+        if(no_of_attachments > 0):
+            dir_name = media_path+value
+            # Call the function to retrieve all files and folders of the assigned directory
+            filePaths = retrieve_file_paths(dir_name)
+
+            # writing files to a zipfile
+            attachment_zip_name = dir_name + '.zip'
+            zip_file = zipfile.ZipFile(attachment_zip_name, 'w')
+            with zip_file:
+                # writing each file one by one
+                for file in filePaths:
+                    zip_file.write(file)
+            # DownloadZip("")
+        zip_to_download = "/media/"+value+".zip"
+        context = {'issues_detail': issues_detail,'issue_status':issue_status,'order_number':value,'details':i.raw,'comments':comments,"zip_to_download":zip_to_download,"no_of_attachments":no_of_attachments,"previous_state":previous_state}
+        return render(request, 'pages/detail.html',context)
     else:
-        jira_filename=""
-
-    context = {'issues_detail': issues_detail,'issue_status':issue_status,'order_number':value,'details':i.raw,'comments':comments,"jira_filename":jira_filename,"flag":flag}
-    return render(request, 'pages/detail.html',context)
+        return HttpResponse("Page non trouvée")
 
 
+
+def DownloadZip(request):
+    global a
+    file_name=a
+    files_path = "OpenSys/media/"+file_name
+    path_to_zip = make_archive(files_path, "zip", files_path)
+    response = HttpResponse(FileWrapper(open(path_to_zip,'rb')), content_type='application/zip')
+    response['Content-Disposition'] = 'attachment; filename="{filename}.zip"'.format(
+    filename = file_name.replace(" ", "_")
+    )
+    return response
 
 
 def add_comment(request,value):
@@ -191,8 +273,8 @@ def add_comment(request,value):
         jira_options = {'server': 'https://nrc.atlassian.net/'}
         jira = JIRA(options=jira_options, basic_auth=('contact@wowdesigns.fr', 'guPJmBOx3nVhEWMFogxRAB84'))
         comments = jira.comments(a)
-        for comment in comments:
-            comment = jira.add_comment(a, value)
+
+        comment = jira.add_comment(a, value)
         # jira = JIRA(options=jira_options, basic_auth=('contact@wowdesigns.fr', 'guPJmBOx3nVhEWMFogxRAB84'))
         # comment = jira.add_comment("ORDER-129", value)
 
@@ -205,18 +287,18 @@ def add_comment(request,value):
         recent_comment=[]
         for comment in comments:
             recent_comment.append(comment)
-    # return render(request, 'pages/detail.html',{})
     return comments
 
 def cancelissue(request,value):
-    jira_options = {'server': 'https://nrc.atlassian.net/'}
-    jira = JIRA(options=jira_options, basic_auth=('contact@wowdesigns.fr', 'guPJmBOx3nVhEWMFogxRAB84'))
+    jira_options = {'server': config('JIRA_URL')}
+    jira = JIRA(options=jira_options, basic_auth=(config('JIRA_USERNAME'),config('JIRA_PASSWORD')))
     jira.transition_issue(value, transition='141')
     return render(request,'pages/detail.html')
 
 def search(request,value):
     flag=False
     if(value=='All'):
+        request.session['filter'] = 'All'
         block_count=0
         if request.session.has_key('username'):
             username = request.session['username']
@@ -251,11 +333,28 @@ def search(request,value):
                 flag = True
             except:
                 flag = False
-            paginator = Paginator(t_list, 5)  # Show 5 contacts per page.
+            paginator = Paginator(t_list, 50)  # Show 5 contacts per page.
 
             page_number = request.GET.get('page')
             page_obj = paginator.get_page(page_number)
-            context = {'page_obj': page_obj,'user_email':username,'flag':flag, 'searchkey':'', 'lt_list':lt_list,'block_count':block_count}
+            start=0
+            total=len(t_list)
+            end=0
+            if(total<=50):
+                start=page_obj.number
+                end=total
+            else:
+                if(page_obj.number==1):
+                    start=page_obj.number
+                    end=page_obj.number*50
+                else:    
+                    start=(page_obj.number*50)-49
+                    if(page_obj.number*50<total):
+                        end=(page_obj.number*50)
+                    else:
+                        end=total
+
+            context = {'start':start,'end':end,'total':total,'page_obj': page_obj,'user_email':username,'flag':flag, 'searchkey':'', 'lt_list':lt_list,'block_count':block_count}
             return render(request, 'pages/dashboard.html', context)
         else:
             return render(request, 'pages/index.html')
@@ -263,7 +362,8 @@ def search(request,value):
         if request.session.has_key('username'):
             block_count=0
             username = request.session['username']
-            if(value=='En cours' or value=='Terminé' or value=='Annulé' or value=='bloquée'):                
+            if(value=='En cours' or value=='Terminé' or value=='Annulé' or value=='Bloqué'):      
+                request.session['filter'] = value          
                 lt_list=ticket_list.objects.raw("SELECT * FROM pages_ticket_list order by created DESC LIMIT 5")
                 t_list=ticket_list.objects.raw("SELECT * FROM pages_ticket_list where key like '%"+value+"%' or summary LIKE '%"+value+"%' OR suplier LIKE '%"+value+"%' OR status LIKE '%"+value+"%' OR created LIKE '%"+value+"%' OR updated LIKE '%"+value+"%' OR assignee LIKE '%"+value+"%'")
                 try:
@@ -273,25 +373,51 @@ def search(request,value):
                 paginator = Paginator(t_list, 10) # Show 10 contacts per page.
                 page_number = request.GET.get('page')
                 page_obj = paginator.get_page(page_number)
+                start=0
+                total=len(t_list)
+                end=0
+                if(total<=50):
+                    start=page_obj.number
+                    end=total
+                else:
+                    if(page_obj.number==1):
+                        start=page_obj.number
+                        end=page_obj.number*50
+                    else:    
+                        start=(page_obj.number*50)-49
+                        if(page_obj.number*50<total):
+                            end=(page_obj.number*50)
+                        else:
+                            end=total
                 if(value=='In Progress' or value=='Done' or value=='Cancelled' or value=='Notification' or value=='Creation'):
                     value=""
                 for dt in ticket_list.objects.all():
                     if(dt.status == 'Bloqué'):
                         block_count=block_count+1
-                context = {'page_obj': page_obj,'user_email':username,'flag':flag, 'searchkey':'', 'lt_list':lt_list,'block_count':block_count}
+                
+                context = {'start':start,'end':end,'total':total,'page_obj': page_obj,'user_email':username,'flag':flag, 'searchkey':'', 'lt_list':lt_list,'block_count':block_count}
                 return render(request, 'pages/dashboard.html', context)
-            else:
+            else:                    
                 flagg=False
-                try:
+                try:                                           
                     flagg=True
                     from_dt=str(value.split("to")[0])
                     to_dt=str(value.split("to")[1])
                     lt_list=ticket_list.objects.raw("SELECT * FROM pages_ticket_list order by created DESC LIMIT 5")
                     t_list=ticket_list.objects.raw("SELECT * FROM pages_ticket_list WHERE Created BETWEEN '"+from_dt+"' AND '"+to_dt+"'")
+                    request.session['filter'] = value   
                 except:
-                    flagg=False
                     lt_list=ticket_list.objects.raw("SELECT * FROM pages_ticket_list order by created DESC LIMIT 5")
-                    t_list=ticket_list.objects.raw("SELECT * FROM pages_ticket_list where key like '%"+value+"%' or summary LIKE '%"+value+"%' OR suplier LIKE '%"+value+"%' OR status LIKE '%"+value+"%' OR created LIKE '%"+value+"%' OR updated LIKE '%"+value+"%' OR assignee LIKE '%"+value+"%'")
+                    flagg=False                    
+                    if(request.session['filter'] =='All'):                    
+                        t_list=ticket_list.objects.raw("SELECT * FROM pages_ticket_list where key like '%"+value+"%' or summary LIKE '%"+value+"%' OR suplier LIKE '%"+value+"%' OR status LIKE '%"+value+"%' OR created LIKE '%"+value+"%' OR updated LIKE '%"+value+"%' OR assignee LIKE '%"+value+"%'")
+                    else:
+                        try:                            
+                            from_dt=str(request.session['filter'].split("to")[0])
+                            to_dt=str(request.session['filter'].split("to")[1])
+                            t_list=ticket_list.objects.raw("SELECT * FROM pages_ticket_list where (key like '%"+value+"%' or summary LIKE '%"+value+"%' OR suplier LIKE '%"+value+"%' OR status LIKE '%"+value+"%' OR created LIKE '%"+value+"%' OR updated LIKE '%"+value+"%' OR assignee LIKE '%"+value+"%') AND Created BETWEEN '"+from_dt+"' AND '"+to_dt+"'")
+                        except:                            
+                            t_list=ticket_list.objects.raw("SELECT * FROM pages_ticket_list where (key like '%"+value+"%' or summary LIKE '%"+value+"%' OR suplier LIKE '%"+value+"%' OR status LIKE '%"+value+"%' OR created LIKE '%"+value+"%' OR updated LIKE '%"+value+"%' OR assignee LIKE '%"+value+"%') AND status= '"+request.session['filter']+"'")
                 try:
                     flag=True
                 except:
@@ -299,15 +425,31 @@ def search(request,value):
                 paginator = Paginator(t_list, 10) # Show 10 contacts per page.
                 page_number = request.GET.get('page')
                 page_obj = paginator.get_page(page_number)
+                start=0
+                total=len(t_list)
+                end=0
+                if(total<=50):
+                    start=page_obj.number
+                    end=total
+                else:
+                    if(page_obj.number==1):
+                        start=page_obj.number
+                        end=page_obj.number*50
+                    else:    
+                        start=(page_obj.number*50)-49
+                        if(page_obj.number*50<total):
+                            end=(page_obj.number*50)
+                        else:
+                            end=total
                 if(value=='In Progress' or value=='Done' or value=='Cancelled' or value=='Notification' or value=='Creation'):
                     value=""
                 for dt in ticket_list.objects.all():
                     if(dt.status == 'Bloqué'):
                         block_count=block_count+1
                 if(flagg):                                       
-                    context = {'page_obj': page_obj,'user_email':username,'flag':flag, 'searchkey':'','searchdate':' ('+value.split("to")[0]+' to '+value.split("to")[1]+')', 'lt_list':lt_list,'block_count':block_count}
+                    context = {'start':start,'end':end,'total':total,'page_obj': page_obj,'user_email':username,'flag':flag, 'searchkey':'','searchdate':' ('+value.split("to")[0]+' to '+value.split("to")[1]+')', 'lt_list':lt_list,'block_count':block_count}
                 else:
-                    context = {'page_obj': page_obj,'user_email':username,'flag':flag, 'searchkey':value, 'lt_list':lt_list,'block_count':block_count}
+                    context = {'start':start,'end':end,'total':total,'page_obj': page_obj,'user_email':username,'flag':flag, 'searchkey':value, 'lt_list':lt_list,'block_count':block_count}
                 return render(request, 'pages/dashboard.html', context)
 
         else:
@@ -332,8 +474,8 @@ def create_ticket(request):
         username = request.session['username']
         sdata = settings.objects.all()
         project_id=sdata[0].jira_project_id
-        jira_options = {'server': 'https://nrc.atlassian.net/'}
-        jira = JIRA(options=jira_options, basic_auth=('contact@wowdesigns.fr', 'guPJmBOx3nVhEWMFogxRAB84')) 
+        jira_options = {'server': config('JIRA_URL')}
+        jira = JIRA(options=jira_options, basic_auth=(config('JIRA_USERNAME'),config('JIRA_PASSWORD'))) 
         new_issue = jira.create_issue(project=project_id,
         summary=request.POST.get('ticket_title',""),
         description=request.POST.get('description',""),
@@ -364,8 +506,8 @@ def edit_ticket(request):
     if request.method == 'POST':
         sdata = settings.objects.all()
         project_id=sdata[0].jira_project_id
-        jira_options = {'server': 'https://nrc.atlassian.net/'}
-        jira = JIRA(options=jira_options, basic_auth=('contact@wowdesigns.fr', 'guPJmBOx3nVhEWMFogxRAB84')) 
+        jira_options = {'server': config('JIRA_URL')}
+        jira = JIRA(options=jira_options, basic_auth=(config('JIRA_USERNAME'),config('JIRA_PASSWORD'))) 
         issuekey=request.POST.get('issuekey',"")
         cf33=request.POST.get('lastname',"")
         cf32=request.POST.get('firstname',"")
@@ -382,8 +524,8 @@ def edit_ticket2(request):
     if request.method == 'POST':
         sdata = settings.objects.all()
         project_id=sdata[0].jira_project_id
-        jira_options = {'server': 'https://nrc.atlassian.net/'}
-        jira = JIRA(options=jira_options, basic_auth=('contact@wowdesigns.fr', 'guPJmBOx3nVhEWMFogxRAB84')) 
+        jira_options = {'server': config('JIRA_URL')}
+        jira = JIRA(options=jira_options, basic_auth=(config('JIRA_USERNAME'),config('JIRA_PASSWORD'))) 
         issuekey=request.POST.get('issuekey',"")
         cf53=request.POST.get('cf53',"")
         cf54=request.POST.get('cf54',"")
@@ -405,8 +547,8 @@ def add_attachments(request):
     fs = FileSystemStorage(location=setting.MEDIA_ROOT) #defaults to MEDIA_ROOT  
     filename = fs.save(myfile1.name, myfile1)
     file_url = fs.url(filename)
-    jira_options={'server': 'https://nrc.atlassian.net/'}
-    jira=JIRA(options=jira_options,basic_auth=('contact@wowdesigns.fr','guPJmBOx3nVhEWMFogxRAB84'))
+    jira_options={'server': config('JIRA_URL')}
+    jira=JIRA(options=jira_options,basic_auth=(config('JIRA_USERNAME'),config('JIRA_PASSWORD')))  
     result=""
     with open('/home/user/Desktop/abhishek joshi/projects/open system/OpenSys/OpenSys/'+file_url, 'rb') as f:
         result=jira.add_attachment(issue=request.POST.get('ticketkey',""), attachment=f)

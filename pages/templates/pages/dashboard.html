@@ -3,19 +3,19 @@
 {% include '_head.html'%}
 
 <script>
-   window.onload = function () {
-     
+  window.onload = function () {
+
     var value = sessionStorage.getItem("filter")
     $(this).removeClass('active');
     if (value == 'All') {
       $('#All').addClass('active')
     } else if (value == 'En cours') {
       $('#InProgress').addClass('active')
-    } else if (value == 'terminé') {
+    } else if (value == 'Terminé') {
       $('#Done').addClass('active')
     } else if (value == 'Annulé') {
       $('#Cancelled').addClass('active')
-    } else if (value == 'bloquée') {
+    } else if (value == 'Bloqué') {
       $('#notification').addClass('active')
     } else if (value == 'Creation') {
       $('#Creation').addClass('active')
@@ -27,11 +27,11 @@
   }
   function find() {
     var value;
-     
+
     value = $('#search_txt').val()
     window.location.replace("/pages/dashboard/" + value)
     $.get('dashboard/' + value, function (data) {
-       
+
       window.location.replace("/pages/dashboard/" + value)
     });
   }
@@ -41,7 +41,7 @@
     sessionStorage.setItem("filter", value)
     window.location.replace("/pages/dashboard/" + value)
     $.get('dashboard/' + value, function (data) {
-       
+
       window.location.replace("/pages/dashboard/" + value)
 
     });
@@ -54,6 +54,8 @@
     alert($('#daterange').val());
   });
   function gobackhome() {
+    sessionStorage.setItem("filter", "All")
+    $('#All').addClass('active')
     event.preventDefault();
     location.replace('/pages/dashboard');
   }
@@ -90,7 +92,7 @@
     <div class="sidebar-section">
       <div class="second-sidebar">
         <h1 class="sidebar-info">
-          Connectéantantque</h1>
+          Connecté en tant que:</h1>
         <p>{{user_email}}</p>
       </div>
       <span class="hoverRighticon1">
@@ -134,7 +136,7 @@
 
             <img class="form-control-feedback" src="{% static 'image/search.png'%}">
             <input type="text" id="search_txt" value="{{searchkey}}" class="form-control" onchange="find()"
-              placeholder="Chercher">
+              placeholder="Rechercher">
 
           </div>
         </div>
@@ -144,14 +146,15 @@
             <li>Filtres:</li>
             <li id="All" class="" onclick="filter('All')">Tous</li>
             <li id="InProgress" onclick="filter('En cours')">Encours</li>
-             <li id="Done" onclick="filter('Terminé')">terminé</li>
-             <li id="Cancelled" onclick="filter('Annulé')"> Annulée</li> 
-            <li id="notification" onclick="filter('Bloqué')" class="notification">bloquée
+            <li id="Done" onclick="filter('Terminé')">Terminé</li>
+            <li id="Cancelled" onclick="filter('Annulé')"> Annulée</li>
+            <li id="notification" onclick="filter('Bloqué')" class="notification">Bloquée
               <span class="nott">{{block_count}}</span>
             </li>
-            <li id="Creation" onclick="datefilter()">par date de création <span id="daterangespan">{{searchdate}}</span></li>
-            <input type="text" name="daterange" id="daterange"
-                value="Select Date" style="visibility: hidden;width: 0px;" />
+            <li id="Creation" onclick="datefilter()">par date de création <span id="daterangespan">{{searchdate}}</span>
+            </li>
+            <input type="text" name="daterange" id="daterange" value="Select Date"
+              style="visibility: hidden;width: 0px;" />
           </ul>
 
         </div>
@@ -162,10 +165,10 @@
             <h1>Mes Ordres Achats<span>
                 <div class="pagination">
                   <span class="step-links">
-                    <span class="current">
-                      Page {{ page_obj.number }} of {{ page_obj.paginator.num_pages }}
+                    <span class="current">                      
+                      {{start}}-{{end}} sur {{total}}
                     </span>
-                  </span>
+                  </span>         
                 </div>
               </span></h1>
 
@@ -179,10 +182,10 @@
                   <th>Clé</th>
                   <th>Résumé</th>
                   <th>Fournisseur</th>
-                  <th>Statut</th>
+                  <th>État</th>
                   <th>Créé</th>
                   <th>Mis à jour</th>
-                  <th>Cessionnaire</th>
+                  <th>Rapporteur</th>
                 </tr>
               </thead>
               <tbody class="table-subheading">
@@ -205,7 +208,7 @@
           <div class="pagination">
             <span class="step-links1 step-links">
               {% if page_obj.has_previous %}
-              <a href="?page=1" class="link"> Premier</a>
+              <a href="?page=1" class="link"> Première page</a>
               <a href="?page={{ page_obj.previous_page_number }}" class="link"><i class="fa fa-arrow-left"></i>
                 Précédent</a>
               {% endif %}
@@ -215,9 +218,9 @@
               </span>
 
               {% if page_obj.has_next %}
-              <a href="?page={{ page_obj.next_page_number }}" class="link">Prochain <i
+              <a href="?page={{ page_obj.next_page_number }}" class="link">Suivant <i
                   class="fa fa-arrow-right"></i></a>
-              <a href="?page={{ page_obj.paginator.num_pages }}" class="link2">Dernier</a>
+              <a href="?page={{ page_obj.paginator.num_pages }}" class="link2">Dernière page</a>
               {% endif %}
             </span>
           </div>
@@ -226,11 +229,10 @@
         <div class="col-lg-12 col-mg-12 col-sm-12">
           <div class="errorMsg_div text-center">
             <p class="errorMsgNoTickt">Aucun ticket associé à cette adresse e-mail.</p>
-            <p class="errorMsgNoTickt1">Tu penses que c'est une erreur?</p>
+            <p class="errorMsgNoTickt1">Vous pensez que c’est une erreur ?</p>
             <p class="errorMsgNoTickt2">Merci de vérifier l'adresse e-mail saisie au moment de la connexion et de vous
               connecter. <span class="errorEmail">example@gmail.com</span></p>
-            <p class="errorMsgNoTickt2">Contact us herea <a href="#" class="errorcontact">Contact Us</a></p>
-
+            <p class="errorMsgNoTickt2">Contact us herea <a href="https://openorder.fr/contact" class="errorcontact">Nous contacter ici</a></p>
           </div>
         </div>
         {% endif %}
@@ -255,11 +257,11 @@
       opens: 'left'
     }, function (start, end, label) {
       console.log("A new date selection was made: " + start.format('YYYY-MM-DD') + ' to ' + end.format('YYYY-MM-DD'));
-      value=start.format('YYYY-MM-DD')+'to'+end.format('YYYY-MM-DD')
-      sessionStorage.setItem("filter", "Creation")      
+      value = start.format('YYYY-MM-DD') + 'to' + end.format('YYYY-MM-DD')
+      sessionStorage.setItem("filter", "Creation")
       window.location.replace("/pages/dashboard/" + value)
       $.get('dashboard/' + value, function (data) {
-         
+
         window.location.replace("/pages/dashboard/" + value)
       });
     });

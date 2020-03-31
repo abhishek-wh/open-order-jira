@@ -75,7 +75,7 @@
         location.reload();
       });
     } else {
-      $("#progressdiv").css("display", "block")
+      $("#progressdiv").css("display", "none")
     }
   }
 
@@ -86,9 +86,7 @@
     <div data-testid="GlobalNavigation">
       <div>
         <ul class="css-1rawbl">
-
           <li class="logo_img">
-
             <img src="{% static 'image/Open-Order.png' %}">
           </li>
           <a href="/pages/dashboard">
@@ -170,7 +168,6 @@
       <div class="bar1"></div>
       <div class="bar2"></div>
       <div class="bar3"></div>
-
     </div>
     <div id="msform1">
       <div class="row row1">
@@ -197,9 +194,23 @@
                     {% endifequal %}
                     <div class="heading_n">
 
-                      <h1>Ordew Number {{order_number}}</h1>
+                      <h1>Order Number {{order_number}}</h1>
                       <h3>{{details.fields.summary}} </h3>
+                      {% ifequal issues_detail 'A faire' %}
                       <span class="msg">cet ordre est en cours de realisation</span>
+                      {% endifequal %}
+                      {% ifequal issues_detail 'En cours' %}
+                      <span class="msg">cet ordre est en cours de realisation</span>
+                      {% endifequal %}
+                      {% ifequal issues_detail 'Annulé' %}
+                      <span class="msg">cet ordre est en cours de realisation</span>
+                      {% endifequal %}
+                      {% ifequal issues_detail 'Bloqué' %}
+                      <span class="msg">Ordre bloqué. En attente d'action de votre part, voir commentaires</span>
+                      {% endifequal %}
+                      {% ifequal issues_detail 'Terminé' %}
+                      <span class="msg">cet ordre est en cours de realisation</span>
+                      {% endifequal %}
                     </div>
                   </div>
                 </div>
@@ -219,7 +230,7 @@
                         <div class="col-lg-2 col-md-3  pd_none btn_top_blog4">
                           {% endifequal %}
 
-                          <button id="btn_top"> {{  issues_detail }} </button>
+                          <button id="btn_top"> {{  issues_detail|upper }} </button>
                           <input type="hidden" value="{{order_number}}" id="order_number">
                           {% ifequal issues_detail 'En cours' %}
                           {% ifequal issue_status 'Ordre Placé' %}
@@ -259,118 +270,209 @@
                                     {% endifequal %}
                                     <ul id="progressbar1">
                                       {% ifequal issues_detail 'A faire' %}
-                                      <li class="inProgress">Order Placed</li>
-                                      <li>Devis Envoye</li>
-                                      <li>Commande Recue</li>
-                                      <li>Order Execute</li>
-                                      <li>facture Emise</li>
-                                      <li>facture Regiee</li>
+                                      <li class="inProgress">Ordre Placé</li>
+                                      <li>Devis Envoyé</li>
+                                      <li>Commande Reçue</li>
+                                      <li>Ordre Exécuté</li>
+                                      <li>Facture Émise</li>
+                                      <li>Facture Réglée</li>
                                       {% endifequal %}
                                       {% ifequal issues_detail 'En cours' %}
                                       {% ifequal issue_status 'Ordre Placé' %}
-                                      <li class="complete">Order Placed</li>
-                                      <li>Devis Envoye</li>
-                                      <li>Commande Recue</li>
-                                      <li>Order Execute</li>
-                                      <li>facture Emise</li>
-                                      <li>facture Regiee</li>
+                                      <li class="complete">Ordre Placé</li>
+                                      <li>Devis Envoyé</li>
+                                      <li>Commande Reçue</li>
+                                      <li>Ordre Exécuté</li>
+                                      <li>Facture Émise</li>
+                                      <li>Facture Réglée</li>
                                       {% endifequal %}
                                       {% ifequal issue_status 'Offre En Cours' %}
-                                      <li class="complete">Order Placed</li>
-                                      <li class="inProgress">Devis Envoye</li>
-                                      <li>Commande Recue</li>
-                                      <li>Order Execute</li>
-                                      <li>facture Emise</li>
-                                      <li>facture Regiee</li>
+                                      <li class="complete">Ordre Placé</li>
+                                      <li class="inProgress">Devis Envoyé</li>
+                                      <li>Commande Reçue</li>
+                                      <li>Ordre Exécuté</li>
+                                      <li>Facture Émise</li>
+                                      <li>Facture Réglée</li>
                                       {% endifequal %}
                                       {% ifequal issue_status 'Offre Envoyée' %}
-                                      <li class="complete">Order Placed</li>
-                                      <li class="success">Devis Envoye</li>
-                                      <li>Commande Recue</li>
-                                      <li>Order Execute</li>
-                                      <li>facture Emise</li>
-                                      <li>facture Regiee</li>
+                                      <li class="complete">Ordre Placé</li>
+                                      <li class="success">Devis Envoyé</li>
+                                      <li>Commande Reçue</li>
+                                      <li>Ordre Exécuté</li>
+                                      <li>Facture Émise</li>
+                                      <li>Facture Réglée</li>
                                       {% endifequal %}
                                       {% ifequal issue_status 'Commande En Attente' %}
-                                      <li class="complete">Order Placed</li>
-                                      <li class="success">Devis Envoye</li>
-                                      <li class="inProgress">Commande Recue</li>
-                                      <li>Order Execute</li>
-                                      <li>facture Emise</li>
-                                      <li>facture Regiee</li>
+                                      <li class="complete">Ordre Placé</li>
+                                      <li class="success">Devis Envoyé</li>
+                                      <li class="inProgress">Commande Reçue</li>
+                                      <li>Ordre Exécuté</li>
+                                      <li>Facture Émise</li>
+                                      <li>Facture Réglée</li>
                                       {% endifequal %}
                                       {% ifequal issue_status 'Commande Reçue' %}
-                                      <li class="complete">Order Placed</li>
-                                      <li class="success">Devis Envoye</li>
-                                      <li class="success">Commande Recue</li>
-                                      <li>Order Execute</li>
-                                      <li>facture Emise</li>
-                                      <li>facture Regiee</li>
+                                      <li class="complete">Ordre Placé</li>
+                                      <li class="success">Devis Envoyé</li>
+                                      <li class="success">Commande Reçue</li>
+                                      <li>Ordre Exécuté</li>
+                                      <li>Facture Émise</li>
+                                      <li>Facture Réglée</li>
                                       {% endifequal %}
                                       {% ifequal issue_status 'Ordre En Cours' %}
-                                      <li class="complete">Order Placed</li>
-                                      <li class="success">Devis Envoye</li>
-                                      <li class="success">Commande Recue</li>
-                                      <li class="inProgress">Order Execute</li>
-                                      <li>facture Emise</li>
-                                      <li>facture Regiee</li>
+                                      <li class="complete">Ordre Placé</li>
+                                      <li class="success">Devis Envoyé</li>
+                                      <li class="success">Commande Reçue</li>
+                                      <li class="inProgress">Ordre Exécuté</li>
+                                      <li>Facture Émise</li>
+                                      <li>Facture Réglée</li>
                                       {% endifequal %}
                                       {% ifequal issue_status 'Ordre Exécuté' %}
-                                      <li class="complete">Order Placed</li>
-                                      <li class="success">Devis Envoye</li>
-                                      <li class="success">Commande Recue</li>
-                                      <li class="success">Order Execute</li>
-                                      <li>facture Emise</li>
-                                      <li>facture Regiee</li>
+                                      <li class="complete">Ordre Placé</li>
+                                      <li class="success">Devis Envoyé</li>
+                                      <li class="success">Commande Reçue</li>
+                                      <li class="success">Ordre Exécuté</li>
+                                      <li>Facture Émise</li>
+                                      <li>Facture Réglée</li>
                                       {% endifequal %}
                                       {% ifequal issue_status 'Facture En Cours' %}
-                                      <li class="complete">Order Placed</li>
-                                      <li class="success">Devis Envoye</li>
-                                      <li class="success">Commande Recue</li>
-                                      <li class="success">Order Execute</li>
-                                      <li class="inProgress">facture Emise</li>
-                                      <li>facture Regiee</li>
+                                      <li class="complete">Ordre Placé</li>
+                                      <li class="success">Devis Envoyé</li>
+                                      <li class="success">Commande Reçue</li>
+                                      <li class="success">Ordre Exécuté</li>
+                                      <li class="inProgress">Facture Émise</li>
+                                      <li>Facture Réglée</li>
                                       {% endifequal %}
                                       {% ifequal issue_status 'Facture Envoyée' %}
-                                      <li class="complete">Order Placed</li>
-                                      <li class="success">Devis Envoye</li>
-                                      <li class="success">Commande Recue</li>
-                                      <li class="success">Order Execute</li>
-                                      <li class="success">facture Emise</li>
-                                      <li class="inProgress">facture Regiee</li>
+                                      <li class="complete">Ordre Placé</li>
+                                      <li class="success">Devis Envoyé</li>
+                                      <li class="success">Commande Reçue</li>
+                                      <li class="success">Ordre Exécuté</li>
+                                      <li class="success">Facture Émise</li>
+                                      <li class="inProgress">Facture Réglée</li>
                                       {% endifequal %}
                                       {% ifequal issue_status 'Facture Réglée' %}
-                                      <li class="complete">Order Placed</li>
-                                      <li class="success">Devis Envoye</li>
-                                      <li class="success">Commande Recue</li>
-                                      <li class="success">Order Execute</li>
-                                      <li class="success">facture Emise</li>
-                                      <li class="success">facture Regiee</li>
+                                      <li class="complete">Ordre Placé</li>
+                                      <li class="success">Devis Envoyé</li>
+                                      <li class="success">Commande Reçue</li>
+                                      <li class="success">Ordre Exécuté</li>
+                                      <li class="success">Facture Émise</li>
+                                      <li class="success">Facture Réglée</li>
                                       {% endifequal %}
                                       {% endifequal %}
                                       {% ifequal issues_detail 'Annulé' %}
-                                      <li class="cancle">Order Placed</li>
-                                      <li class="cancle">Devis Envoye</li>
-                                      <li class="cancle">Commande Recue</li>
-                                      <li class="cancle">Order Execute</li>
-                                      <li class="cancle">facture Emise</li>
-                                      <li class="cancle">facture Regiee</li>
-                                      {% endifequal %}
-                                      {% ifequal issues_detail 'Bloqué' %}
-                                      <li class="complete">Order Placed</li>
-                                      <li>Devis Envoye</li>
-                                      <li>Commande Recue</li>
-                                      <li>Order Execute</li>
-                                      <li>facture Emise</li>
-                                      <li>facture Regiee</li>
-                                      {% endifequal %}
+                                      <li class="cancle">Ordre Placé</li>
+                                      <li class="cancle">Devis Envoyé</li>
+                                      <li class="cancle">Commande Reçue</li>
+                                      <li class="cancle">Ordre Exécuté</li>
+                                      <li class="cancle">Facture Émise</li>
+                                      <li class="cancle">Facture Réglée</li>
+                                      {% endifequal %}                                     
                                       {% ifequal issues_detail 'Terminé' %}
-                                      <li class="complete">Order Placed</li>
-                                      <li class="success">Devis Envoye</li>
-                                      <li class="success">Commande Recue</li>
-                                      <li class="success">Order Execute</li>
-                                      <li class="success">facture Emise</li>
-                                      <li class="success">facture Regiee</li>
+                                      <li class="complete">Ordre Placé</li>
+                                      <li class="success">Devis Envoyé</li>
+                                      <li class="success">Commande Reçue</li>
+                                      <li class="success">Ordre Exécuté</li>
+                                      <li class="success">Facture Émise</li>
+                                      <li class="success">Facture Réglée</li>
+                                      {% endifequal %}
+
+                                      {% ifequal issues_detail 'Bloqué' %}
+                                      {% ifequal previous_state 'Ordre Placé' %}
+                                      <li class="cancle">Ordre Placé</li>
+                                      <li>Devis Envoyé</li>
+                                      <li>Commande Reçue</li>
+                                      <li>Ordre Exécuté</li>
+                                      <li>Facture Émise</li>
+                                      <li>Facture Réglée</li>
+                                      {% endifequal %}
+                                      {% ifequal previous_state 'Offre En Cours' %}
+                                      <li class="complete">Ordre Placé</li>
+                                      <li class="inProgress">Devis Envoyé</li>
+                                      <li>Commande Reçue</li>
+                                      <li>Ordre Exécuté</li>
+                                      <li>Facture Émise</li>
+                                      <li>Facture Réglée</li>
+                                      {% endifequal %}
+                                      {% ifequal previous_state 'Offre Envoyée' %}
+                                      <li class="complete">Ordre Placé</li>
+                                      <li class="cancle">Devis Envoyé</li>
+                                      <li>Commande Reçue</li>
+                                      <li>Ordre Exécuté</li>
+                                      <li>Facture Émise</li>
+                                      <li>Facture Réglée</li>
+                                      {% endifequal %}
+                                      {% ifequal previous_state 'Commande En Attente' %}
+                                      <li class="complete">Ordre Placé</li>
+                                      <li class="success">Devis Envoyé</li>
+                                      <li class="inProgress">Commande Reçue</li>
+                                      <li>Ordre Exécuté</li>
+                                      <li>Facture Émise</li>
+                                      <li>Facture Réglée</li>
+                                      {% endifequal %}
+                                      {% ifequal previous_state 'Commande Reçue' %}
+                                      <li class="complete">Ordre Placé</li>
+                                      <li class="success">Devis Envoyé</li>
+                                      <li class="cancle">Commande Reçue</li>
+                                      <li>Ordre Exécuté</li>
+                                      <li>Facture Émise</li>
+                                      <li>Facture Réglée</li>
+                                      {% endifequal %}
+                                      {% ifequal previous_state 'Ordre En Cours' %}
+                                      <li class="complete">Ordre Placé</li>
+                                      <li class="success">Devis Envoyé</li>
+                                      <li class="success">Commande Reçue</li>
+                                      <li class="inProgress">Ordre Exécuté</li>
+                                      <li>Facture Émise</li>
+                                      <li>Facture Réglée</li>
+                                      {% endifequal %}
+                                      {% ifequal previous_state 'Ordre Exécuté' %}
+                                      <li class="complete">Ordre Placé</li>
+                                      <li class="success">Devis Envoyé</li>
+                                      <li class="success">Commande Reçue</li>
+                                      <li class="cancle">Ordre Exécuté</li>
+                                      <li>Facture Émise</li>
+                                      <li>Facture Réglée</li>
+                                      {% endifequal %}
+                                      {% ifequal previous_state 'Facture En Cours' %}
+                                      <li class="complete">Ordre Placé</li>
+                                      <li class="success">Devis Envoyé</li>
+                                      <li class="success">Commande Reçue</li>
+                                      <li class="success">Ordre Exécuté</li>
+                                      <li class="inProgress">Facture Émise</li>
+                                      <li>Facture Réglée</li>
+                                      {% endifequal %}
+                                      {% ifequal previous_state 'Facture Envoyée' %}
+                                      <li class="complete">Ordre Placé</li>
+                                      <li class="success">Devis Envoyé</li>
+                                      <li class="success">Commande Reçue</li>
+                                      <li class="success">Ordre Exécuté</li>
+                                      <li class="cancle">Facture Émise</li>
+                                      <li class="inProgress">Facture Réglée</li>
+                                      {% endifequal %}
+                                      {% ifequal previous_state 'Facture Réglée' %}
+                                      <li class="complete">Ordre Placé</li>
+                                      <li class="success">Devis Envoyé</li>
+                                      <li class="success">Commande Reçue</li>
+                                      <li class="success">Ordre Exécuté</li>
+                                      <li class="success">Facture Émise</li>
+                                      <li class="cancle">Facture Réglée</li>
+                                      {% endifequal %}
+                                      {% ifequal previous_state 'Annulé' %}
+                                      <li class="cancle">Ordre Placé</li>
+                                      <li class="cancle">Devis Envoyé</li>
+                                      <li class="cancle">Commande Reçue</li>
+                                      <li class="cancle">Ordre Exécuté</li>
+                                      <li class="cancle">Facture Émise</li>
+                                      <li class="cancle">Facture Réglée</li>
+                                      {% endifequal %}
+                                      {% ifequal previous_state 'Non démarré' %}
+                                      <li class="inProgress">Ordre Placé</li>
+                                      <li>Devis Envoyé</li>
+                                      <li>Commande Reçue</li>
+                                      <li>Ordre Exécuté</li>
+                                      <li>Facture Émise</li>
+                                      <li>Facture Réglée</li>
+                                      {% endifequal %}
                                       {% endifequal %}
                                     </ul>
                                   </div>
@@ -385,7 +487,7 @@
                                     </div>
                                     <div class="col-lg-6 col-md-6 col-sm-12">
                                       <span id="viewform">
-                                        <p class="head_p">Demand' par : </p>
+                                        <p class="head_p"><b>Demandé par : </b></p>
                                         <p class="detalValue">{{details.fields.customfield_10033}}
                                           {{details.fields.customfield_10032}}
                                           {% ifequal issues_detail 'En cours' %}
@@ -424,23 +526,26 @@
                                       <span style="display: none;" id="editform">
                                         <form id="basicform" action="{% url 'edit_ticket' %}" method="post">
                                           {% csrf_token %}
-                                          <p class="head_p">Demand' par : </p>
-                                          <input type="text" name="lastname"
+                                          <p class="head_p">Demandé par : </p>
+                                          <input type="text" name="lastname" class="edit_block"
                                             value="{{details.fields.customfield_10033}}">
-                                          <input type="text" name="firstname"
+                                          <input type="text" name="firstname" class="edit_block"
                                             value="{{details.fields.customfield_10032}}">
-                                          <input type="text" name="enterprise"
+                                          <input type="text" name="enterprise" class="edit_block"
                                             value="{{details.fields.customfield_10077}}">
-                                          <input type="text" readonly value="{{details.fields.customfield_10039}}">
-                                          <input type="text" name="phone" value="{{details.fields.customfield_10037}}">
+                                          <input type="text" class="edit_block" readonly
+                                            value="{{details.fields.customfield_10039}}">
+                                          <input type="text" class="edit_block" name="phone"
+                                            value="{{details.fields.customfield_10037}}">
                                           <input type="hidden" name="issuekey" value="{{order_number}}">
                                           <input type="hidden" name="emailid"
                                             value="{{details.fields.customfield_10039}}">
                                           <br>
                                           <p class="head_p">Second Contact :</p>
-                                          <input type="text" name="backupmail"
+                                          <input type="text" name="backupmail" class="edit_block"
                                             value="{{details.fields.customfield_10040}}">
-                                          <input type="text" name="description" value="{{details.fields.description}}">
+                                          <input type="text" class="edit_block" name="description"
+                                            value="{{details.fields.description}}">
                                           <input type="button" onclick="formSubmit()" name="submit" value="SOUMETTRE">
                                         </form>
                                       </span>
@@ -507,25 +612,37 @@
                                       <form id="basicform2" action="{% url 'edit_ticket2' %}" method="post">
                                         {% csrf_token %}
                                         <p class="head_p">Contact Livraison: </p>
-                                        <input type="text" name="cf53" value="{{details.fields.customfield_10053}}">
-                                        <input type="text" name="cf54" value="{{details.fields.customfield_10054}}">
+                                        <input class="edit_block" type="text" name="cf53"
+                                          value="{{details.fields.customfield_10053}}">
+                                        <input class="edit_block" type="text" name="cf54"
+                                          value="{{details.fields.customfield_10054}}">
                                         <br>
                                         <p class="head_p">Adresse livraison :</p>
-                                        <input type="text" name="cf78" value="{{details.fields.customfield_10078}}">
-                                        <input type="text" name="cf50" value="{{details.fields.customfield_10050}}">
-                                        <input type="text" name="cf58" value="{{details.fields.customfield_10058}}">
-                                        <input type="text" name="cf52" value="{{details.fields.customfield_10052}}">
-                                        <input type="text" name="cf76" value="{{details.fields.customfield_10076}}">
+                                        <input class="edit_block" type="text" name="cf78"
+                                          value="{{details.fields.customfield_10078}}">
+                                        <input class="edit_block" type="text" name="cf50"
+                                          value="{{details.fields.customfield_10050}}">
+                                        <input class="edit_block" type="text" name="cf58"
+                                          value="{{details.fields.customfield_10058}}">
+                                        <input class="edit_block" type="text" name="cf52"
+                                          value="{{details.fields.customfield_10052}}">
+                                        <input class="edit_block" type="text" name="cf76"
+                                          value="{{details.fields.customfield_10076}}">
                                         <br>
                                         <p class="head_p">Livraison,Numero de suivi du colls: </p>
-                                        <input type="text" name="cf55" value="{{details.fields.customfield_10055}}">
-                                        <input type="hidden" name="issuekey" value="{{order_number}}">
+                                        <input class="edit_block" type="text" name="cf55"
+                                          value="{{details.fields.customfield_10055}}">
+                                        <input class="edit_block" type="hidden" name="issuekey"
+                                          value="{{order_number}}">
                                         <input type="hidden" name="emailid"
                                           value="{{details.fields.customfield_10039}}">
                                         <input type="button" onclick="formSubmit2()" name="submit" value="SOUMETTRE">
                                       </form>
                                     </div>
 
+                                    <div class="col-lg-6 col-md-6 col-sm-12">
+                                      <label>INFORMATION COMPTABLE</label> <br>
+                                    </div>
                                     <div class="col-lg-6 col-md-6 col-sm-12">
 
                                       <br>
@@ -553,8 +670,11 @@
                                         <li><img src="{% static 'image/zip.svg' %}" class="zipImg"></li>
                                         <li>
                                           <p class="head_p">Pièces jointes</p>
-                                          <p><img src="{% static 'image/powerpoint.png' %}" class="icon_zip"><a
+                                          <!-- <p><img src="{% static 'image/powerpoint.png' %}" class="icon_zip"><a
                                               href="{{zip_to_download}}">TÉLÉCHARGER UN FICHIER<i class="fa fa-times"
+                                                aria-hidden="true"></i></a></p> -->
+                                          <p><img src="{% static 'image/powerpoint.png' %}" class="icon_zip"><a
+                                              href="/pages/DownloadZip">TÉLÉCHARGER UN FICHIER<i class="fa fa-times"
                                                 aria-hidden="true"></i></a></p>
                                         </li>
                                       </ul>
