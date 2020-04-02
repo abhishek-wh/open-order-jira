@@ -176,7 +176,6 @@
           <div class="table-responsive">
             <table id="example" class="table tab-sec">
               <thead class="table-heading-section">
-
                 <tr>
                   <th>Icône</th>
                   <th>Clé</th>
@@ -189,9 +188,11 @@
                 </tr>
               </thead>
               <tbody class="table-subheading">
+                
                 {% for i in page_obj %}
                 <tr>
-                  <td><img src="{% static 'image/add.png'%} " class="tab_icon"></td>
+                  <!-- <td><img src="{% static 'image/add.png'%} " class="tab_icon"></td> -->
+                  <td><img src="{{i.iconurl}}" class="tab_icon"></td>
                   <td><a href="/pages/detail/{{i.key}}">{{i.key}}</a></td>
                   <td>{{i.summary}}</td>
                   <td>{{i.suplier}}</td>
@@ -231,7 +232,7 @@
             <p class="errorMsgNoTickt">Aucun ticket associé à cette adresse e-mail.</p>
             <p class="errorMsgNoTickt1">Vous pensez que c’est une erreur ?</p>
             <p class="errorMsgNoTickt2">Merci de vérifier l'adresse e-mail saisie au moment de la connexion et de vous
-              connecter. <span class="errorEmail">example@gmail.com</span></p>
+              connecter. <span class="errorEmail">{{user_email}}</span></p>
             <p class="errorMsgNoTickt2">Contact us herea <a href="https://openorder.fr/contact" class="errorcontact">Nous contacter ici</a></p>
           </div>
         </div>

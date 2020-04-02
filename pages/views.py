@@ -97,6 +97,7 @@ def dashboard(request):
             ticket_list.objects.create(key=issue.raw['key'],                                       
                                        summary=issue.raw['fields']['summary'],
                                        suplier=issue.raw['fields']['customfield_10041'],
+                                       iconurl=issue.raw['fields']['status']['iconUrl'], 
                                        status=status,                     
                                        created=str(issue.raw['fields']['created']).split('T')[0],
                                        updated=str(issue.raw['fields']['updated']).split('T')[0],
@@ -115,7 +116,7 @@ def dashboard(request):
         except:
             flag = False
 
-        paginator = Paginator(t_list, 50)  # Show 5 contacts per page.
+        paginator = Paginator(t_list, 50)  # Show 50 contacts per page.
         page_number = request.GET.get('page')
         page_obj = paginator.get_page(page_number)
         start=0
@@ -323,6 +324,7 @@ def search(request,value):
                 ticket_list.objects.create(key=issue.raw['key'],                                       
                                        summary=issue.raw['fields']['summary'],
                                        suplier=issue.raw['fields']['customfield_10041'],
+                                       iconurl=issue.raw['fields']['status']['iconUrl'], 
                                        status=status,                     
                                        created=str(issue.raw['fields']['created']).split('T')[0],
                                        updated=str(issue.raw['fields']['updated']).split('T')[0],

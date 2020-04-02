@@ -275,13 +275,18 @@
             while (list.hasChildNodes()) {
               list.removeChild(ul.firstChild);
             }
+            let btn2 = '<input type="button" value="x" class="x">';
             for (var x = 0; x < document.getElementById('attachment').files.length; x++) {
               var li = document.createElement('li');
-              li.innerHTML = 'File ' + (x + 1) + ':  ' + document.getElementById('attachment').files[x].name;
+              li.innerHTML = 'File ' + (x + 1) + ':  ' + document.getElementById('attachment').files[x].name + btn2;
+              li.lastChild.addEventListener('click', function (e) {
+                alert("li")
+                list.removeChild(this.parentNode);
+
+              });
               list.append(li);
             }
-            // $("#vattachments").html(document.getElementById('attachment').files[0].name)
-            // $("#attachmentsdiv").css("display", "block")
+
           } else {
             $("#attachmentsdiv").css("display", "none")
           }
@@ -320,13 +325,19 @@
           while (list.hasChildNodes()) {
             list.removeChild(ul.firstChild);
           }
+          let btn2 = '<input type="button" value="x" class="x">';
           for (var x = 0; x < document.getElementById('attachment').files.length; x++) {
             var li = document.createElement('li');
-            li.innerHTML = 'File ' + (x + 1) + ':  ' + document.getElementById('attachment').files[x].name;
+            li.innerHTML = 'File ' + (x + 1) + ':  ' + document.getElementById('attachment').files[x].name + btn2;
+            li.lastChild.addEventListener('click', function (e) {
+              alert("li")
+              list.removeChild(this.parentNode);
+            });
             list.append(li);
           }
-          // $("#vattachments").html(document.getElementById('attachment').files[0].name)
-          // $("#attachmentsdiv").css("display", "block")
+          for (const li of document.querySelectorAll('#attachmentsdiv>ul>li')) {
+            console.log(li.textContent);
+          }
         } else {
           $("#attachmentsdiv").css("display", "none")
         }
@@ -376,7 +387,6 @@
         $("#postal_codeerr1").css("display", "none")
       }
     }
-
   }
 
   function formSubmit() {
@@ -408,23 +418,31 @@
     var form = new FormData(document.getElementById('aform'));
 
     for (var x = 0; x < document.getElementById('attachment').files.length; x++) {
-      var file = document.getElementById('attachment').files[x];
-      if (file) {
-        form.append('attachment', file);
-        form.append('ticketkey', tkey);
-      }
-      $.ajax({
-        type: "POST",
-        url: "add_attachments",
-        data: form,
-        cache: false,
-        contentType: false, //must, tell jQuery not to process the data
-        processData: false,
-        //data: $("#upload_img").serialize(),
-        success: function (data) {
+      for (const li of document.querySelectorAll('#attachmentsdiv>ul>li')) {
+        console.log(li.textContent);
+        alert(li.textContent.split(":")[1].trim())
+        alert(document.getElementById('attachment').files[x].name)
+        if (li.textContent.split(":")[1].trim() === document.getElementById('attachment').files[x].name) {
+          var file = document.getElementById('attachment').files[x];
+          if (file) {
+            form.append('attachment', file);
+            form.append('ticketkey', tkey);
+          }
+          $.ajax({
+            type: "POST",
+            url: "add_attachments",
+            data: form,
+            cache: false,
+            contentType: false, //must, tell jQuery not to process the data
+            processData: false,
+            //data: $("#upload_img").serialize(),
+            success: function (data) {
+            }
+          });
         }
-      });
+      }
     }
+
 
 
   }
@@ -859,7 +877,9 @@
                   <h2 class="fs-title"> II porte Ie numéro :</h2>
                   <div class="orderBox">
                     <h1><b><span id="order_id"></span></b> <span class="u_name">Achat fourniture</span></h1>
-                    <b><h1>Statuts :<span> PLACE DE COMMANDE</span></h1></b>
+                    <b>
+                      <h1>Statuts :<span> PLACE DE COMMANDE</span></h1>
+                    </b>
                   </div>
                 </div>
                 <div class="o_btn_box">

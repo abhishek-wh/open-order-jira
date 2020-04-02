@@ -19,6 +19,7 @@ class logged_in_user(models.Model):
 class ticket_list(models.Model):
     key=models.TextField(max_length=200,null=True)
     summary=models.TextField(max_length=200,null=True)
+    iconurl=models.TextField(max_length=500,null=True)
     suplier=models.TextField(max_length=200,null=True)
     status=models.TextField(max_length=200,null=True)
     created=models.TextField(max_length=200,null=True)
